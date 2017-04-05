@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">FitnessApp</string>
+<!-- Main-->
+    <!--################################################################## inputs-->
+    <string name="input_username">Username :</string>
+    <string name="input_password">Password :</string>
+
+
+    <!-- hints-->
+    <string name="hint_username">Username...</string>
+
+    <!--Buttons -->
+    <string name="button_register">Register</string>
+    <string name="button_login">Login</string>
+
+    <!-- ################################################################## register-->
+    <!-- inputs-->
+    <string name="input_fname">Firstname :</string>
+    <string name="input_lname">Lastname :</string>
+    <string name="input_passwordR">Password Repeat :</string>
+
+    <!-- hints-->
+    <string name="hint_fname">Firstname...</string>
+    <string name="hint_lname">Lastname...</string>
+
+    <!--Buttons -->
+
 </resources>
