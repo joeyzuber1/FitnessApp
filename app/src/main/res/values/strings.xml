@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FitnessApp</string>
-<!-- Main-->
-    <!--################################################################## inputs-->
+    <!-- ################################################################## Main-->
+    <!--inputs-->
     <string name="input_username">Username :</string>
     <string name="input_password">Password :</string>
 
@@ -24,5 +24,16 @@
     <string name="hint_lname">Lastname...</string>
 
     <!--Buttons -->
+
+    <!-- ################################################################## Main Menu-->
+    <!-- inputs-->
+
+    <!-- hints-->
+
+    <!--Buttons -->
+    <string name="button_exercises">Exercises</string>
+    <string name="button_plan">My Plan</string>
+    <string name="button_newE">Add a new Excersis</string>
+    <string name="button_group">My Groups</string>
 
 </resources>
