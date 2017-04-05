@@ -18,7 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainMenuActivitiy"></activity>
+        <activity android:name=".MainMenuActivitiy" />
+        <activity android:name=".CreatExcersisActivity" />
+        <activity android:name=".ExcersisesCatActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">FitnessApp</string>
+    <!-- ################################################################## CategoriesTemp-->
+    <string name="cat_prompt">Choose a Categorie</string>
+    <string-array name="cat_array">
+        <item>All Exersises</item>
+        <item>Back</item>
+        <item>Arm</item>
+        <item>Leg</item>
+    </string-array>
+    <string-array name="back_array">
+        <item>Deadlift</item>
+        <item>Pull up</item>
+        <item>Cable Row</item>
+        <item>Pull down</item>
+    </string-array>
+
     <!-- ################################################################## Main-->
     <!--inputs-->
     <string name="input_username">Username :</string>
@@ -36,4 +51,20 @@
     <string name="button_newE">Add a new Excersis</string>
     <string name="button_group">My Groups</string>
 
+    <!-- ################################################################## Create Exercises-->
+    <!-- inputs-->
+    <!-- inputs-->
+    <string name="input_exname">Name :</string>
+    <string name="input_excat">Categorie :</string>
+    <string name="input_exdescription">Description :</string>
+    <!-- hints-->
+    <string name="hint_exname">Name..</string>
+    <string name="hint_exdescription">Write here your description...</string>
+    <!--Buttons -->
+    <string name="button_create">Create</string>
+
+    <!-- ################################################################## Bottom-->
+    <!--Buttons -->
+    <string name="button_bAllEx">Exercises</string>
+    <string name="button_bPlan">My Plan</string>
 </resources>
