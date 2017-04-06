@@ -3,7 +3,7 @@
     <!-- ################################################################## CategoriesTemp-->
     <string name="cat_prompt">Choose a Categorie</string>
     <string-array name="cat_array">
-        <item>All Exersises</item>
+        <item>All Exercises</item>
         <item>Back</item>
         <item>Arm</item>
         <item>Leg</item>
