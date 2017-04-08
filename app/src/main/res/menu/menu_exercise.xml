@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/menu_add"
+        android:id="@+id/menu_addDelete"/>
+
+    <group
+        android:id="@+id/menuAdminGroup">
+        <item android:title="@string/menu_delete"
+            android:id="@+id/menu_delete"/>
+        <item android:title="@string/menu_change"
+            android:id="@+id/menu_change"/>
+    </group>
+</menu>

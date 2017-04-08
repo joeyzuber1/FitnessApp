@@ -7,30 +7,42 @@ import android.view.View;
 
 public class MainMenuActivitiy extends AppCompatActivity {
 
+    private int idUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu_activitiy);
+
+        idUser = getIntent().getIntExtra("idUser", -1);
     }
 
+    //create exersis
     public void creatExersis(View v){
         Intent intent = new Intent(this, CreatExcersisActivity.class);
         startActivity(intent);
     }
 
+    //show all
     public void showExersiseCatagory(View v){
-        Intent inten = new Intent(this, ExcersisesCatActivity.class);
-        inten.putExtra("Titel", "Excersises");
-        String[] stringArray = getResources().getStringArray(R.array.cat_array);
-        inten.putExtra("buttonArray", stringArray);
-        startActivity(inten);
+        CallMainActivitys.showExersiseCatagory(v, this);
     }
 
+    //show personal plan
     public void showExersisePlan(View v){
-        Intent inten = new Intent(this, ExcersisesCatActivity.class);
-        inten.putExtra("Titel", "My Plan");
-        String[] stringArray = getResources().getStringArray(R.array.cat_array);
-        inten.putExtra("buttonArray", stringArray);
-        startActivity(inten);
+        CallMainActivitys.showExersisePlan(v, this);
+    }
+
+    //go back
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    //show my groups
+    public void showGroups(View v){
+        Intent intent = new Intent(this, MyGroupsActivity.class);
+        startActivity(intent);
     }
 }

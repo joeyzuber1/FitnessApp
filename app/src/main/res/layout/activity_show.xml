@@ -4,18 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hevs.gym.fitnessapp.ExcersisesCatActivity"
-    android:weightSum="20">
+    android:weightSum="20"
+    tools:context="com.hevs.gym.fitnessapp.ShowActivity">
 
 
     <TextView
-        android:id="@+id/titelCatExcersis"
+        android:id="@+id/titelExercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         android:textAlignment="center"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        tools:text="Titel" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,11 +25,23 @@
         android:layout_weight="18">
 
         <LinearLayout
-            android:id="@+id/mainCatEcersis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/descriptionExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                android:text="TextView"
+                android:textSize="18sp"
+                tools:text="Beispieltext" />
+        </LinearLayout>
     </ScrollView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,6 +51,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_excat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -44,6 +59,7 @@
             android:text="@string/button_bAllEx" />
 
         <Button
+            android:id="@+id/btn_plan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,4 +68,3 @@
     </LinearLayout>
 
 </LinearLayout>
-

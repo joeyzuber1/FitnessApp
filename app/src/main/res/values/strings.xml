@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">FitnessApp</string>
-    <!-- ################################################################## CategoriesTemp-->
+    <!-- ################################################################## Temp-->
     <string name="cat_prompt">Choose a Categorie</string>
     <string-array name="cat_array">
-        <item>All Exercises</item>
         <item>Back</item>
         <item>Arm</item>
         <item>Leg</item>
@@ -14,7 +13,21 @@
         <item>Cable Row</item>
         <item>Pull down</item>
     </string-array>
+    <string-array name="group_array">
+        <item>Fit for fun</item>
+        <item>602_D</item>
+        <item>Group3</item>
+        <item>Group4</item>
+    </string-array>
+    <string-array name="user_array">
+        <item>Donald Trump</item>
+        <item>Franz XYZ</item>
+        <item>Hans XYZ</item>
+        <item>ABC ABC</item>
+    </string-array>
 
+
+    <string name="example_description">"Here is a very nice nice nice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nice Description Die 1961 von Robert McNamara durch die Directive 5105.21 aufgestellte DIA sammelt und analysiert die von den Geheimdiensten der Teilstreitkräfte beschafften Informationen und gibt die daraus gewonnenen Erkenntnisse an die zuständigen Entscheidungsträger in Pentagon und US-Regierung sowie an die Einsatztruppen weiter. Hauptsitz ist das Zentrum für nachrichtendienstliche Auswertung auf dem ehem. Luftwaffenstützpunkt Bolling Air Force Base (heute Teil der Joint Base Anacostia-Bolling) in Washington, D.C. Daneben gibt es weitere Standorte sowie den Militärattachés angegliederte Posten in den Botschaften der Vereinigten Staaten.[2] Hauptsitz der DIA auf der Joint Base Anacostia-Bolling in Washington, D.C. Die DIA besteht im Wesentlichen aus vier Hauptabteilungen (Directorates): Directorate for Analysis Directorate for OperationsDirectorate for Science  TechnologyDirectorate for Mission Servicesund fünf Auswertungszentren (Intelligence Centers) mit je geografischem, in einem Fall thematischem Schwerpunkt:Americas CenterAsia/Pacific CenterDefense Combating Terrorism CenerEurope/Eurasia CenterMiddle East/Africa CenterAußerdem befindet sich auf dem Gelände der DIA noch die National Intelligence University, für die jedoch ein Umzug nach Bethesda in Maryland geplant ist.[3]        "</string>
     <!-- ################################################################## Main-->
     <!--inputs-->
     <string name="input_username">Username :</string>
@@ -67,4 +80,33 @@
     <!--Buttons -->
     <string name="button_bAllEx">Exercises</string>
     <string name="button_bPlan">My Plan</string>
+    <!-- ################################################################## My Groups-->
+    <!-- titel-->
+    <string name="titel_groups">My Groups</string>
+    <string name="mygroups_join">Join a new Group</string>
+    <string name="mygroups_all">All my Friends</string>
+
+
+    <!-- ################################################################## Menu Exercises-->
+    <!-- titel-->
+    <string name="menu_add">Add to my Plan</string>
+    <string name="menu_deletP">Delete from my Plan</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_change">Change</string>
+
+    <!-- ################################################################## dialogs-->
+    <!-- titel-->
+    <string name="dialog_t_leaveGrp">Leave Group</string>
+    <string name="dialog_q_leaveGrp">Are you sure you want to leave the group?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_t_exit">Exit</string>
+    <string name="dialog_q_exit">Are you sure you want to exit the FitnessApp?</string>
+    <string name="dialog_t_join">Join Group</string>
+    <string name="dialog_q_join">Insert the name of the Group</string>
+    <string name="dialog_t_delete">Delete Exercise</string>
+    <string name="dialog_q_delete">Are you sure you want to delete this Exercise?</string>
+
 </resources>

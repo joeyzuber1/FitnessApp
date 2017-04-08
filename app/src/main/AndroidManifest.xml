@@ -20,7 +20,11 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainMenuActivitiy" />
         <activity android:name=".CreatExcersisActivity" />
-        <activity android:name=".ExcersisesCatActivity"></activity>
+        <activity android:name=".ExcersisesCatActivity" />
+        <activity android:name=".ExersisesActivity" />
+        <activity android:name=".ShowActivity" />
+        <activity android:name=".MyGroupsActivity" />
+        <activity android:name=".GroupUserActivity"></activity>
     </application>
 
 </manifest>
