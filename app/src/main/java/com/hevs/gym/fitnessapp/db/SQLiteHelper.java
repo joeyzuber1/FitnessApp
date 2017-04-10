@@ -37,13 +37,24 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(FitnessContract.UserEntry.CREATE_TABLE_USER);
+        db.execSQL(FitnessContract.GroupEntry.CREATE_TABLE_GROUP);
+        db.execSQL(FitnessContract.GroupUsersEntry.CREATE_TABLE_GROUPUSER);
+        db.execSQL(FitnessContract.BodyPartEntry.CREATE_TABLE_BODYPART);
+        db.execSQL(FitnessContract.ExerciseEntry.CREATE_TABLE_EXERCISE);
+        db.execSQL(FitnessContract.PlanEntry.CREATE_TABLE_PLAN);
+        db.execSQL(FitnessContract.PlanExerciseEntry.CREATE_TABLE_PLANEXERCISE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //drop old tables
+        db.execSQL("DROP TABLE IF EXISTS " + FitnessContract.PlanExerciseEntry.TABLE_PLANEXERCISE);
+        db.execSQL("DROP TABLE IF EXISTS " + FitnessContract.PlanEntry.TABLE_PLAN);
+        db.execSQL("DROP TABLE IF EXISTS " + FitnessContract.ExerciseEntry.TABLE_EXERCISE);
+        db.execSQL("DROP TABLE IF EXISTS " + FitnessContract.BodyPartEntry.TABLE_BODYPART);
+        db.execSQL("DROP TABLE IF EXISTS " + FitnessContract.GroupUsersEntry.TABLE_GROUPUSER);
+        db.execSQL("DROP TABLE IF EXISTS " + FitnessContract.GroupEntry.TABLE_GROUP);
         db.execSQL("DROP TABLE IF EXISTS " + FitnessContract.UserEntry.TABLE_USER);
-
         //create new tables
         onCreate(db);
     }

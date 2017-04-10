@@ -80,7 +80,7 @@
     <!--Buttons -->
     <string name="button_bAllEx">Exercises</string>
     <string name="button_bPlan">My Plan</string>
-    <!-- ################################################################## My Groups-->
+    <!-- ################################################################## My Group-->
     <!-- titel-->
     <string name="titel_groups">My Groups</string>
     <string name="mygroups_join">Join a new Group</string>

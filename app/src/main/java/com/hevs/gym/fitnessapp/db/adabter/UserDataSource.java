@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.hevs.gym.fitnessapp.db.FitnessContract;
 import com.hevs.gym.fitnessapp.db.SQLiteHelper;
+import com.hevs.gym.fitnessapp.db.objects.GroupUser;
 import com.hevs.gym.fitnessapp.db.objects.User;
 
 import java.util.ArrayList;
@@ -20,6 +21,10 @@ public class UserDataSource {
     private SQLiteDatabase db;
     private Context context;
 
+    /**
+     *
+     *
+     */
     public UserDataSource(Context context){
         SQLiteHelper sqliteHelper = SQLiteHelper.getInstance(context);
         db = sqliteHelper.getWritableDatabase();
@@ -27,9 +32,10 @@ public class UserDataSource {
     }
 
     /**
-     * Insert a new person
+     *
+     *
      */
-    public long createPerson(User user){
+    public long createUser(User user){
         long id;
         ContentValues values = new ContentValues();
         values.put(FitnessContract.UserEntry.KEY_NAMELOGIN, user.getNamelogin());
@@ -46,9 +52,10 @@ public class UserDataSource {
     }
 
     /**
-     * Find one Person by Id
+     *
+     *
      */
-    public User getPersonById(long id){
+    public User getUserById(long id){
         String sql = "SELECT * FROM " + FitnessContract.UserEntry.TABLE_USER +
                 " WHERE " + FitnessContract.UserEntry.KEY_USERID + " = " + id;
 
@@ -72,8 +79,10 @@ public class UserDataSource {
         return user;
     }
 
+
     /**
-     * Get all Persons
+     *
+     *
      */
     public List<User> getAllUsers(){
         List<User> persons = new ArrayList<User>();
@@ -100,9 +109,10 @@ public class UserDataSource {
     }
 
     /**
-     *  Update a Person
+     *
+     *
      */
-    public int updatePerson(User user){
+    public int updateUser(User user){
         ContentValues values = new ContentValues();
         values.put(FitnessContract.UserEntry.KEY_NAMELOGIN, user.getNamelogin());
         values.put(FitnessContract.UserEntry.KEY_PASSWORD, user.getPassword());
@@ -116,17 +126,17 @@ public class UserDataSource {
     }
 
     /**
-     * Delete a Person - this will also delete all records
-     * for the person
+     *
+     *
      */
-    public void deletePerson(long id){
-        /*RecordDataSource pra = new RecordDataSource(context);
-        //get all records of the user
-        List<Record> records = pra.getAllRecordsByPerson(id);
+    public void deleteUser(long id){
+        GroupUsersDataSource guds = new GroupUsersDataSource(context);
+        List<GroupUser> groupUsers = guds.getAllGroupUser();
 
-        for(Record record : records){
-            pra.deleteRecord(record.getId());
-        }*/
+        for(GroupUser groupUser : groupUsers){
+            if (groupUser.getUserID() == id)
+                guds.deleteGroupUsers(groupUser.getGroupUserID());
+        }
 
         //delete the person
         this.db.delete(FitnessContract.UserEntry.TABLE_USER, FitnessContract.UserEntry.KEY_USERID + " = ?",
