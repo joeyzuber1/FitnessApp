@@ -6,6 +6,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+
+import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
+import com.hevs.gym.fitnessapp.db.objects.User;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,8 +24,31 @@ public class MainActivity extends AppCompatActivity {
     //login
     public void  logIn(View v){
         Intent intent = new Intent(this, MainMenuActivitiy.class);
+
+        String username = ((EditText) findViewById(R.id.login_username)).getText().toString();
+        String pw = ((EditText) findViewById(R.id.login_passwd)).getText().toString();
+
+        UserDataSource ud = new UserDataSource(this);
+        List<User> users = ud.getAllUsers();
+
+        boolean isTrue = false;
+
+        for (int i = 0; i<users.size(); i++)
+        {
+            if (username.equals(users.get(i).getNamelogin()) && pw.equals(users.get(i).getPassword()))
+            {
+                isTrue =true;
+                break;
+            }
+        }
+
         UserInfos.setUserID(1);
-        startActivity(intent);
+        if (isTrue) {
+            startActivity(intent);
+        }else
+        {
+
+        }
     }
 
     //register
