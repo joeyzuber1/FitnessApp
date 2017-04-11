@@ -3,27 +3,27 @@
     <!-- ################################################################## Temp-->
     <string name="cat_prompt">Choose a Categorie</string>
     <string-array name="cat_array">
-        <item>Back</item>
-        <item>Arm</item>
-        <item>Leg</item>
+        <item>Back1</item>
+        <item>Arm1</item>
+        <item>Leg1</item>
     </string-array>
     <string-array name="back_array">
-        <item>Deadlift</item>
-        <item>Pull up</item>
-        <item>Cable Row</item>
-        <item>Pull down</item>
+        <item>Deadlift1</item>
+        <item>Pull up1</item>
+        <item>Cable Row1</item>
+        <item>Pull down1</item>
     </string-array>
     <string-array name="group_array">
-        <item>Fit for fun</item>
-        <item>602_D</item>
-        <item>Group3</item>
-        <item>Group4</item>
+        <item>Fit for fun1</item>
+        <item>602_D1</item>
+        <item>Group31</item>
+        <item>Group41</item>
     </string-array>
     <string-array name="user_array">
-        <item>Donald Trump</item>
-        <item>Franz XYZ</item>
-        <item>Hans XYZ</item>
-        <item>ABC ABC</item>
+        <item>Donald Trump1</item>
+        <item>Franz XYZ1</item>
+        <item>Hans XYZ1</item>
+        <item>ABC ABC1</item>
     </string-array>
 
 

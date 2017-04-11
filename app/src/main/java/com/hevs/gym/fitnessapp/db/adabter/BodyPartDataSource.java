@@ -93,6 +93,26 @@ public class BodyPartDataSource {
      *
      *
      */
+    public List<BodyPart> getAllBodyPartsByPlanID(long id) {
+        List<BodyPart> bodyParts = getAllBodyParts();
+        List<BodyPart> bodyParts1 = new ArrayList<>();
+        ExerciseDataSource exerciseDataSource = new ExerciseDataSource(context);
+        List<Exercise> exercises = exerciseDataSource.getExerciseByPlanID(id);
+        for (BodyPart bodyPart : bodyParts) {
+            for (Exercise ex : exercises) {
+                if (ex.getBodyPart() == bodyPart.getPartOfBodyID()) {
+                    bodyParts1.add(bodyPart);
+                    break;
+                }
+            }
+        }
+        return bodyParts1;
+    }
+
+    /**
+     *
+     *
+     */
     public int updateBodyPart(BodyPart bodyPart) {
         ContentValues values = new ContentValues();
         values.put(FitnessContract.BodyPartEntry.KEY_BODYSECTION, bodyPart.getBodySection());
@@ -106,11 +126,11 @@ public class BodyPartDataSource {
      *
      */
     public boolean deleteBodyPart(long id) {
-      //Exercises müssen Angepasst werden oder geprüft werden ob vorhanden wenn ja nicht möglich
+        //Exercises müssen Angepasst werden oder geprüft werden ob vorhanden wenn ja nicht möglich
         ExerciseDataSource exsds = new ExerciseDataSource(context);
         List<Exercise> exs = exsds.getAllExercises();
 
-        for(Exercise ex : exs){
+        for (Exercise ex : exs) {
             if (ex.getBodyPart() == id)
                 return false;
         }

@@ -9,7 +9,6 @@ import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 class UserInfos {
     private static long userID = -1;
 
-
     static long getUserID()
     {
         return  userID;
@@ -17,6 +16,10 @@ class UserInfos {
 
     static void setUserID(long userIDNew){
         userID = userIDNew;
+    }
+
+    public static void setPlanID(long planID) {
+        UserInfos.planID = planID;
     }
 
     private static long planID = -1;

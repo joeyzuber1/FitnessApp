@@ -7,25 +7,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
+import com.hevs.gym.fitnessapp.db.objects.Group;
+import com.hevs.gym.fitnessapp.db.objects.GroupUser;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyGroupsActivity extends AppCompatActivity {
 
     private long idUser;
     private ArrayList<Button> buttonList;
+    private List<Group> groups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_groups);
-
-        buttonList = new ArrayList<Button>();
-
         idUser = UserInfos.getUserID();
 
         if (idUser >= 0) {
@@ -36,15 +41,20 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     //Generate the Main Button GridLayout
     private void generateButtons() {
-        String fromDB[] = getResources().getStringArray(R.array.group_array); //Später DB
-
-        String buttons[] = new String[fromDB.length + 2];
-        buttons[0] = getString(R.string.mygroups_all);
-
-        for (int i = 1; i < buttons.length - 1; i++) {
-            buttons[i] = fromDB[i - 1];
+        buttonList = new ArrayList<Button>();
+        GroupDataSource groupDataSource = new GroupDataSource(this);
+        groups = groupDataSource.getAllGroupByUserID(idUser);
+        String fromDB[] = new String[groups.size()];
+        for (int i = 0; i < fromDB.length; i++) {
+            fromDB[i] = groups.get(i).getGroupname();
         }
-        buttons[buttons.length - 1] =  getString(R.string.mygroups_join);
+
+        String buttons[] = new String[fromDB.length + 1];
+
+        for (int i = 0; i < buttons.length - 1; i++) {
+            buttons[i] = fromDB[i];
+        }
+        buttons[buttons.length - 1] = getString(R.string.mygroups_join);
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.mainGroups);
         LinearLayout.LayoutParams lp =
@@ -75,14 +85,35 @@ public class MyGroupsActivity extends AppCompatActivity {
     public void onClick(View v, int index) {
         if (index != buttonList.size() - 1) {
             Intent intent = new Intent(this, GroupUserActivity.class);
-            intent.putExtra("idUser", 1); //SPäter DB
-            intent.putExtra("idGroup", 1); //später DB
+            intent.putExtra("idGroup", groups.get(index).getGroupID());
             startActivity(intent);
         } else {
             //Join a new Group
-            inputString = "";
             inputAlertJoin();
         }
+    }
+
+    private void joinGroup() {
+        GroupDataSource groupDataSource = new GroupDataSource(this);
+        long idGroup = groupDataSource.findGroupByName(inputString);
+        if (idGroup < 0) {
+            Group g = new Group();
+            g.setGroupname(inputString);
+            groupDataSource.createGroup(g);
+            idGroup = groupDataSource.findGroupByName(inputString);
+        }
+        GroupUsersDataSource groupUsersDataSource = new GroupUsersDataSource(this);
+        GroupUser gu = new GroupUser();
+        gu.setGroupID(idGroup);
+        gu.setUserID(idUser);
+        groupUsersDataSource.createGrouUser(gu);
+
+
+        if (((LinearLayout) findViewById(R.id.mainGroups)).getChildCount() > 0)
+            ((LinearLayout) findViewById(R.id.mainGroups)).removeAllViews();
+
+        generateButtons();
+
     }
 
     //show all
@@ -104,13 +135,14 @@ public class MyGroupsActivity extends AppCompatActivity {
         builder.setTitle(getResources().getString(R.string.dialog_q_join));
 
         final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
         builder.setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 inputString = input.getText().toString();
+                joinGroup();
             }
         });
         builder.setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
@@ -123,4 +155,12 @@ public class MyGroupsActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    protected void onResume() {
+        if(((LinearLayout) findViewById(R.id.mainGroups)).getChildCount() > 0)
+            ((LinearLayout) findViewById(R.id.mainGroups)).removeAllViews();
+
+        generateButtons();
+        super.onResume();
+    }
 }

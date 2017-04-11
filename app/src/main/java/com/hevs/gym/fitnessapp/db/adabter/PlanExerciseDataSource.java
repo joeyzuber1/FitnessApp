@@ -40,7 +40,7 @@ public class PlanExerciseDataSource {
         long id;
         ContentValues values = new ContentValues();
         values.put(FitnessContract.PlanExerciseEntry.KEY_EXERCISEID, planExercise.getExerciseID());
-        values.put(FitnessContract.PlanExerciseEntry.KEY_PLANID, planExercise.getExerciseID());
+        values.put(FitnessContract.PlanExerciseEntry.KEY_PLANID, planExercise.getPlanID());
         id = this.db.insert(FitnessContract.PlanExerciseEntry.TABLE_PLANEXERCISE, null, values);
 
         return id;
@@ -53,6 +53,31 @@ public class PlanExerciseDataSource {
     public List<PlanExercise> getAllPlanExercise() {
         List<PlanExercise> planExercises = new ArrayList<PlanExercise>();
         String sql = "SELECT * FROM " + FitnessContract.PlanExerciseEntry.TABLE_PLANEXERCISE + " ORDER BY " + FitnessContract.PlanExerciseEntry.KEY_PLANEXERCISEID;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                PlanExercise planExercise = new PlanExercise();
+                planExercise.setExerciseID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanExerciseEntry.KEY_EXERCISEID)));
+                planExercise.setPlanID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanExerciseEntry.KEY_PLANID)));
+                planExercise.setPlanExerciseID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanExerciseEntry.KEY_PLANEXERCISEID)));
+
+                planExercises.add(planExercise);
+            } while (cursor.moveToNext());
+        }
+
+        return planExercises;
+    }
+
+    /**
+     *
+     *
+     */
+    public List<PlanExercise> getAllPlanExerciseByPlanID(long id) {
+        List<PlanExercise> planExercises = new ArrayList<PlanExercise>();
+        String sql = "SELECT * FROM " + FitnessContract.PlanExerciseEntry.TABLE_PLANEXERCISE  +  " WHERE " +
+                FitnessContract.PlanEntry.KEY_PLANID + " = " + id + " ORDER BY " + FitnessContract.PlanExerciseEntry.KEY_PLANEXERCISEID;
 
         Cursor cursor = this.db.rawQuery(sql, null);
 

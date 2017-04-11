@@ -9,13 +9,21 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
+import com.hevs.gym.fitnessapp.db.objects.Group;
+import com.hevs.gym.fitnessapp.db.objects.GroupUser;
+import com.hevs.gym.fitnessapp.db.objects.User;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class GroupUserActivity extends AppCompatActivity {
 
-    private int idGroup;
-    private int idUser;
+    private long idGroup;
     private ArrayList<Button> buttonList;
+    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +31,7 @@ public class GroupUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_user);
         buttonList = new ArrayList<Button>();
 
-        idGroup = getIntent().getIntExtra("idGroup", -1);
-        idUser = getIntent().getIntExtra("idGroup", -1);
+        idGroup = getIntent().getLongExtra("idGroup", -1);
 
         if (idGroup >= 0) {
             generateButtons();
@@ -36,15 +43,31 @@ public class GroupUserActivity extends AppCompatActivity {
 
     //Generate the Main Button GridLayout
     private void generateButtons() {
-        String fromDB[] = getResources().getStringArray(R.array.user_array);
+        UserDataSource userDataSource = new UserDataSource(this);
+        users = userDataSource.getAllUsersFromGroupID(idGroup);
+        String fromDB[] = new String[users.size()];
+         for (int i = 0; i <fromDB.length; i++)
+         {
+             fromDB[i] = users.get(i).getFirstname()+" "+users.get(i).getLastname();
+         }
 
-        String buttons[] = new String[fromDB.length+1]; //später -1
+        String buttons[] = new String[fromDB.length];
 
-        for (int i =0; i < fromDB.length; i++) {
-            //Prüfen ob eigener in DB !!!!!
-            buttons[i] = fromDB[i];
+        int indexB = 0;
+        int indexDB = 0;
+        int userIDDElete = -1;
+        User user = userDataSource.getUserById(UserInfos.getUserID());
+        for (User u : users){
+            if (user.getUserID() != u.getUserID()) {
+                buttons[indexB] = fromDB[indexDB];
+                indexB++;
+            }else
+            {
+                userIDDElete = indexDB;
+            }
+            indexDB++;
         }
-
+        users.remove(userIDDElete);
         buttons[buttons.length-1] = getResources().getString(R.string.dialog_t_leaveGrp);
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.mainGroupUsers);
@@ -75,18 +98,22 @@ public class GroupUserActivity extends AppCompatActivity {
     //onclicklistneer
     public void onClick(View v, int index) {
         if (index != buttonList.size()-1) {
-            CallMainActivitys.showExersisePlanFromUser(v, this, index); //später userID
+            UserDataSource userDataSource = new UserDataSource(this);
+            CallMainActivitys.showExersisePlanFromUser(v, this, users.get(index).getUserID(), users.get(index).getFirstname());
         }
         else
         {
+            final GroupUsersDataSource groupUsersDataSource = new GroupUsersDataSource(this);
+
             //leave the group
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_t_leaveGrp))
                     .setMessage(getResources().getString(R.string.dialog_q_leaveGrp))
                     .setPositiveButton(getResources().getString(R.string.dialog_yes), new DialogInterface.OnClickListener() { //Hardcoded
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            GroupUser gu = groupUsersDataSource.gettGrouUserFromUserIDGroupID(idGroup, UserInfos.getUserID());
+                            groupUsersDataSource.deleteGroupUsers(gu.getGroupUserID());
                             finish();
-                            System.exit(0);
                         }
                     }).setNegativeButton(getResources().getString(R.string.dialog_no), null).show();
         }

@@ -10,9 +10,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
+import com.hevs.gym.fitnessapp.db.objects.Exercise;
+import com.hevs.gym.fitnessapp.db.objects.Plan;
+import com.hevs.gym.fitnessapp.db.objects.PlanExercise;
+
+import java.util.List;
+
 public class ShowActivity extends AppCompatActivity {
 
-    private int exID;
+    private long exID;
     private boolean isInMyPlan;
     private Menu menu;
     @Override
@@ -20,21 +29,38 @@ public class ShowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
 
-        exID = getIntent().getIntExtra("exID", -1);
+        exID = getIntent().getLongExtra("exID", -1);
 
         if (exID >= 0)
         {
             setTitelAndDescription();
         }
-        isInMyPlan = true; //später DB
+
+        isInMyPlan = false;
+        PlanDataSource planDataSource = new PlanDataSource(this);
+        UserInfos.setPlanID(planDataSource.getPlanFromUserID(UserInfos.getUserID()).get(0).getPlanID());
+        long planID = UserInfos.getPlanID();
+        PlanExerciseDataSource planExerciseDataSource = new PlanExerciseDataSource(this);
+        List<PlanExercise> planExercises = planExerciseDataSource.getAllPlanExercise();
+        for (PlanExercise pe : planExercises)
+        {
+            if (pe.getPlanID() == planID && pe.getExerciseID() == exID)
+            {
+                isInMyPlan = true;
+            }
+        }
+
     }
 
     //set Titel and description
     private void setTitelAndDescription(){
+        ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
+        Exercise ex = exerciseDataSource.getExerciseById(exID);
+
         TextView titel = (TextView) findViewById(R.id.titelExercise);
-        titel.setText("Exercise"+exID); //DB
+        titel.setText(ex.getExerciseName()); //DB
         TextView description = (TextView) findViewById(R.id.descriptionExercise);
-        description.setText(R.string.example_description);
+        description.setText(ex.getExerciseDescription());
     }
 
     //show all
@@ -75,15 +101,33 @@ public class ShowActivity extends AppCompatActivity {
                     .setPositiveButton(getResources().getString(R.string.dialog_yes), new DialogInterface.OnClickListener() { //Hardcoded
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                            System.exit(0);
+                            //mUSS NOCH IMPLEMENTIERT WERDEN
                         }
                     }).setNegativeButton(getResources().getString(R.string.dialog_no), null).show();
             return true;
         }
         if (id == R.id.menu_addDelete) {
-            //add
-            //Do something in DB
+            PlanExerciseDataSource planExerciseDataSource = new PlanExerciseDataSource(this);
+            long planID = UserInfos.getPlanID();
+            if (isInMyPlan)
+            {
+                List<PlanExercise> planExercises = planExerciseDataSource.getAllPlanExercise();//Verbessern nicht alles
+                for (PlanExercise pe : planExercises)
+                {
+                    if (pe.getPlanID() == planID && pe.getExerciseID() == exID) {
+                        planExerciseDataSource.deletePlanExercise(pe.getPlanExerciseID());
+                    }
+
+                }
+            }
+            else
+            {
+                PlanExercise pe = new PlanExercise();
+                pe.setExerciseID(exID);
+                pe.setPlanID(planID);
+                planExerciseDataSource.createPlanExercise(pe);
+
+            }
             isInMyPlan = ! isInMyPlan;
             updateMenuItem();
             return true;

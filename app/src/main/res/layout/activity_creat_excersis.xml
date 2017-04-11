@@ -32,7 +32,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/in_exname"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -60,7 +60,7 @@
                     android:textStyle="bold" />
 
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/spin_bodyPart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -92,6 +92,7 @@
                 </LinearLayout>
 
                 <EditText
+                    android:id="@+id/in_exdes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textMultiLine"
@@ -106,9 +107,9 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="createEx"
                     android:text="@string/button_create" />
             </LinearLayout>
         </LinearLayout>

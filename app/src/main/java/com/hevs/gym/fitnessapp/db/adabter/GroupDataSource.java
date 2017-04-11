@@ -41,7 +41,7 @@ public class GroupDataSource {
         values.put(FitnessContract.GroupEntry.KEY_GROUPNAME, group.getGroupname());
         id = this.db.insert(FitnessContract.GroupEntry.TABLE_GROUP, null, values);
 
-        return id;
+        return (id);
     }
 
     /**
@@ -66,6 +66,19 @@ public class GroupDataSource {
         return group;
     }
 
+    public long findGroupByName(String name) {
+        List<Group> groups = getAllGroup();
+        for (Group p : groups)
+        {
+            if (p.getGroupname().equals(name))
+            {
+                return p.getGroupID();
+            }
+        }
+        return  -1;
+    }
+
+
     /**
      *
      *
@@ -89,6 +102,22 @@ public class GroupDataSource {
         return groups;
     }
 
+
+    /**
+     *
+     *
+     */
+    public List<Group> getAllGroupByUserID(long id) {
+        GroupUsersDataSource groupUsersDataSource = new GroupUsersDataSource(context);
+        List<GroupUser> groupUsers = groupUsersDataSource.getAllGroupUserByUseID(id);
+        List<Group> allGrous = getAllGroup();
+
+        List<Group> sortetGroup = new ArrayList<Group>();
+        for (GroupUser gp: groupUsers) {
+            sortetGroup.add(getGroupById(gp.getGroupID()));
+        }
+        return sortetGroup;
+    }
     /**
      *
      *

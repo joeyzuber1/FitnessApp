@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
 import com.hevs.gym.fitnessapp.db.objects.BodyPart;
 
 import java.util.ArrayList;
@@ -18,8 +19,10 @@ import java.util.List;
 public class ExcersisesCatActivity extends AppCompatActivity {
 
     private ArrayList<Button> buttonList;
-    private int idUser;
+    private long idUser;
     private boolean isMyPlan;
+    private List<BodyPart> bodyParts;
+    private List<Long> idParts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,29 +35,36 @@ public class ExcersisesCatActivity extends AppCompatActivity {
     //Generate the Main Button GridLayout
     private void generateButtons() {
         buttonList = new ArrayList<Button>();
+        idParts = new ArrayList<Long>();
+        idParts.add(-1l);
+
         ((TextView) findViewById(R.id.titelCatExcersis)).setText(getIntent().getStringExtra("Titel"));
         Bundle extras = getIntent().getExtras();
 
         isMyPlan = extras.getBoolean("isMyPlan");
-        idUser = extras.getInt("idUser");
+        idUser = extras.getLong("idUser");
 
         String[] buttonsReceived;
 
+        BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
         if (isMyPlan) {
-            buttonsReceived = getResources().getStringArray(R.array.cat_array); //später db
+            PlanDataSource planDataSource = new PlanDataSource(this);
+            long planID = planDataSource.getPlanFromUserID(idUser).get(0).getPlanID();
+            bodyParts = bodyPartDataSource.getAllBodyPartsByPlanID(planID);
         } else
         {
-            BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
-            List<BodyPart> bodyParts = bodyPartDataSource.getAllBodyParts();
-            buttonsReceived = new String[bodyParts.size()];
-            for (int i = 0; i< buttonsReceived.length; i++)
-            {
-                buttonsReceived[i] = bodyParts.get(i).getBodySection();
-            }
+            bodyParts = bodyPartDataSource.getAllBodyParts();
+        }
+
+        buttonsReceived = new String[bodyParts.size()];
+        for (int i = 0; i< buttonsReceived.length; i++)
+        {
+            buttonsReceived[i] = bodyParts.get(i).getBodySection();
+            idParts.add(bodyParts.get(i).getPartOfBodyID());
         }
 
         String[] buttons = new String[buttonsReceived.length+1];
-        buttons[0] = "All Exercises";
+        buttons[0] = "All Exercises"; //Hardcoded
         for (int i = 1; i<buttons.length; i++)
         {
             buttons[i] = buttonsReceived[i-1];
@@ -91,7 +101,6 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         if (index == 0)
         {
             //take all
-            stringArray = getResources().getStringArray(R.array.back_array);
             titel = titel + " -> "+"All";
         }
         for (int i = 1; i < buttonList.size(); i++){
@@ -99,22 +108,24 @@ public class ExcersisesCatActivity extends AppCompatActivity {
            {
                //Take the right things
                titel = titel + " -> "+buttonList.get(i).getText();
-               stringArray = getResources().getStringArray(R.array.back_array);
            }
         }
 
-        if(stringArray.length != 0)
+        if (index == 0) {
+            showExercises(titel, -1);
+        }else
         {
-            int[] a = {1,2,3};
-            showExercises(titel, stringArray, a); //später array mit den IDs
+            showExercises(titel, idParts.get(index));
         }
     }
 
     //show one Exercis
-    public void showExercises(String titel, String[] array, int[] exIDs){
+    public void showExercises(String titel, long idEx){
         Intent inten = new Intent(this, ExersisesActivity.class);
         inten.putExtra("Titel", titel); //better need
         inten.putExtra("isMyPlan", isMyPlan);
+        inten.putExtra("idBodyPart", idEx);
+        inten.putExtra("idUser", idUser);
         startActivity(inten);
     }
 
@@ -131,7 +142,12 @@ public class ExcersisesCatActivity extends AppCompatActivity {
     //go back
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainMenuActivitiy.class);
-        startActivity(intent);
+        if (UserInfos.getUserID() == idUser) {
+            Intent intent = new Intent(this, MainMenuActivitiy.class);
+            startActivity(intent);
+        }else
+        {
+            super.onBackPressed();
+        }
     }
 }

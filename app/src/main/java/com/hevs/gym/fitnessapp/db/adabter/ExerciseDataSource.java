@@ -42,7 +42,7 @@ public class ExerciseDataSource {
         values.put(FitnessContract.ExerciseEntry.KEY_PARTOFBODYID, exercise.getBodyPart());
         values.put(FitnessContract.ExerciseEntry.KEY_DESCRITPION, exercise.getExerciseDescription());
         values.put(FitnessContract.ExerciseEntry.KEY_NAME, exercise.getExerciseName());
-        id = this.db.insert(FitnessContract.BodyPartEntry.TABLE_BODYPART, null, values);
+        id = this.db.insert(FitnessContract.ExerciseEntry.TABLE_EXERCISE, null, values);
 
         return id;
     }
@@ -70,6 +70,47 @@ public class ExerciseDataSource {
 
         return exercise;
     }
+
+    /**
+     *
+     *
+     */
+    public List<Exercise> getExerciseByPlanID(long id) {
+
+        PlanExerciseDataSource planExerciseDataSource = new PlanExerciseDataSource(context);
+        List<PlanExercise> planExercises = planExerciseDataSource.getAllPlanExerciseByPlanID(id);
+
+        List<Exercise> exercises = new ArrayList<Exercise>();
+
+        for (PlanExercise pe:planExercises) {
+            exercises.add(getExerciseById(pe.getExerciseID()));
+        }
+
+        return exercises;
+    }
+
+    /**
+     *
+     *
+     */
+    public List<Exercise> getExerciseByPlanIDAndBodyPartID(long id, long bodyPartID) {
+
+        PlanExerciseDataSource planExerciseDataSource = new PlanExerciseDataSource(context);
+        List<PlanExercise> planExercises = planExerciseDataSource.getAllPlanExerciseByPlanID(id);
+
+        List<Exercise> exercises = new ArrayList<Exercise>();
+
+        for (PlanExercise pe:planExercises) {
+            Exercise ex = getExerciseById(pe.getExerciseID());
+            if (ex.getBodyPart() == bodyPartID) {
+                exercises.add(ex);
+            }
+        }
+
+        return exercises;
+    }
+
+
 
     /**
      *

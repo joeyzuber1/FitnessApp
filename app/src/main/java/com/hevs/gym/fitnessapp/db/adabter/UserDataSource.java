@@ -153,6 +153,18 @@ public class UserDataSource {
         return persons;
     }
 
+
+    public List<User> getAllUsersFromGroupID(long id) {
+        GroupUsersDataSource groupUsersDataSource = new GroupUsersDataSource(context);
+        List<GroupUser> groupUsers = groupUsersDataSource.getAllGroupUserByGroupID(id);
+        List<User> users = new ArrayList<User>();
+        for (GroupUser gu : groupUsers)
+        {
+            users.add(getUserById(gu.getUserID()));
+        }
+        return users;
+    }
+
     /**
      *
      *

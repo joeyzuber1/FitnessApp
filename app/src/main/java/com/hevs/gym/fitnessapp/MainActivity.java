@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 import com.hevs.gym.fitnessapp.db.objects.User;
 
@@ -41,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
                 isTrue =true;
                 UserInfos.setUserID(users.get(i).getUserID());
                 UserInfos.setIsAdmin(users.get(i).isAdministrator());
+
+                PlanDataSource planDataSource = new PlanDataSource(this);
+                UserInfos.setPlanID(planDataSource.getPlanFromUserID(UserInfos.getUserID()).get(0).getPlanID());
+
                 break;
             }
         }

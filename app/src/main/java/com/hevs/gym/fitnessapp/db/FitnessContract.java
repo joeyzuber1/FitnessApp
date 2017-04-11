@@ -95,8 +95,8 @@ public class FitnessContract {
         //Table User
         public static final String TABLE_PLAN = "Plan";
 
-        public static final String KEY_PLANID= "ExerciseID";
-        public static final String KEY_USERID= "PartOfBodyID";
+        public static final String KEY_PLANID= "PlanID";
+        public static final String KEY_USERID= "UserID";
         public static final String KEY_NAME= "Name";
 
 
@@ -134,9 +134,9 @@ public class FitnessContract {
         //Table User
         public static final String TABLE_PLANEXERCISE= "PlanExercise";
 
-        public static final String KEY_PLANEXERCISEID= "GrouUserID";
-        public static final String KEY_PLANID= "UserID";
-        public static final String KEY_EXERCISEID= "GroupID";
+        public static final String KEY_PLANEXERCISEID= "PlanExerciseID";
+        public static final String KEY_PLANID= "PlanID";
+        public static final String KEY_EXERCISEID= "ExerciseID";
 
 
         public static final String CREATE_TABLE_PLANEXERCISE = "CREATE TABLE "
