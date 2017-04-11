@@ -8,7 +8,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
+import com.hevs.gym.fitnessapp.db.objects.BodyPart;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ExcersisesCatActivity extends AppCompatActivity {
@@ -36,11 +40,17 @@ public class ExcersisesCatActivity extends AppCompatActivity {
 
         String[] buttonsReceived;
 
-        if (!isMyPlan) {
+        if (isMyPlan) {
             buttonsReceived = getResources().getStringArray(R.array.cat_array); //später db
         } else
         {
-            buttonsReceived = getResources().getStringArray(R.array.cat_array); //später db
+            BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
+            List<BodyPart> bodyParts = bodyPartDataSource.getAllBodyParts();
+            buttonsReceived = new String[bodyParts.size()];
+            for (int i = 0; i< buttonsReceived.length; i++)
+            {
+                buttonsReceived[i] = bodyParts.get(i).getBodySection();
+            }
         }
 
         String[] buttons = new String[buttonsReceived.length+1];

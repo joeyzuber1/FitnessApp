@@ -5,31 +5,31 @@ package com.hevs.gym.fitnessapp.db.objects;
  */
 
 public class GroupUser {
-    private int groupUserID;
-    private int userID;
-    private int groupID;
+    private long groupUserID;
+    private long userID;
+    private long groupID;
 
-    public int getGroupUserID() {
+    public long getGroupUserID() {
         return groupUserID;
     }
 
-    public void setGroupUserID(int groupUserID) {
+    public void setGroupUserID(long groupUserID) {
         this.groupUserID = groupUserID;
     }
 
-    public int getUserID() {
+    public long getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(long userID) {
         this.userID = userID;
     }
 
-    public int getGroupID() {
+    public long getGroupID() {
         return groupID;
     }
 
-    public void setGroupID(int groupID) {
+    public void setGroupID(long groupID) {
         this.groupID = groupID;
     }
 }

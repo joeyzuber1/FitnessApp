@@ -15,21 +15,22 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private  UserDataSource userDataSource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userDataSource = new UserDataSource(this);
     }
 
     //login
     public void  logIn(View v){
-        Intent intent = new Intent(this, MainMenuActivitiy.class);
 
         String username = ((EditText) findViewById(R.id.login_username)).getText().toString();
         String pw = ((EditText) findViewById(R.id.login_passwd)).getText().toString();
 
-        UserDataSource ud = new UserDataSource(this);
-        List<User> users = ud.getAllUsers();
+
+        List<User> users = userDataSource.getAllUsers();
 
         boolean isTrue = false;
 
@@ -38,16 +39,18 @@ public class MainActivity extends AppCompatActivity {
             if (username.equals(users.get(i).getNamelogin()) && pw.equals(users.get(i).getPassword()))
             {
                 isTrue =true;
+                UserInfos.setUserID(users.get(i).getUserID());
+                UserInfos.setIsAdmin(users.get(i).isAdministrator());
                 break;
             }
         }
 
-        UserInfos.setUserID(1);
         if (isTrue) {
+            Intent intent = new Intent(this, MainMenuActivitiy.class);
             startActivity(intent);
         }else
         {
-
+            //Fehlermeldung
         }
     }
 

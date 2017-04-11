@@ -13,8 +13,6 @@ public class MainMenuActivitiy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu_activitiy);
-
-        idUser = getIntent().getIntExtra("idUser", -1);
     }
 
     //create exersis

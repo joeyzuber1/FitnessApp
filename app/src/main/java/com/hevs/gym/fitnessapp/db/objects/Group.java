@@ -5,14 +5,14 @@ package com.hevs.gym.fitnessapp.db.objects;
  */
 
 public class Group {
-    private int groupID;
+    private long groupID;
     private String groupname;
 
-    public int getGroupID() {
+    public long getGroupID() {
         return groupID;
     }
 
-    public void setGroupID(int groupID) {
+    public void setGroupID(long groupID) {
         this.groupID = groupID;
     }
 

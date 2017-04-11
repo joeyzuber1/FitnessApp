@@ -5,31 +5,31 @@ package com.hevs.gym.fitnessapp.db.objects;
  */
 
 public class PlanExercise {
-    private int planExerciseID;
-    private int exerciseID;
-    private int planID;
+    private long planExerciseID;
+    private long exerciseID;
+    private long planID;
 
-    public int getPlanExerciseID() {
+    public long getPlanExerciseID() {
         return planExerciseID;
     }
 
-    public void setPlanExerciseID(int planExerciseID) {
+    public void setPlanExerciseID(long planExerciseID) {
         this.planExerciseID = planExerciseID;
     }
 
-    public int getExerciseID() {
+    public long getExerciseID() {
         return exerciseID;
     }
 
-    public void setExerciseID(int exerciseID) {
+    public void setExerciseID(long exerciseID) {
         this.exerciseID = exerciseID;
     }
 
-    public int getPlanID() {
+    public long getPlanID() {
         return planID;
     }
 
-    public void setPlanID(int planID) {
+    public void setPlanID(long planID) {
         this.planID = planID;
     }
 

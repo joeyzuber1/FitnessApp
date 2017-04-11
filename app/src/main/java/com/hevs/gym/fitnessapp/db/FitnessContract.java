@@ -42,22 +42,22 @@ public class FitnessContract {
     public static abstract class GroupEntry implements BaseColumns {
 
         //Table User
-        public static final String TABLE_GROUP = "Group";
+        public static final String TABLE_GROUP = "FitnessGroup";
 
-        public static final String KEY_GROUPID = "UserID";
-        public static final String KEY_GROUPNAME = "Namelogin";
+        public static final String KEY_GROUPID = "GroupID";
+        public static final String KEY_GROUPNAME = "Groupname";
 
         public static final String CREATE_TABLE_GROUP = "CREATE TABLE "
                 + TABLE_GROUP + "("
                 + GroupEntry.KEY_GROUPID + " INTEGER PRIMARY KEY,"
-                + GroupEntry.KEY_GROUPNAME + " TEXT"
+                + GroupEntry.KEY_GROUPNAME + " TEXT "
                 + ");";
     }
 
     public static abstract class BodyPartEntry implements BaseColumns {
 
         //Table User
-        public static final String TABLE_BODYPART = "Group";
+        public static final String TABLE_BODYPART = "BodyPart";
 
         public static final String KEY_PARTOFBODYID = "PartOfBodyID";
         public static final String KEY_BODYSECTION = "BodySection";

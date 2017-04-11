@@ -4,6 +4,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
+import com.hevs.gym.fitnessapp.db.objects.BodyPart;
+import com.hevs.gym.fitnessapp.db.objects.User;
+
 /**
  * Created by Matthias and Joey on 10.04.2017.
  */
@@ -12,9 +17,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private SQLiteDatabase db;
 
     //Infos about database
-    private static final String DATABASE_NAME = "Fitness.db";
+    private static final String DATABASE_NAME = "Fitness2.db";
     private static final int DATABASE_VERSION = 1;
     private static SQLiteHelper instance;
+    private Context context;
 
 
     //use a singleton
@@ -22,14 +28,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         db = this.getWritableDatabase();
+        this.context = context;
     }
 
     public static SQLiteHelper getInstance(Context context){
         if(instance == null){
-            instance = new SQLiteHelper(context.getApplicationContext());
-            //Enable foreign key support
-            instance.db.execSQL("PRAGMA foreign_keys = ON;");
-        }
+                instance = new SQLiteHelper(context.getApplicationContext());
+                //Enable foreign key support
+                instance.db.execSQL("PRAGMA foreign_keys = ON;");
+                   }
 
         return instance;
     }
@@ -59,7 +66,31 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public static void fillStandartData(Context context)
+    {
+        //User Admin
+        UserDataSource uds = new UserDataSource(context);
+        User admin = new User();
+        admin.setAdministrator(true);
+        admin.setMale(true);
+        admin.setFirstname("Administrator");
+        admin.setLastname("Administrator");
+        admin.setNamelogin("admin");
+        admin.setPassword("admin");
+        uds.createUser(admin);
 
+        //BodyParts
+        BodyPart bpArm = new BodyPart();
+        bpArm.setBodySection("Arm");
+        BodyPart bpLeg = new BodyPart();
+        bpLeg.setBodySection("Leg");
+        BodyPart bpBack = new BodyPart();
+        bpBack.setBodySection("Back");
+        BodyPartDataSource bpds = new BodyPartDataSource(context);
+        bpds.createBodyPart(bpLeg);
+        bpds.createBodyPart(bpArm);
+        bpds.createBodyPart(bpBack);
+    }
 
 //
 //	/**

@@ -100,6 +100,33 @@ public class ExerciseDataSource {
      *
      *
      */
+    public List<Exercise> getAllExercisesFromBodyPartID(long BodyPartID) {
+        List<Exercise> exercises = new ArrayList<Exercise>();
+        String sql = "SELECT * FROM " + FitnessContract.ExerciseEntry.TABLE_EXERCISE + " WHERE "
+                + FitnessContract.ExerciseEntry.KEY_PARTOFBODYID + " = " + BodyPartID + " ORDER BY "
+                + FitnessContract.ExerciseEntry.KEY_EXERCISEID;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Exercise exercise = new Exercise();
+                exercise.setExerciseID(cursor.getInt(cursor.getColumnIndex(FitnessContract.ExerciseEntry.KEY_EXERCISEID)));
+                exercise.setBodyPart(cursor.getInt(cursor.getColumnIndex(FitnessContract.ExerciseEntry.KEY_PARTOFBODYID)));
+                exercise.setExerciseDescription(cursor.getString(cursor.getColumnIndex(FitnessContract.ExerciseEntry.KEY_DESCRITPION)));
+                exercise.setExerciseName(cursor.getString(cursor.getColumnIndex(FitnessContract.ExerciseEntry.KEY_NAME)));
+
+                exercises.add(exercise);
+            } while (cursor.moveToNext());
+        }
+
+        return exercises;
+    }
+
+    /**
+     *
+     *
+     */
     public int updateExercises(Exercise exercise) {
         ContentValues values = new ContentValues();
         values.put(FitnessContract.ExerciseEntry.KEY_PARTOFBODYID, exercise.getBodyPart());

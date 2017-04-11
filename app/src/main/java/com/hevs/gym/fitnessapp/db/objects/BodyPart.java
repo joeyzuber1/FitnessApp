@@ -5,13 +5,13 @@ package com.hevs.gym.fitnessapp.db.objects;
  */
 
 public class BodyPart {
-    private int partOfBodyID;
+    private long partOfBodyID;
 
-    public int getPartOfBodyID() {
+    public long getPartOfBodyID() {
         return partOfBodyID;
     }
 
-    public void setPartOfBodyID(int partOfBodyID) {
+    public void setPartOfBodyID(long partOfBodyID) {
         this.partOfBodyID = partOfBodyID;
     }
 

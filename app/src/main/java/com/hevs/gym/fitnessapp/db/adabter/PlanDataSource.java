@@ -96,6 +96,31 @@ public class PlanDataSource {
      *
      *
      */
+    public List<Plan> getPlanFromUserID(long idUser) {
+        List<Plan> plans = new ArrayList<Plan>();
+        String sql = "SELECT * FROM " + FitnessContract.PlanEntry.TABLE_PLAN +  " WHERE " +
+                FitnessContract.PlanEntry.KEY_USERID + " = " + idUser + " ORDER BY " +
+                FitnessContract.PlanEntry.KEY_PLANID;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Plan plan = new Plan();
+                plan.setPlanID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_PLANID)));
+                plan.setUserID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_USERID)));
+                plan.setPlanName(cursor.getString(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_NAME)));
+
+                plans.add(plan);
+            } while (cursor.moveToNext());
+        }
+
+        return plans;
+    }
+    /**
+     *
+     *
+     */
     public int updatePlanName(Plan plan) {
         ContentValues values = new ContentValues();
         values.put(FitnessContract.PlanEntry.KEY_NAME, plan.getPlanName());

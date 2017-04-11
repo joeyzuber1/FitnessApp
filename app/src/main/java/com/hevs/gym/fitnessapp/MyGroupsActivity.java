@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class MyGroupsActivity extends AppCompatActivity {
 
-    private int idUser;
+    private long idUser;
     private ArrayList<Button> buttonList;
 
     @Override

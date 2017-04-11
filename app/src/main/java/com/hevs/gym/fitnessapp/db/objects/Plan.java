@@ -5,22 +5,22 @@ package com.hevs.gym.fitnessapp.db.objects;
  */
 
 public class Plan {
-    private int planID;
-    private int userID;
+    private long planID;
+    private long userID;
 
-    public int getPlanID() {
+    public long getPlanID() {
         return planID;
     }
 
-    public void setPlanID(int planID) {
+    public void setPlanID(long planID) {
         this.planID = planID;
     }
 
-    public int getUserID() {
+    public long getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(long userID) {
         this.userID = userID;
     }
 

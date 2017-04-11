@@ -5,18 +5,18 @@ package com.hevs.gym.fitnessapp.db.objects;
  */
 
 public class User {
-    private int userID;
+    private long userID;
     private String namelogin;
     private String password;
     private String firstname;
     private String lastname;
     private boolean administrator;
 
-    public int getUserID() {
+    public long getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(long userID) {
         this.userID = userID;
     }
 
