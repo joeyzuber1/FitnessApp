@@ -25,7 +25,10 @@ public class MainActivity extends AppCompatActivity {
         userDataSource = new UserDataSource(this);
     }
 
-    //login
+    /**
+     * Checked if user login is ok and logged in
+     *
+     */
     public void  logIn(View v){
 
         String username = ((EditText) findViewById(R.id.login_username)).getText().toString();
@@ -60,13 +63,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //register
+    /**
+     * open the register activity
+     *
+     */
     public void register(View v){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
-    //go back
+    /**
+     * leave the app
+     *
+     */
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_t_exit))

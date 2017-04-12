@@ -23,7 +23,7 @@ public class GroupDataSource {
 
     /**
      *
-     *
+     * Constructor of the group data sources
      */
     public GroupDataSource(Context context) {
         SQLiteHelper sqliteHelper = SQLiteHelper.getInstance(context);
@@ -32,7 +32,7 @@ public class GroupDataSource {
     }
 
     /**
-     *
+     * insert a group and give the id back
      *
      */
     public long createGroup(Group group) {
@@ -45,7 +45,7 @@ public class GroupDataSource {
     }
 
     /**
-     *
+     * get a group by id
      *
      */
     public Group getGroupById(long id) {
@@ -66,6 +66,10 @@ public class GroupDataSource {
         return group;
     }
 
+    /**
+     * find a group by group name
+     *
+     */
     public long findGroupByName(String name) {
         List<Group> groups = getAllGroup();
         for (Group p : groups)
@@ -80,7 +84,7 @@ public class GroupDataSource {
 
 
     /**
-     *
+     * get all groups
      *
      */
     public List<Group> getAllGroup() {
@@ -104,7 +108,7 @@ public class GroupDataSource {
 
 
     /**
-     *
+     * get all groups from one user
      *
      */
     public List<Group> getAllGroupByUserID(long id) {
@@ -118,8 +122,9 @@ public class GroupDataSource {
         }
         return sortetGroup;
     }
+
     /**
-     *
+     * update a group
      *
      */
     public int updateGroup(Group group) {
@@ -131,7 +136,7 @@ public class GroupDataSource {
     }
 
     /**
-     *
+     * delete a group
      *
      */
     public void deleteGroup(long id) {

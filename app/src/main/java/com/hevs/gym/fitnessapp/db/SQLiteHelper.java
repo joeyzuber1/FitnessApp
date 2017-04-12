@@ -16,21 +16,30 @@ import com.hevs.gym.fitnessapp.db.objects.User;
 public class SQLiteHelper extends SQLiteOpenHelper {
     private SQLiteDatabase db;
 
-    //Infos about database
+    /**
+     * Infos about the database
+     *
+     */
     private static final String DATABASE_NAME = "Fitness2.db";
     private static final int DATABASE_VERSION = 1;
     private static SQLiteHelper instance;
     private Context context;
 
 
-    //use a singleton
-    //we want always just one instance of the database
+    /**
+     * use a singelton
+     * Allways only one Database
+     */
     private SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         db = this.getWritableDatabase();
         this.context = context;
     }
 
+    /**
+     * Get the instanxce or make a new one
+     *
+     */
     public static SQLiteHelper getInstance(Context context){
         if(instance == null){
                 instance = new SQLiteHelper(context.getApplicationContext());
@@ -41,6 +50,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return instance;
     }
 
+    /**
+     * create the tables
+     *
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(FitnessContract.UserEntry.CREATE_TABLE_USER);
@@ -52,6 +65,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(FitnessContract.PlanExerciseEntry.CREATE_TABLE_PLANEXERCISE);
     }
 
+    /**
+     * if something change drop the tables
+     * create the new tables
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //drop old tables
@@ -66,6 +83,10 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * fill some standart Data  so you can login and have some body parts
+     *
+     */
     public static void fillStandartData(Context context)
     {
         //User Admin

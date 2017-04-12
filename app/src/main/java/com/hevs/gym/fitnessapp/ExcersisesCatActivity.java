@@ -32,7 +32,10 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         generateButtons();
     }
 
-    //Generate the Main Button GridLayout
+    /**
+     *
+     *Generate the Main Button GridLayout based on the plan and the user
+     */
     private void generateButtons() {
         buttonList = new ArrayList<Button>();
         idParts = new ArrayList<Long>();
@@ -94,7 +97,10 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         }
     }
 
-    //OnClickListener
+    /**
+     * if you click on a Body part Categorie this code will run
+     *
+     */
     public void onClick(int index){
         String[] stringArray = new String[0];
         String titel = getIntent().getStringExtra("Titel");
@@ -119,22 +125,31 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         }
     }
 
-    //show one Exercis
-    public void showExercises(String titel, long idEx){
+    /**
+     * show the Exercises from one id body part
+     *
+     */
+    public void showExercises(String titel, long idBodyPart){
         Intent inten = new Intent(this, ExersisesActivity.class);
         inten.putExtra("Titel", titel); //better need
         inten.putExtra("isMyPlan", isMyPlan);
-        inten.putExtra("idBodyPart", idEx);
+        inten.putExtra("idBodyPart", idBodyPart);
         inten.putExtra("idUser", idUser);
         startActivity(inten);
     }
 
-    //show all
+    /**
+     * show all exercises categries
+     *
+     */
     public void showExercisesCat(View v){
         CallMainActivitys.showExersiseCatagory(v, this);
     }
 
-    //show personal plan
+    /**
+     * show my plan exercises categries
+     *
+     */
     public void showMyPlan(View v){
         CallMainActivitys.showExersisePlan(v, this);
     }

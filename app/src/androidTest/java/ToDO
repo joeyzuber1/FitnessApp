@@ -1,13 +1,13 @@
 Pflicht
 
 
-Kategorien Hinzufügen
-Kategorien Löschen(Nur wenn leer)
-Pläne verwalten (Löschen/Ändern/Hinzufügen)
+Kategorien Hinzufügen // Bei all Exercises unten popup butten zum adden
+Kategorien Löschen(Nur wenn leer) //Wenn kategorie ausgewählt und keine Exercises ein button löschen
+Pläne verwalten (Löschen/Ändern/Hinzufügen) //Neue ansicht, da aber nur name, eventuell nur Popup zum ändern und hinzufügen
+Aber zwischenschritt user ->plan->kategorien ein neuer Screen
 
-User löschen/ändern/Adminmachen (Am besten wenn der USer ein AdminKey hat den eingeben)
+User löschen/ändern/Adminmachen (Am besten wenn der User ein AdminKey hat den eingeben kann in einem Pupup)
 
-Meldungen an diversen stellen
 
 Registrieren
 Prüfen ob passwort gleich!
@@ -15,6 +15,13 @@ Prüfen ob alles eingegeben!
 
 Exercise Create
 Prüfen ob wirklich alles eingegeben
+
+Exercise Change
+Exercise Create wiederverwenden
+
+User
+Ändern -> Registrierungsseite wiederverwenden
+Löschen -> Einfacher button im Hauptmenu
 
 Exersice
 Change

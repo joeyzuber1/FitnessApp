@@ -52,7 +52,10 @@ public class ShowActivity extends AppCompatActivity {
 
     }
 
-    //set Titel and description
+    /**
+     * Change the titel and description base on the Exercise
+     *
+     */
     private void setTitelAndDescription(){
         ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
         Exercise ex = exerciseDataSource.getExerciseById(exID);
@@ -63,19 +66,28 @@ public class ShowActivity extends AppCompatActivity {
         description.setText(ex.getExerciseDescription());
     }
 
-    //show all
+    /**
+     * show all categories from all exercises
+     *
+     */
     public void showExercisesCat(View v){
         CallMainActivitys.showExersiseCatagory(v, this);
     }
 
 
-    //show personal plan
+    /**
+     * show all categroies from my plan
+     *
+     */
     public void showMyPlan(View v){
         CallMainActivitys.showExersisePlan(v, this);
     }
 
 
-    //create option menu
+    /**
+     * top right the menu button
+     *
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflator = getMenuInflater();
@@ -85,7 +97,10 @@ public class ShowActivity extends AppCompatActivity {
         return true;
     }
 
-    //on click listener option menu
+    /**
+     * On click listener for the top right menu
+     *
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_change) {
@@ -135,7 +150,10 @@ public class ShowActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //update menu items
+    /**
+     * Change the menu buttons
+     *
+     */
     private void updateMenuItem(){
         MenuItem addDel = menu.findItem(R.id.menu_addDelete);
         if (isInMyPlan){
@@ -145,7 +163,7 @@ public class ShowActivity extends AppCompatActivity {
             addDel.setTitle(getResources().getString(R.string.menu_add));
         }
 
-        if (!UserInfos.isIsAdmin())
+        if (UserInfos.isIsAdmin())
         {
            menu.setGroupVisible(R.id.menuAdminGroup, false);
         }

@@ -7,6 +7,12 @@ import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
  */
 
 class UserInfos {
+
+    /**
+     * singelton for user, admin and plan state
+     *
+     */
+
     private static long userID = -1;
 
     static long getUserID()

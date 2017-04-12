@@ -23,7 +23,7 @@ public class PlanDataSource {
     private Context context;
 
     /**
-     *
+     * Constructor of Plan source
      *
      */
     public PlanDataSource(Context context) {
@@ -33,7 +33,7 @@ public class PlanDataSource {
     }
 
     /**
-     *
+     * Create a new plan and gives the id back
      *
      */
     public long createPlan(Plan plan) {
@@ -47,7 +47,7 @@ public class PlanDataSource {
     }
 
     /**
-     *
+     * get a plan by id
      *
      */
     public Plan getPlanById(long id) {
@@ -69,7 +69,7 @@ public class PlanDataSource {
     }
 
     /**
-     *
+     * get all plans
      *
      */
     public List<Plan> getAllPlan() {
@@ -93,7 +93,7 @@ public class PlanDataSource {
     }
 
     /**
-     *
+     * get plans from user id
      *
      */
     public List<Plan> getPlanFromUserID(long idUser) {
@@ -117,9 +117,10 @@ public class PlanDataSource {
 
         return plans;
     }
+
     /**
      *
-     *
+     * update a planName
      */
     public int updatePlanName(Plan plan) {
         ContentValues values = new ContentValues();
@@ -130,7 +131,7 @@ public class PlanDataSource {
     }
 
     /**
-     *
+     * delete a plan
      *
      */
     public void deletePlan(long id) {

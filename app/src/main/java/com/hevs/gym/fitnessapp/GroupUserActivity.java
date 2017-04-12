@@ -41,7 +41,10 @@ public class GroupUserActivity extends AppCompatActivity {
         titelView.setText("Group" + idGroup);
     }
 
-    //Generate the Main Button GridLayout
+    /**
+     * generate the buttons based on the group id but without the logged user
+     *
+     */
     private void generateButtons() {
         UserDataSource userDataSource = new UserDataSource(this);
         users = userDataSource.getAllUsersFromGroupID(idGroup);
@@ -95,7 +98,10 @@ public class GroupUserActivity extends AppCompatActivity {
 
     }
 
-    //onclicklistneer
+    /**
+     * this will run ig the user click on a button or on leave croup
+     *
+     */
     public void onClick(View v, int index) {
         if (index != buttonList.size()-1) {
             UserDataSource userDataSource = new UserDataSource(this);
@@ -119,12 +125,18 @@ public class GroupUserActivity extends AppCompatActivity {
         }
     }
 
-    //show all
+    /**
+     * Show all categories from all exercises
+     *
+     */
     public void showExercisesCat(View v){
         CallMainActivitys.showExersiseCatagory(v, this);
     }
 
-    //show personal plan
+    /**
+     * Show all categories from my plan
+     *
+     */
     public void showMyPlan(View v){
         CallMainActivitys.showExersisePlan(v, this);
     }

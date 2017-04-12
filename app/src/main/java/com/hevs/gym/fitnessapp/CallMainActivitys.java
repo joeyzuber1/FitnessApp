@@ -14,7 +14,10 @@ import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 
 public class CallMainActivitys {
 
-    //Show the exercises split in categories
+    /**
+     * Show the exercises split in categories
+     *
+     */
     public static void showExersiseCatagory(View v, AppCompatActivity previusActivity){
         Intent inten = new Intent(previusActivity, ExcersisesCatActivity.class);
         inten.putExtra("Titel", "Excersises");
@@ -23,7 +26,10 @@ public class CallMainActivitys {
         previusActivity.startActivity(inten);
     }
 
-    //Show the exercises split in categories from user Plan
+    /**
+     * Show the exercises split in categories from user Plan
+     *
+     */
     public static void showExersisePlan(View v, AppCompatActivity previusActivity){
         Intent inten = new Intent(previusActivity, ExcersisesCatActivity.class);
         inten.putExtra("Titel", "My Plan");
@@ -32,7 +38,10 @@ public class CallMainActivitys {
         previusActivity.startActivity(inten);
     }
 
-    //Show the exercises split in categories from other user Plan
+    /**
+     * Show the exercises split in categories from other user Plan
+     *
+     */
     public static void showExersisePlanFromUser(View v, AppCompatActivity previusActivity, long userID, String username)
     {
         Intent inten = new Intent(previusActivity, ExcersisesCatActivity.class);
@@ -41,8 +50,10 @@ public class CallMainActivitys {
         inten.putExtra("idUser", userID);
         previusActivity.startActivity(inten);
     }
-
-    //Show the exercises split in categories from user Plan
+    /**
+     * Show the exercises split in categories from user Plan
+     *
+     */
     public static void showExersise(View v, AppCompatActivity previusActivity, long exID)
     {
         Intent intent =  new Intent(previusActivity, ShowActivity.class);

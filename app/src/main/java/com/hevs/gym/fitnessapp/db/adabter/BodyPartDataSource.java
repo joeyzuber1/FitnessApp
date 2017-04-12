@@ -22,7 +22,7 @@ public class BodyPartDataSource {
     private Context context;
 
     /**
-     *
+     *  Cunstroctor for Body Part Data Source
      *
      */
     public BodyPartDataSource(Context context) {
@@ -33,7 +33,7 @@ public class BodyPartDataSource {
 
     /**
      *
-     *
+     *  Insert one Body part and give the id back
      */
     public long createBodyPart(BodyPart bodypart) {
         long id;
@@ -45,7 +45,7 @@ public class BodyPartDataSource {
     }
 
     /**
-     *
+     *  get one Body part by id
      *
      */
     public BodyPart getBodyPartById(long id) {
@@ -67,7 +67,7 @@ public class BodyPartDataSource {
     }
 
     /**
-     *
+     *  get all body part
      *
      */
     public List<BodyPart> getAllBodyParts() {
@@ -90,7 +90,7 @@ public class BodyPartDataSource {
     }
 
     /**
-     *
+     *  get all body parts from a plan
      *
      */
     public List<BodyPart> getAllBodyPartsByPlanID(long id) {
@@ -110,7 +110,7 @@ public class BodyPartDataSource {
     }
 
     /**
-     *
+     * update a body part
      *
      */
     public int updateBodyPart(BodyPart bodyPart) {
@@ -122,7 +122,7 @@ public class BodyPartDataSource {
     }
 
     /**
-     *
+     * delete one body part
      *
      */
     public boolean deleteBodyPart(long id) {

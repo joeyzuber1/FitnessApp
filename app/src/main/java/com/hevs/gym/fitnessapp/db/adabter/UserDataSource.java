@@ -24,7 +24,7 @@ public class UserDataSource {
 
     /**
      *
-     *
+     * Constructor of Userdata
      */
     public UserDataSource(Context context) {
         SQLiteHelper sqliteHelper = SQLiteHelper.getInstance(context);
@@ -33,7 +33,7 @@ public class UserDataSource {
     }
 
     /**
-     *
+     * create a new user and give the id back
      *
      */
     public long createUser(User user) {
@@ -68,7 +68,7 @@ public class UserDataSource {
     }
 
     /**
-     *
+     * get a user by id
      *
      */
     public User getUserById(long id) {
@@ -107,7 +107,7 @@ public class UserDataSource {
 
 
     /**
-     *
+     * get all users by id
      *
      */
     public List<User> getAllUsers() {
@@ -153,7 +153,10 @@ public class UserDataSource {
         return persons;
     }
 
-
+    /**
+     * get all users from a group
+     *
+     */
     public List<User> getAllUsersFromGroupID(long id) {
         GroupUsersDataSource groupUsersDataSource = new GroupUsersDataSource(context);
         List<GroupUser> groupUsers = groupUsersDataSource.getAllGroupUserByGroupID(id);
@@ -167,7 +170,7 @@ public class UserDataSource {
 
     /**
      *
-     *
+     * update a user
      */
     public int updateUser(User user) {
         ContentValues values = new ContentValues();
@@ -192,7 +195,7 @@ public class UserDataSource {
     }
 
     /**
-     *
+     * delete a user
      *
      */
     public void deleteUser(long id) {
@@ -202,6 +205,14 @@ public class UserDataSource {
         for (GroupUser groupUser : groupUsers) {
             if (groupUser.getUserID() == id)
                 guds.deleteGroupUsers(groupUser.getGroupUserID());
+        }
+
+        PlanDataSource plds = new PlanDataSource(context);
+        List<Plan> planList = plds.getPlanFromUserID(id);
+
+        for (Plan plan : planList) {
+            if (plan.getUserID() == id)
+                plds.deletePlan(plan.getPlanID());
         }
 
         //delete the person

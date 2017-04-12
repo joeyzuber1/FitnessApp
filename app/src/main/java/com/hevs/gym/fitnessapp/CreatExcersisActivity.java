@@ -22,6 +22,8 @@ public class CreatExcersisActivity extends AppCompatActivity {
 
     List<BodyPart> bodyParts;
     Spinner sBodyParts;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,10 @@ public class CreatExcersisActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *  if you click create this method will be called
+     *
+     */
     public void createEx(View v)
     {
         long bodyID = -1;

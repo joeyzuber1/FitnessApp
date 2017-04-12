@@ -39,7 +39,10 @@ public class ExersisesActivity extends AppCompatActivity {
         generateButtons();
     }
 
-    //Diese klasse kann abgeändert werden da exIDs übergeben werden
+    /**
+     * generate the buttons based on the userid and the plan id
+     *
+     */
     private void generateButtons() {
         buttonList = new ArrayList<Button>();
         idExs = new ArrayList<Long>();
@@ -101,16 +104,26 @@ public class ExersisesActivity extends AppCompatActivity {
         }
     }
 
-    //onclicklistener
+    /**
+     * if someone click oon a ex. this will wur
+     *
+     */
     public void onClick(View v, int index){
         CallMainActivitys.showExersise(v, this, idExs.get(index));
     }
 
-    //show all
+    /**
+     * Show all categories from all exercises
+     *
+     */
     public void showExercisesCat(View v){
         CallMainActivitys.showExersiseCatagory(v, this);
     }
 
+    /**
+     * run when the user returns
+     *
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -121,12 +134,18 @@ public class ExersisesActivity extends AppCompatActivity {
         generateButtons();
     }
 
-    //showpersonal plan
+    /**
+     * Show all categories from my plan
+     *
+     */
     public void showMyPlan(View v){
         CallMainActivitys.showExersisePlan(v, this);
     }
 
-    //go back
+    /**
+     * return
+     *
+     */
     @Override
     public void onBackPressed() {
         if (isMyPlan && idUser == UserInfos.getUserID()){

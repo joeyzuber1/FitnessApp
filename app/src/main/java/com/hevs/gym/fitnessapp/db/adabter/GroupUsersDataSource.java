@@ -24,7 +24,7 @@ public class GroupUsersDataSource {
     private Context context;
 
     /**
-     *
+     * Constructor of GroupUser
      *
      */
     public GroupUsersDataSource(Context context) {
@@ -35,9 +35,9 @@ public class GroupUsersDataSource {
 
     /**
      *
-     *
+     * create a new GroupUser
      */
-    public long createGrouUser(GroupUser groupUser) {
+    public long createGroupUser(GroupUser groupUser) {
         long id;
         ContentValues values = new ContentValues();
         values.put(FitnessContract.GroupUsersEntry.KEY_GroupID, groupUser.getGroupID());
@@ -48,7 +48,7 @@ public class GroupUsersDataSource {
     }
 
     /**
-     *
+     * get GroupUser by id Group and ID User
      *
      */
     public GroupUser gettGrouUserFromUserIDGroupID(long groupid, long userID) {
@@ -71,7 +71,7 @@ public class GroupUsersDataSource {
     }
 
     /**
-     *
+     * get all groupusers
      *
      */
     public List<GroupUser> getAllGroupUser() {
@@ -95,7 +95,7 @@ public class GroupUsersDataSource {
     }
 
     /**
-     *
+     * get all groupusers by user id
      *
      */
     public List<GroupUser> getAllGroupUserByUseID(long userID) {
@@ -120,7 +120,7 @@ public class GroupUsersDataSource {
     }
 
     /**
-     *
+     * get all group users by group id
      *
      */
     public List<GroupUser> getAllGroupUserByGroupID(long groupID) {
@@ -145,7 +145,7 @@ public class GroupUsersDataSource {
     }
 
     /**
-     *
+     * delete a group user
      *
      */
     public void deleteGroupUsers(long id) {

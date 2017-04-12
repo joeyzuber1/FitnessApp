@@ -23,7 +23,7 @@ public class ExerciseDataSource {
     private Context context;
 
     /**
-     *
+     * Constructor exercises
      *
      */
     public ExerciseDataSource(Context context) {
@@ -34,7 +34,7 @@ public class ExerciseDataSource {
 
     /**
      *
-     *
+     *  create a exercise and gives the id back
      */
     public long createExercise(Exercise exercise) {
         long id;
@@ -48,7 +48,7 @@ public class ExerciseDataSource {
     }
 
     /**
-     *
+     * get one exercise by id
      *
      */
     public Exercise getExerciseById(long id) {
@@ -72,7 +72,7 @@ public class ExerciseDataSource {
     }
 
     /**
-     *
+     * get all exercises from a plan
      *
      */
     public List<Exercise> getExerciseByPlanID(long id) {
@@ -90,7 +90,7 @@ public class ExerciseDataSource {
     }
 
     /**
-     *
+     *  gett al exercises by a planid and body part id
      *
      */
     public List<Exercise> getExerciseByPlanIDAndBodyPartID(long id, long bodyPartID) {
@@ -113,7 +113,7 @@ public class ExerciseDataSource {
 
 
     /**
-     *
+     * get all exercises
      *
      */
     public List<Exercise> getAllExercises() {
@@ -138,7 +138,7 @@ public class ExerciseDataSource {
     }
 
     /**
-     *
+     * get all Exercises from one body part id
      *
      */
     public List<Exercise> getAllExercisesFromBodyPartID(long BodyPartID) {
@@ -165,7 +165,7 @@ public class ExerciseDataSource {
     }
 
     /**
-     *
+     *  update a exercises
      *
      */
     public int updateExercises(Exercise exercise) {
@@ -179,7 +179,7 @@ public class ExerciseDataSource {
     }
 
     /**
-     *
+     * delete a exercises
      *
      */
     public void deleteExercise(long id) {

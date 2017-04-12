@@ -17,7 +17,10 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
     }
 
-    //register
+    /**
+     * this will happen when the user click on the registery button
+     *
+     */
     public void register(View v)
     {
         Intent intent = new Intent(this, MainActivity.class);

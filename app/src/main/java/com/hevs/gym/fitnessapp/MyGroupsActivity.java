@@ -7,11 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
@@ -39,7 +37,10 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     }
 
-    //Generate the Main Button GridLayout
+    /**
+     * generate the buttons bases on the user groups
+     *
+     */
     private void generateButtons() {
         buttonList = new ArrayList<Button>();
         GroupDataSource groupDataSource = new GroupDataSource(this);
@@ -81,7 +82,10 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     }
 
-    //on click listener
+    /**
+     * this will happen when the user click on a button
+     *
+     */
     public void onClick(View v, int index) {
         if (index != buttonList.size() - 1) {
             Intent intent = new Intent(this, GroupUserActivity.class);
@@ -106,7 +110,7 @@ public class MyGroupsActivity extends AppCompatActivity {
         GroupUser gu = new GroupUser();
         gu.setGroupID(idGroup);
         gu.setUserID(idUser);
-        groupUsersDataSource.createGrouUser(gu);
+        groupUsersDataSource.createGroupUser(gu);
 
 
         if (((LinearLayout) findViewById(R.id.mainGroups)).getChildCount() > 0)

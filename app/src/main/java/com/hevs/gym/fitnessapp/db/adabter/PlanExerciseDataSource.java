@@ -23,7 +23,7 @@ public class PlanExerciseDataSource {
     private Context context;
 
     /**
-     *
+     * Constructor of PlanEx
      *
      */
     public PlanExerciseDataSource(Context context) {
@@ -33,7 +33,7 @@ public class PlanExerciseDataSource {
     }
 
     /**
-     *
+     * create a new PlanEx and gives the id back
      *
      */
     public long createPlanExercise(PlanExercise planExercise) {
@@ -47,7 +47,7 @@ public class PlanExerciseDataSource {
     }
 
     /**
-     *
+     * get all Plan exs
      *
      */
     public List<PlanExercise> getAllPlanExercise() {
@@ -71,7 +71,7 @@ public class PlanExerciseDataSource {
     }
 
     /**
-     *
+     * give all plan ex by planid
      *
      */
     public List<PlanExercise> getAllPlanExerciseByPlanID(long id) {
@@ -96,7 +96,7 @@ public class PlanExerciseDataSource {
     }
 
     /**
-     *
+     * delete a planEx
      *
      */
     public void deletePlanExercise(long id) {

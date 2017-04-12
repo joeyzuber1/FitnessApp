@@ -15,30 +15,45 @@ public class MainMenuActivitiy extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu_activitiy);
     }
 
-    //create exersis
+    /**
+     * open creation exercis
+     *
+     */
     public void creatExersis(View v){
         Intent intent = new Intent(this, CreatExcersisActivity.class);
         startActivity(intent);
     }
 
-    //show all
+    /**
+     * show all categories
+     *
+     */
     public void showExersiseCatagory(View v){
         CallMainActivitys.showExersiseCatagory(v, this);
     }
 
-    //show personal plan
+    /**
+     * show all categories from my plan
+     *
+     */
     public void showExersisePlan(View v){
         CallMainActivitys.showExersisePlan(v, this);
     }
 
-    //go back
+    /**
+     * go back
+     *
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    //show my groups
+    /**
+     * open the group activitys
+     *
+     */
     public void showGroups(View v){
         Intent intent = new Intent(this, MyGroupsActivity.class);
         startActivity(intent);
