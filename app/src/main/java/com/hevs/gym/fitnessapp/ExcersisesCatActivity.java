@@ -3,6 +3,9 @@ package com.hevs.gym.fitnessapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,6 +26,7 @@ public class ExcersisesCatActivity extends AppCompatActivity {
     private boolean isMyPlan;
     private List<BodyPart> bodyParts;
     private List<Long> idParts;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +156,45 @@ public class ExcersisesCatActivity extends AppCompatActivity {
      */
     public void showMyPlan(View v){
         CallMainActivitys.showExersisePlan(v, this);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (UserInfos.isIsAdmin())
+        {
+            MenuInflater inflator = getMenuInflater();
+            inflator.inflate(R.menu.menu_addcat, menu);
+            this.menu = menu;
+        }
+        return true;
+    }
+
+    /**
+     * On click listener for the top right menu
+     *
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_addcat) {
+            //change
+            Intent intent = new Intent(this, addDel_CategoryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.menu_createEx) {
+            //change
+            Intent intent = new Intent(this, CreatExcersisActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+   /* if (id == R.id.menu_addExtoPlan) {
+
+               return true;
+           } */
+
+        return super.onOptionsItemSelected(item);
     }
 
     //go back

@@ -49,7 +49,6 @@ public class ShowActivity extends AppCompatActivity {
                 isInMyPlan = true;
             }
         }
-
     }
 
     /**
@@ -105,8 +104,6 @@ public class ShowActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.menu_change) {
             //change
-
-
             return true;
         }
         if (id == R.id.menu_delete) {
@@ -132,7 +129,6 @@ public class ShowActivity extends AppCompatActivity {
                     if (pe.getPlanID() == planID && pe.getExerciseID() == exID) {
                         planExerciseDataSource.deletePlanExercise(pe.getPlanExerciseID());
                     }
-
                 }
             }
             else
@@ -141,7 +137,6 @@ public class ShowActivity extends AppCompatActivity {
                 pe.setExerciseID(exID);
                 pe.setPlanID(planID);
                 planExerciseDataSource.createPlanExercise(pe);
-
             }
             isInMyPlan = ! isInMyPlan;
             updateMenuItem();
@@ -165,7 +160,7 @@ public class ShowActivity extends AppCompatActivity {
 
         if (UserInfos.isIsAdmin())
         {
-           menu.setGroupVisible(R.id.menuAdminGroup, false);
+           menu.setGroupVisible(R.id.menuAdminGroup, true);
         }
     }
 }

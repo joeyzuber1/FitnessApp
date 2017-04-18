@@ -1,7 +1,13 @@
 package com.hevs.gym.fitnessapp;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -9,7 +15,9 @@ import android.widget.TextView;
 
 import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.objects.Exercise;
+import com.hevs.gym.fitnessapp.db.objects.PlanExercise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +31,12 @@ public class ExersisesActivity extends AppCompatActivity {
     private long idBodyPart;
     private List<Exercise> exercises;
     private List<Long> idExs;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exersises);
-
 
         isMyPlan = getIntent().getBooleanExtra("isMyPlan", false);
         idUser = getIntent().getLongExtra("idUser", -1);
@@ -112,14 +120,15 @@ public class ExersisesActivity extends AppCompatActivity {
         CallMainActivitys.showExersise(v, this, idExs.get(index));
     }
 
+
     /**
      * Show all categories from all exercises
      *
      */
+
     public void showExercisesCat(View v){
         CallMainActivitys.showExersiseCatagory(v, this);
     }
-
     /**
      * run when the user returns
      *
@@ -130,7 +139,6 @@ public class ExersisesActivity extends AppCompatActivity {
 
         if(((LinearLayout) findViewById(R.id.mainExersises)).getChildCount() > 0)
             ((LinearLayout) findViewById(R.id.mainExersises)).removeAllViews();
-
         generateButtons();
     }
 
@@ -157,5 +165,50 @@ public class ExersisesActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * top right the menu button
+     *
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (UserInfos.isIsAdmin())
+        {
+            MenuInflater inflator = getMenuInflater();
+            inflator.inflate(R.menu.menu_exercisecat, menu);
+            this.menu = menu;
+        }
+        return true;
+    }
+
+    /**
+     * On click listener for the top right menu
+     *
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+           if (id == R.id.menu_createEx) {
+               //change
+               Intent intent = new Intent(this, CreatExcersisActivity.class);
+               intent.putExtra("idBodyPart", idBodyPart);
+               startActivity(intent);
+               return true;
+       }
+
+           if (id == R.id.menu_createEx) {
+               //change
+               Intent intent = new Intent(this, CreatExcersisActivity.class);
+               intent.putExtra("idBodyPart", idBodyPart);
+               startActivity(intent);
+               return true;
+           }
+
+   /* if (id == R.id.menu_addExtoPlan) {
+
+               return true;
+           } */
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

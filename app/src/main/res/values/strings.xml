@@ -2,11 +2,12 @@
     <string name="app_name">FitnessApp</string>
     <!-- ################################################################## Temp-->
     <string name="cat_prompt">Choose a Categorie</string>
-    <string-array name="cat_array">
+
+    <!--  <string-array name="cat_array">
         <item>Back1</item>
         <item>Arm1</item>
         <item>Leg1</item>
-    </string-array>
+    </string-array> -->
     <string-array name="back_array">
         <item>Deadlift1</item>
         <item>Pull up1</item>
@@ -38,7 +39,6 @@
     <string name="button_login">Login</string>
     <string name="button_MakeAdmin">Transport to Admin</string>
     <string name="button_Users">Users</string>
-
 
 
     <!-- ################################################################## register-->
@@ -74,19 +74,22 @@
     <string name="input_exname">Name :</string>
     <string name="input_excat">Categorie :</string>
     <string name="input_exdescription">Description :</string>
+    <string name="input_catname">Category Name :</string>
     <!-- hints-->
     <string name="hint_exname">Name..</string>
     <string name="hint_exdescription">Write here your description...</string>
+    <string name="hint_catname">Name..</string>
     <!--Buttons -->
     <string name="button_create">Create</string>
-
-
 
 
     <!-- ################################################################## Bottom-->
     <!--Buttons -->
     <string name="button_bAllEx">Exercises</string>
     <string name="button_bPlan">My Plan</string>
+    <string name="button_addcategory">add Category</string>
+    <string name="button_delcategory">delete Category</string>
+
     <!-- ################################################################## My Group-->
     <!-- titel-->
     <string name="titel_groups">My Groups</string>
@@ -97,9 +100,15 @@
     <!-- ################################################################## Menu Exercises-->
     <!-- titel-->
     <string name="menu_add">Add to my Plan</string>
+    <string name="menu_addexercisefromcat">Add a Exercise to Categorie</string>
     <string name="menu_deletP">Delete from my Plan</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_change">Change</string>
+    <string name="menu_creatEx">Create exercise</string>
+    <string name="menu_removeExplan">Remove from MyPlan</string>
+    <string name="menu_addExtoPlan">Add new exercise to MyPlan</string>
+    <string name="menu_addcat">Add/Delete</string>
+
 
     <!-- ################################################################## dialogs-->
     <!-- titel-->
@@ -115,5 +124,6 @@
     <string name="dialog_q_join">Insert the name of the Group</string>
     <string name="dialog_t_delete">Delete Exercise</string>
     <string name="dialog_q_delete">Are you sure you want to delete this Exercise?</string>
+    <string name="title_activity_add_del_category">addDelCategory</string>
 
 </resources>

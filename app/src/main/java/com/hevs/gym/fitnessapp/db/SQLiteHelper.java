@@ -101,16 +101,29 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         uds.createUser(admin);
 
         //BodyParts
+       /* BodyPart bpBelly = new BodyPart();
+        bpBelly.setBodySection("Belly");
         BodyPart bpArm = new BodyPart();
         bpArm.setBodySection("Arm");
         BodyPart bpLeg = new BodyPart();
         bpLeg.setBodySection("Leg");
+        BodyPart bpShoulders = new BodyPart();
+        bpShoulders.setBodySection("Shoulder");
         BodyPart bpBack = new BodyPart();
         bpBack.setBodySection("Back");
-        BodyPartDataSource bpds = new BodyPartDataSource(context);
-        bpds.createBodyPart(bpLeg);
-        bpds.createBodyPart(bpArm);
+        BodyPart bpChest = new BodyPart();
+        bpChest.setBodySection("Chest");
+
+  BodyPartDataSource bpds = new BodyPartDataSource(context);
+
+        bpds.createBodyPart(bpChest);
         bpds.createBodyPart(bpBack);
+        bpds.createBodyPart(bpShoulders);
+        bpds.createBodyPart(bpArm);
+        bpds.createBodyPart(bpLeg);
+        bpds.createBodyPart(bpBelly); */
+
+
     }
 
 //

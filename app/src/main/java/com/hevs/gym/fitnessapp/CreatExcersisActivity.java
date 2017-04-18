@@ -25,12 +25,11 @@ public class CreatExcersisActivity extends AppCompatActivity {
     List<BodyPart> bodyParts;
     Spinner sBodyParts;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creat_excersis);
-
+        long idBodyPart = getIntent().getLongExtra("idBodyPart", 0);
 
         List<String> spinnerArray =  new ArrayList<String>();
         BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
@@ -47,8 +46,13 @@ public class CreatExcersisActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sBodyParts = (Spinner) findViewById(R.id.spin_bodyPart);
         sBodyParts.setAdapter(adapter);
-
-
+        for (int i = 0; i<bodyParts.size(); i++)
+        {
+            if (bodyParts.get(i).getPartOfBodyID() == idBodyPart )
+            {
+                sBodyParts.setSelection(i);
+            }
+        }
     }
 
     /**
@@ -66,30 +70,25 @@ public class CreatExcersisActivity extends AppCompatActivity {
         }
         ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
         Exercise ex = new Exercise();
+        if(((EditText) findViewById(R.id.in_exname)).getText().length() > 0 && ((EditText) findViewById(R.id.in_exdes)).getText().length()>0 && bodyID > -1){
+
         ex.setExerciseName(((EditText) findViewById(R.id.in_exname)).getText().toString());
         ex.setExerciseDescription(((EditText) findViewById(R.id.in_exdes)).getText().toString());
         ex.setBodyPart(bodyID);
-
-        /*if (((EditText) findViewById(R.id.in_exname)).getText().toString().length()>0 && ((EditText) findViewById(R.id.in_exdes)).getText().toString().length()>0
-                ) //alles gut
-        { */
             exerciseDataSource.createExercise(ex);
-            Intent intent = new Intent(this, MainMenuActivitiy.class);
-            startActivity(intent);
-       /* } */
-        /*else{
+            finish();
+       }
+        else{
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("You didn't fill in all Fields. Do you wanna continue with Registration?")
+                    .setMessage("You didn't fill in all fields. Do you wanna continue with creation?")
                     .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
-                            System.exit(0);
                         }
                     }).setNegativeButton("Yes", null).show(); //hardcoded
-
                     }
-                    */
+
 
         }
 

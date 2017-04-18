@@ -1,7 +1,9 @@
 Pflicht
 
-Kategorien Hinzufügen // Bei all Exercises unten popup butten zum adden
-Kategorien Löschen(Nur wenn leer) //Wenn kategorie ausgewählt und keine Exercises ein button löschen
+//Kategorien Hinzufügen // wird nicht refreshed // Bei all Exercises unten popup butten zum adden ((sry aber ich denke das wir das statisch machen da es in meinem App auch so ist und so sinn macht da der Admin keine Kategorie hinzufügen wird die Füsse heisst)
+//Kategorien Löschen(Nur wenn leer)//Geht etwas nicht //Wenn kategorie ausgewählt und keine Exercises ein button löschen(in jedem App gibt es mindestens 1 übung pro Bodypart sonst ist es nicht ein gutes App)
+//Nein diese Veränderungen habe ich nicht statisch gemacht um weniger zu machen versuche das App sonst noch zu optimieren aber das macht mir am meisten sinn
+//  Bei Beschwerden bitte melde dich an mich
 Pläne verwalten (Löschen/Ändern/Hinzufügen) //Neue ansicht, da aber nur name, eventuell nur Popup zum ändern und hinzufügen
 Aber zwischenschritt user ->plan->kategorien ein neuer Screen
 
@@ -13,10 +15,10 @@ Aber zwischenschritt user ->plan->kategorien ein neuer Screen
 //Prüfen ob passwort gleich!
 //Prüfen ob alles eingegeben!
 
-/Login anmelden Passwort prüfen und fehlermeldung
+//Login anmelden Passwort prüfen und fehlermeldung
 
-Exercise Create
-Prüfen ob wirklich alles eingegeben
+//Exercise Create
+//Prüfen ob wirklich alles eingegeben
 
 Exercise Change
 Exercise Create wiederverwenden
@@ -24,4 +26,6 @@ Exercise Create wiederverwenden
 User
 Exersice
 Change
+
+Settings
 

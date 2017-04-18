@@ -25,7 +25,8 @@
         <activity android:name=".ShowActivity" />
         <activity android:name=".MyGroupsActivity" />
         <activity android:name=".GroupUserActivity" />
-        <activity android:name=".MakeAdmin"></activity>
+        <activity android:name=".MakeAdmin" />
+        <activity android:name=".addDel_CategoryActivity"></activity>
     </application>
 
 </manifest>

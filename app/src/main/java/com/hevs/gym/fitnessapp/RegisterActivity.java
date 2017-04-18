@@ -11,12 +11,32 @@ import android.widget.EditText;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 import com.hevs.gym.fitnessapp.db.objects.User;
 
+import java.util.List;
+
 public class RegisterActivity extends AppCompatActivity {
+
+    private UserDataSource userDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        userDataSource = new UserDataSource(this);
+        List<User> users = userDataSource.getAllUsers();
+        long iduser = getIntent().getLongExtra("userID", -1);
+        for (int i = 0; i<users.size(); i++)
+        {
+            if (users.get(i).getUserID() == iduser )
+            {
+                ((EditText) findViewById(R.id.in_username)).setText(users.get(i).getNamelogin());
+               ((EditText) findViewById(R.id.in_fname)).setText(users.get(i).getFirstname());
+                ((EditText) findViewById(R.id.in_lname)).setText(users.get(i).getLastname());
+               ((EditText) findViewById(R.id.in_pw1)).setText(users.get(i).getPassword());
+                ((EditText) findViewById(R.id.in_pw2)).setText(users.get(i).getPassword());
+
+            }
+
+        }
     }
 
     /**
