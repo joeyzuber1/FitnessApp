@@ -30,10 +30,8 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     public void  logIn(View v){
-
         String username = ((EditText) findViewById(R.id.login_username)).getText().toString();
         String pw = ((EditText) findViewById(R.id.login_passwd)).getText().toString();
-
 
         List<User> users = userDataSource.getAllUsers();
 
@@ -54,12 +52,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (isTrue) {
+        if (isTrue == true) {
             Intent intent = new Intent(this, MainMenuActivitiy.class);
             startActivity(intent);
         }else
         {
-            //Fehlermeldung
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
+                    .setMessage("Username or password are wrong. Please try again")
+                    .setNegativeButton("OK", null).show(); //hardcoded
+            ((EditText) findViewById(R.id.login_username)).getText().clear();
+            ((EditText) findViewById(R.id.login_passwd)).getText().clear();
         }
     }
 

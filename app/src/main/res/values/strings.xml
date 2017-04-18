@@ -30,26 +30,30 @@
     <string name="example_description">"Here is a very nice nice nice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nicenice nice Description Die 1961 von Robert McNamara durch die Directive 5105.21 aufgestellte DIA sammelt und analysiert die von den Geheimdiensten der Teilstreitkräfte beschafften Informationen und gibt die daraus gewonnenen Erkenntnisse an die zuständigen Entscheidungsträger in Pentagon und US-Regierung sowie an die Einsatztruppen weiter. Hauptsitz ist das Zentrum für nachrichtendienstliche Auswertung auf dem ehem. Luftwaffenstützpunkt Bolling Air Force Base (heute Teil der Joint Base Anacostia-Bolling) in Washington, D.C. Daneben gibt es weitere Standorte sowie den Militärattachés angegliederte Posten in den Botschaften der Vereinigten Staaten.[2] Hauptsitz der DIA auf der Joint Base Anacostia-Bolling in Washington, D.C. Die DIA besteht im Wesentlichen aus vier Hauptabteilungen (Directorates): Directorate for Analysis Directorate for OperationsDirectorate for Science  TechnologyDirectorate for Mission Servicesund fünf Auswertungszentren (Intelligence Centers) mit je geografischem, in einem Fall thematischem Schwerpunkt:Americas CenterAsia/Pacific CenterDefense Combating Terrorism CenerEurope/Eurasia CenterMiddle East/Africa CenterAußerdem befindet sich auf dem Gelände der DIA noch die National Intelligence University, für die jedoch ein Umzug nach Bethesda in Maryland geplant ist.[3]        "</string>
     <!-- ################################################################## Main-->
     <!--inputs-->
-    <string name="input_username">Username :</string>
-    <string name="input_password">Password :</string>
-
-
     <!-- hints-->
-    <string name="hint_username">Username...</string>
+
 
     <!--Buttons -->
     <string name="button_register">Register</string>
     <string name="button_login">Login</string>
+    <string name="button_MakeAdmin">Transport to Admin</string>
+    <string name="button_Users">Users</string>
+
+
 
     <!-- ################################################################## register-->
     <!-- inputs-->
     <string name="input_fname">Firstname :</string>
     <string name="input_lname">Lastname :</string>
+    <string name="input_username">Username :</string>
+    <string name="input_password">Password :</string>
+
     <string name="input_passwordR">Password Repeat :</string>
 
     <!-- hints-->
     <string name="hint_fname">Firstname...</string>
     <string name="hint_lname">Lastname...</string>
+    <string name="hint_username">Username...</string>
 
     <!--Buttons -->
 
@@ -75,6 +79,9 @@
     <string name="hint_exdescription">Write here your description...</string>
     <!--Buttons -->
     <string name="button_create">Create</string>
+
+
+
 
     <!-- ################################################################## Bottom-->
     <!--Buttons -->

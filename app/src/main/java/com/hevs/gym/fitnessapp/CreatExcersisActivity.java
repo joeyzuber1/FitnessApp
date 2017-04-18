@@ -1,6 +1,8 @@
 package com.hevs.gym.fitnessapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.Spinner;
 
 import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 import com.hevs.gym.fitnessapp.db.objects.BodyPart;
 import com.hevs.gym.fitnessapp.db.objects.Exercise;
 
@@ -18,7 +21,6 @@ import java.util.List;
 
 
 public class CreatExcersisActivity extends AppCompatActivity {
-
 
     List<BodyPart> bodyParts;
     Spinner sBodyParts;
@@ -68,8 +70,29 @@ public class CreatExcersisActivity extends AppCompatActivity {
         ex.setExerciseDescription(((EditText) findViewById(R.id.in_exdes)).getText().toString());
         ex.setBodyPart(bodyID);
 
-        exerciseDataSource.createExercise(ex);
-        Intent intent = new Intent(this, MainMenuActivitiy.class);
-        startActivity(intent);
-    }
+        /*if (((EditText) findViewById(R.id.in_exname)).getText().toString().length()>0 && ((EditText) findViewById(R.id.in_exdes)).getText().toString().length()>0
+                ) //alles gut
+        { */
+            exerciseDataSource.createExercise(ex);
+            Intent intent = new Intent(this, MainMenuActivitiy.class);
+            startActivity(intent);
+       /* } */
+        /*else{
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
+                    .setMessage("You didn't fill in all Fields. Do you wanna continue with Registration?")
+                    .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            System.exit(0);
+                        }
+                    }).setNegativeButton("Yes", null).show(); //hardcoded
+
+                    }
+                    */
+
+        }
+
+
+
 }

@@ -37,9 +37,19 @@ public class MainMenuActivitiy extends AppCompatActivity {
      *
      */
     public void showExersisePlan(View v){
+
         CallMainActivitys.showExersisePlan(v, this);
     }
 
+    /**
+     * go to make a User to an Admin
+     *
+     */
+
+    public void Users(View v){
+        Intent intent = new Intent(this, MakeAdmin.class);
+        startActivity(intent);
+    }
     /**
      * go back
      *
@@ -58,4 +68,6 @@ public class MainMenuActivitiy extends AppCompatActivity {
         Intent intent = new Intent(this, MyGroupsActivity.class);
         startActivity(intent);
     }
+
+
 }

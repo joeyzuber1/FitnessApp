@@ -45,5 +45,11 @@
             android:onClick="showGroups"
             android:text="@string/button_group" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="Users"
+            android:text="@string/button_Users" />
+
     </LinearLayout>
 </ScrollView>

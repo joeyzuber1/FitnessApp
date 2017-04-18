@@ -24,7 +24,8 @@
         <activity android:name=".ExersisesActivity" />
         <activity android:name=".ShowActivity" />
         <activity android:name=".MyGroupsActivity" />
-        <activity android:name=".GroupUserActivity"></activity>
+        <activity android:name=".GroupUserActivity" />
+        <activity android:name=".MakeAdmin"></activity>
     </application>
 
 </manifest>

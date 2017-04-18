@@ -61,7 +61,7 @@ public class ShowActivity extends AppCompatActivity {
         Exercise ex = exerciseDataSource.getExerciseById(exID);
 
         TextView titel = (TextView) findViewById(R.id.titelExercise);
-        titel.setText(ex.getExerciseName()); //DB
+        titel.setText(ex.getExerciseName());
         TextView description = (TextView) findViewById(R.id.descriptionExercise);
         description.setText(ex.getExerciseDescription());
     }

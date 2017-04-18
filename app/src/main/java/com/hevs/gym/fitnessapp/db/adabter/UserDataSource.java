@@ -107,7 +107,7 @@ public class UserDataSource {
 
 
     /**
-     * get all users by id
+     * get all users
      *
      */
     public List<User> getAllUsers() {

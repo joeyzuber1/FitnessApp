@@ -34,7 +34,6 @@ public class MyGroupsActivity extends AppCompatActivity {
         if (idUser >= 0) {
             generateButtons();
         }
-
     }
 
     /**
@@ -78,8 +77,6 @@ public class MyGroupsActivity extends AppCompatActivity {
             ll.addView(b);
             buttonList.add(b);
         }
-
-
     }
 
     /**

@@ -20,8 +20,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
      * Infos about the database
      *
      */
-    private static final String DATABASE_NAME = "Fitness2.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "Fitness.db";
+    private static final int DATABASE_VERSION = 2;
     private static SQLiteHelper instance;
     private Context context;
 
