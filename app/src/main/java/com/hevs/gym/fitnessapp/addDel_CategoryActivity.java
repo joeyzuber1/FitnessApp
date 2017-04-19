@@ -26,10 +26,8 @@ public class addDel_CategoryActivity extends AppCompatActivity {
     View v;
     public int counter;
 
-
     BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
     ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,10 @@ public class addDel_CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_del__category);
 
     }
-
-
+    /**
+     * Add a Category
+     *
+     */
     public void addCat(View v) {
 
         boolean exist = false;
@@ -70,10 +70,13 @@ public class addDel_CategoryActivity extends AppCompatActivity {
             bodyPartDataSource.createBodyPart(bpcategory);
             CallMainActivitys.showExersiseCatagory(v, this);
 
-
         }
     }
 
+    /**
+     * Del a Category
+     *
+     */
     public void delCat(View v) {
         this.v =v;
 
@@ -86,11 +89,12 @@ public class addDel_CategoryActivity extends AppCompatActivity {
 
         bodyParts = bodyPartDataSource.getAllBodyParts();
 
-
         for (int i = 0; i< bodyParts.size(); i++,counter++)
         {
             if (bodyParts.get(i).getBodySection().toString().equals(name)){
                 long idbodyparts= bodyParts.get(i).getPartOfBodyID();
+
+                //Matthias info(Das wäre die überprüfung das es  noch exercise gibt und es deshalb nicht funktioiert geht irgend was nicht)
 
              /*   for (int y = 0; i< exercises.size(); y++){
 
@@ -107,8 +111,13 @@ public class addDel_CategoryActivity extends AppCompatActivity {
                     }
                 }
                 */
+
                     exist = true;
-                    new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
+                bodyPartDataSource.deleteBodyPart(bodyParts.get(i).getPartOfBodyID());
+                CallMainActivitys.showExersiseCatagory(addDel_CategoryActivity.this.v, addDel_CategoryActivity.this);
+
+                //problem ist es nimmt den counter nicht
+                /*    new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
                             .setMessage("Are you sure you want to delete thid bodypart?")
                             .setPositiveButton("yes", new DialogInterface.OnClickListener() { //Hardcoded
                                 @Override
@@ -118,9 +127,12 @@ public class addDel_CategoryActivity extends AppCompatActivity {
                                     CallMainActivitys.showExersiseCatagory(addDel_CategoryActivity.this.v, addDel_CategoryActivity.this);
                                 }
                             }).setNegativeButton("no", null).show(); //hardcoded
+                            */
                 }
         }
-        counter=0;
+      /*  counter=0;
+      */
+
         if(exist==false){
 
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
@@ -131,8 +143,6 @@ public class addDel_CategoryActivity extends AppCompatActivity {
                             CallMainActivitys.showExersiseCatagory(addDel_CategoryActivity.this.v, addDel_CategoryActivity.this);
                         }
                     }).setNegativeButton("Yes", null).show(); //hardcoded
-
-
         }
 
     }

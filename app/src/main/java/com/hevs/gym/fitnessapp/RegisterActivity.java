@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
@@ -23,10 +24,21 @@ public class RegisterActivity extends AppCompatActivity {
         userDataSource = new UserDataSource(this);
         List<User> users = userDataSource.getAllUsers();
         long iduser = getIntent().getLongExtra("userID", -1);
+        Button register = (Button) findViewById(R.id.register);
+        Button updateRegister = (Button) findViewById(R.id.updateRegister);
+        register.setVisibility(View.VISIBLE);
+        updateRegister.setVisibility(View.INVISIBLE);
+        /**
+         * 2 View for the registration
+         *
+         */
         for (int i = 0; i<users.size(); i++)
         {
             if (users.get(i).getUserID() == iduser )
             {
+                register.setVisibility(View.INVISIBLE);
+                updateRegister.setVisibility(View.VISIBLE);
+
                 ((EditText) findViewById(R.id.in_username)).setText(users.get(i).getNamelogin());
                ((EditText) findViewById(R.id.in_fname)).setText(users.get(i).getFirstname());
                 ((EditText) findViewById(R.id.in_lname)).setText(users.get(i).getLastname());
@@ -43,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void register(View v)
     {
         Intent intent = new Intent(this, MainActivity.class);
-        //User erstellen Muss noch geprüft werden ob alles eingegebene wird
+
         User user = new User();
         user.setNamelogin(((EditText) findViewById(R.id.in_username)).getText().toString());
         user.setFirstname(((EditText) findViewById(R.id.in_fname)).getText().toString());
@@ -80,4 +92,25 @@ public class RegisterActivity extends AppCompatActivity {
                     }).setNegativeButton("Yes", null).show(); //hardcoded
         }
     }
+    /**
+     * button who is comming from updating a User
+     *
+     */
+    public void update(View v){
+
+        long iduser = getIntent().getLongExtra("userID", -1);
+        List<User> users = userDataSource.getAllUsers();
+        for (int i = 0; i<users.size(); i++) {
+            if (users.get(i).getUserID() == iduser) {
+
+                users.get(i).setNamelogin(((EditText) findViewById(R.id.in_username)).getText().toString());
+                users.get(i).setFirstname(((EditText) findViewById(R.id.in_fname)).getText().toString());
+                users.get(i).setLastname(((EditText) findViewById(R.id.in_lname)).getText().toString());
+                users.get(i).setPassword(((EditText) findViewById(R.id.in_pw1)).getText().toString());
+                userDataSource.updateUser(users.get(i));
+                finish();
+            }
+        }
+    }
+
 }

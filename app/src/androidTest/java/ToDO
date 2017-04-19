@@ -1,28 +1,58 @@
-Pflicht
 
-//Kategorien Hinzufügen //  erster eintag wird nicht angeschaut // Bei all Exercises unten popup butten zum adden ((sry aber ich denke das wir das statisch machen da es in meinem App auch so ist und so sinn macht da der Admin keine Kategorie hinzufügen wird die Füsse heisst)
+joey neu(info für  dich)
+Log in // Alles funktioniert Fehlermeldungen auch
+
+Registrieren //Alles funktioniert Fehlermeldungen auch // Muss alles eingegeben werden und passwort muss übereinstimmen
+
+Als Admin anmelden und alle funktionen erhalten funktioniert ausser bei dem letzten mit dem menu das du gemacht hast vielleicht wird dort irgendwo auf admin gewechselt
+
+MyGroups funktioniert alles hast ja du gemacht noch fehlermeldung das es nicht 2 gleiche gruppen geben kann
+
+Create exercise funktioniert alles nurnoch fehlermeldung wenn 2 mal das selbe
+
+Users funktioniert alles nur fehlermeldungen wollen einfach nicht gehen egal was ich eingebe ein paar funktionieren andere nicht
+
+My Plan konnte ich noch nichts machen da ich mit dem anderen noch nicht mal fertig bin
+
+Exersice funktioniert alles wenn ich admin bin kann ich  bodyparty Kreieren
+exercise kreieren, löschen
+CHANGEN das Problem ist der Spinner wie kriege ich den angezeigt ich habe den jetzt in der methode kommentiert habe keine lösung gefunden
+2 tes Problem ist es macht mir immer eine neue Exercise anstatt die alte zu verändern
+
+allgemein zu tun
+MyPlan und Fehlermeldungen und das es nicht doppelt gespeichert wird
+Settings
+
+
+
+Pflicht (habe ich noch sachen hinzugefügt)
+
+//Kategorien Hinzufügen //  erster eintag wird nicht angeschaut //
 //Kategorien Löschen(Nur wenn leer)//counter wird nicht übernommen und nachschauen ob eine bung drin ist //Wenn kategorie ausgewählt und keine Exercises ein button löschen(in jedem App gibt es mindestens 1 übung pro Bodypart sonst ist es nicht ein gutes App)
 //Nein diese Veränderungen habe ich nicht statisch gemacht um weniger zu machen versuche das App sonst noch zu optimieren aber das macht mir am meisten sinn
 //  Bei Beschwerden bitte melde dich an mich
 Pläne verwalten (Löschen/Ändern/Hinzufügen) //Neue ansicht, da aber nur name, eventuell nur Popup zum ändern und hinzufügen
 Aber zwischenschritt user ->plan->kategorien ein neuer Screen
 
-1//User löschen/ändern/Adminmachen /NAchrichten gehen nicht
-1//Ändern -> Registrierungsseite wiederverwenden
-1//Löschen -> Einfacher button im Hauptmenu
+//User löschen/ändern/Adminmachen /NAchrichten gehen nicht
+//Ändern -> Registrierungsseite wiederverwenden
+//Löschen -> Einfacher button im Hauptmenu
 
-1//Registrieren
-1//Prüfen ob passwort gleich!
-1//Prüfen ob alles eingegeben!
+//Registrieren
+//Prüfen ob passwort gleich!
+//Prüfen ob alles eingegeben!
 
-1//Login anmelden Passwort prüfen und fehlermeldung
+//Login anmelden Passwort prüfen und fehlermeldung
 
 //Exercise Create
 //Prüfen ob wirklich alles eingegeben
 
-Exercise Change
-Exercise Create wiederverwenden
+//Exercise Change
+//Exercise Create wiederverwenden
 
 
 Settings
+
+
+
 

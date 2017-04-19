@@ -89,6 +89,9 @@
     <string name="button_bPlan">My Plan</string>
     <string name="button_addcategory">add Category</string>
     <string name="button_delcategory">delete Category</string>
+    <string name="updateRegister">Update</string>
+    <string name="updatecreate">Update</string>
+
 
     <!-- ################################################################## My Group-->
     <!-- titel-->

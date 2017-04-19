@@ -27,6 +27,7 @@ public class ShowActivity extends AppCompatActivity {
     private long exID;
     private boolean isInMyPlan;
     private Menu menu;
+    private boolean update = false;
     private  ExerciseDataSource exerciseDataSource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,16 +131,18 @@ public class ShowActivity extends AppCompatActivity {
                return true;
            }
            if (id == R.id.menu_change) {
-               //change
+               update=true;
+               Intent intent = new Intent(this, CreatExcersisActivity.class);
+               intent.putExtra("exersiseID", exID);
+               intent.putExtra("update", update);
+               startActivity(intent);
                return true;
            }
            if (id == R.id.menu_delete) {
                //delete
                exerciseDataSource.deleteExercise(exID);
-
                /* Intent intent = new Intent(this, ExcersisesCatActivity.class);
                startActivity(intent); */
-
                finish();
 
                    new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_t_exit))
@@ -155,7 +158,6 @@ public class ShowActivity extends AppCompatActivity {
 
                return true;
            }
-
        else{
            if (id == R.id.menu_addDelete) {
                PlanExerciseDataSource planExerciseDataSource = new PlanExerciseDataSource(this);

@@ -107,10 +107,18 @@
                 android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/creatEx"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="createEx"
                     android:text="@string/button_create" />
+
+                <Button
+                    android:id="@+id/updatecreate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="createEx"
+                    android:text="@string/updatecreate" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

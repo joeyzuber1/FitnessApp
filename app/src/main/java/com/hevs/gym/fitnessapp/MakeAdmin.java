@@ -17,6 +17,7 @@ import java.util.List;
 public class MakeAdmin extends AppCompatActivity {
 
     private long iduser;
+    private boolean update = false;
     private UserDataSource userDataSource;
 
     @Override
@@ -25,7 +26,10 @@ public class MakeAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_makeadmin);
         userDataSource = new UserDataSource(this);
     }
-
+    /**
+     * A Admin can make a User to an Admin
+     *
+     */
     public void TrasportAdmin(View v) {
 
         boolean exist = false;
@@ -55,6 +59,10 @@ public class MakeAdmin extends AppCompatActivity {
                         }).setNegativeButton("Yes", null).show(); //hardcoded
             }
     }
+    /**
+     * Admin can delete a User
+     *
+     */
 
     public void DeleteUser(View w) {
 
@@ -97,6 +105,11 @@ public class MakeAdmin extends AppCompatActivity {
         }
     }
 
+    /**
+     * Admin can update a user
+     *
+     */
+
     public void UpdateUser(View w){
 
         boolean exist = false;
@@ -108,9 +121,11 @@ public class MakeAdmin extends AppCompatActivity {
 
         for (int i = 0; i<users.size(); i++) {
             if (firstname.equals(users.get(i).getFirstname()) && lastname.equals(users.get(i).getLastname()) && username.equals(users.get(i).getNamelogin())) {
+                exist =true;
                 iduser = users.get(i).getUserID();
                 Intent intent = new Intent(this, RegisterActivity.class);
                 intent.putExtra("userID", iduser);
+                intent.putExtra("update", update);
                 startActivity(intent);
 
               /*  String password = "hallo";
