@@ -1,8 +1,6 @@
 package com.hevs.gym.fitnessapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,11 +11,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
-import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.objects.Exercise;
-import com.hevs.gym.fitnessapp.db.objects.PlanExercise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,24 +23,22 @@ public class ExersisesActivity extends AppCompatActivity {
 
 
     private ArrayList<Button> buttonList;
-    private boolean isMyPlan;
-    private long idUser;
+    private long idPlan;
     private long idBodyPart;
+    private long idUser;
     private List<Exercise> exercises;
     private List<Long> idExs;
     private Menu menu;
+    private String titel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exersises);
-
-        isMyPlan = getIntent().getBooleanExtra("isMyPlan", false);
-        idUser = getIntent().getLongExtra("idUser", -1);
+        idPlan = getIntent().getLongExtra("idPlan", -1);
         idBodyPart = getIntent().getLongExtra("idBodyPart", -1);
+        idUser = getIntent().getLongExtra("idUser", -1);
         ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
-        exercises = exerciseDataSource.getAllExercises();
-
         generateButtons();
     }
 
@@ -52,14 +47,22 @@ public class ExersisesActivity extends AppCompatActivity {
      *
      */
     private void generateButtons() {
+        BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
         buttonList = new ArrayList<Button>();
         idExs = new ArrayList<Long>();
-        ((TextView) findViewById(R.id.titelCatExcersis)).setText(getIntent().getStringExtra("Titel"));
+        titel = getIntent().getStringExtra("Titel");
+        if(idBodyPart != -1) {
+            titel =titel+"->"+bodyPartDataSource.getBodyPartById(idBodyPart).getBodySection(); //Hardcoded
+        }else
+        {
+            titel =titel+"->All Exercises"; //Hardcoded
+        }
+        ((TextView) findViewById(R.id.titelCatExcersis)).setText(titel);
         Bundle extras = getIntent().getExtras();
         String[] buttonsReceived;
 
         ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
-        if (!isMyPlan)
+        if (idPlan == -1)
         {
             if (idBodyPart != -1) {
                 exercises = exerciseDataSource.getAllExercisesFromBodyPartID(idBodyPart);
@@ -70,13 +73,12 @@ public class ExersisesActivity extends AppCompatActivity {
 
         }else
         {
-            PlanDataSource planDataSource = new PlanDataSource(this);
-            long planID = planDataSource.getPlanFromUserID(idUser).get(0).getPlanID();
+            PlanDataSource planDataSource = new PlanDataSource(this);;
             if (idBodyPart == -1) {
-                exercises = exerciseDataSource.getExerciseByPlanID(planID);
+                exercises = exerciseDataSource.getExerciseByPlanID(idPlan);
             }else
             {
-                exercises = exerciseDataSource.getExerciseByPlanIDAndBodyPartID(planID, idBodyPart);
+                exercises = exerciseDataSource.getExerciseByPlanIDAndBodyPartID(idPlan, idBodyPart);
             }
         }
 
@@ -98,6 +100,7 @@ public class ExersisesActivity extends AppCompatActivity {
         for (int i = 0; i<buttons.length; i++)
         {
             Button b = new Button(this);
+            b.setTransformationMethod(null);
             b.setText(buttons[i]);
             b.setLayoutParams(lp);
             final int index = i;
@@ -147,7 +150,7 @@ public class ExersisesActivity extends AppCompatActivity {
      *
      */
     public void showMyPlan(View v){
-        CallMainActivitys.showExersisePlan(v, this);
+        CallMainActivitys.showExersisePlans(v, this, UserInfos.getUserID(), true);
     }
 
     /**
@@ -156,13 +159,7 @@ public class ExersisesActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        if (isMyPlan && idUser == UserInfos.getUserID()){
-           Button b = (Button) findViewById(R.id.btn_plan);
-            b.performClick();
-        }else
-        {
-            super.onBackPressed();
-        }
+       finish();
     }
 
     /**
@@ -194,19 +191,6 @@ public class ExersisesActivity extends AppCompatActivity {
                startActivity(intent);
                return true;
        }
-
-           if (id == R.id.menu_createEx) {
-               //change
-               Intent intent = new Intent(this, CreatExcersisActivity.class);
-               intent.putExtra("idBodyPart", idBodyPart);
-               startActivity(intent);
-               return true;
-           }
-
-   /* if (id == R.id.menu_addExtoPlan) {
-
-               return true;
-           } */
 
         return super.onOptionsItemSelected(item);
     }

@@ -9,10 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
-import com.hevs.gym.fitnessapp.db.objects.Group;
 import com.hevs.gym.fitnessapp.db.objects.GroupUser;
 import com.hevs.gym.fitnessapp.db.objects.User;
 
@@ -82,6 +80,7 @@ public class GroupUserActivity extends AppCompatActivity {
 
         for (int i = 0; i < buttons.length; i++) {
             Button b = new Button(this);
+            b.setTransformationMethod(null);
             b.setText(buttons[i]);
             b.setLayoutParams(lp);
             final int index = i;
@@ -105,7 +104,7 @@ public class GroupUserActivity extends AppCompatActivity {
     public void onClick(View v, int index) {
         if (index != buttonList.size()-1) {
             UserDataSource userDataSource = new UserDataSource(this);
-            CallMainActivitys.showExersisePlanFromUser(v, this, users.get(index).getUserID(), users.get(index).getFirstname());
+            CallMainActivitys.showExersisePlans(v, this, users.get(index).getUserID(), false);
         }
         else
         {
@@ -138,6 +137,6 @@ public class GroupUserActivity extends AppCompatActivity {
      *
      */
     public void showMyPlan(View v){
-        CallMainActivitys.showExersisePlan(v, this);
+        CallMainActivitys.showExersisePlans(v, this, UserInfos.getUserID(), true);
     }
 }

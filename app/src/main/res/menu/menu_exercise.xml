@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menuNormalGroup">
 
-<item android:title="@string/menu_add"
-android:id="@+id/menu_addDelete"/>
-
+        <item android:title="@string/menu_addNormal"
+            android:id="@+id/menu_addNormal"/>
+        <item android:title="@string/menu_deleteNormal"
+        android:id="@+id/menu_deleteNormal"/>
+    </group>
 <group
 android:id="@+id/menuAdminGroup">
 <item android:title="@string/menu_change"

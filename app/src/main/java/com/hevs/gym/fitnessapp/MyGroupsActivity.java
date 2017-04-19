@@ -65,6 +65,7 @@ public class MyGroupsActivity extends AppCompatActivity {
 
         for (int i = 0; i < buttons.length; i++) {
             Button b = new Button(this);
+            b.setTransformationMethod(null);
             b.setText(buttons[i]);
             b.setLayoutParams(lp);
             final int index = i;
@@ -124,7 +125,7 @@ public class MyGroupsActivity extends AppCompatActivity {
 
     //show my plan
     public void showMyPlan(View v) {
-        CallMainActivitys.showExersisePlan(v, this);
+        CallMainActivitys.showExersisePlans(v, this, UserInfos.getUserID(), true);
     }
 
     private String inputString = "";

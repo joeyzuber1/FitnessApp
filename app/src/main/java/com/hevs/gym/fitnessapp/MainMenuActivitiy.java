@@ -44,9 +44,9 @@ public class MainMenuActivitiy extends AppCompatActivity {
      * show all categories from my plan
      *
      */
-    public void showExersisePlan(View v){
+    public void showExersisePlans(View v){
 
-        CallMainActivitys.showExersisePlan(v, this);
+        CallMainActivitys.showExersisePlans(v, this, UserInfos.getUserID(), true);
     }
 
     /**

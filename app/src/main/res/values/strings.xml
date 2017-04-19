@@ -64,7 +64,7 @@
 
     <!--Buttons -->
     <string name="button_exercises">Exercises</string>
-    <string name="button_plan">My Plan</string>
+    <string name="button_plan">My Plans</string>
     <string name="button_newE">Add a new Excersis</string>
     <string name="button_group">My Groups</string>
 
@@ -125,8 +125,17 @@
     <string name="dialog_q_exit">Are you sure you want to exit the FitnessApp?</string>
     <string name="dialog_t_join">Join Group</string>
     <string name="dialog_q_join">Insert the name of the Group</string>
+    <string name="dialog_p_insert">Insert the name of the Plan</string>
     <string name="dialog_t_delete">Delete Exercise</string>
     <string name="dialog_q_delete">Are you sure you want to delete this Exercise?</string>
     <string name="title_activity_add_del_category">addDelCategory</string>
 
+
+
+    <!--menu -->
+    <string name="menu_addNormal">Add to plan</string>
+    <string name="menu_deleteNormal">Delete from plan</string>
+
+    <string name="menu_addPlam">Add a Plan</string>
+    <string name="menu_deletePlan">Delete a Plan</string>
 </resources>

@@ -22,17 +22,21 @@ import java.util.List;
 public class ExcersisesCatActivity extends AppCompatActivity {
 
     private ArrayList<Button> buttonList;
+    private long idPlan;
     private long idUser;
-    private boolean isMyPlan;
     private List<BodyPart> bodyParts;
     private List<Long> idParts;
     private Menu menu;
+    private String titel;
+    private boolean isFromRandom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_excersises_cat);
-
+        idPlan = getIntent().getLongExtra("planID", -1);
+        idUser = getIntent().getLongExtra("idUser", -1);
+        isFromRandom = getIntent().getBooleanExtra("isFromRandom", false);
         generateButtons();
     }
 
@@ -41,23 +45,27 @@ public class ExcersisesCatActivity extends AppCompatActivity {
      *Generate the Main Button GridLayout based on the plan and the user
      */
     private void generateButtons() {
+        BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
+        PlanDataSource planDataSource = new PlanDataSource(this);
         buttonList = new ArrayList<Button>();
         idParts = new ArrayList<Long>();
         idParts.add(-1l);
 
-        ((TextView) findViewById(R.id.titelCatExcersis)).setText(getIntent().getStringExtra("Titel"));
-        Bundle extras = getIntent().getExtras();
-
-        isMyPlan = extras.getBoolean("isMyPlan");
-        idUser = extras.getLong("idUser");
+        titel = getIntent().getStringExtra("Titel");
+        if (idPlan != -1)
+        {
+            titel = titel+"->"+planDataSource.getPlanById(idPlan).getPlanName();
+        }else
+        {
+            titel = titel+"->All Exercises"; //Hardcoded
+        }
+        ((TextView) findViewById(R.id.titelCatExcersis)).setText(titel);
 
         String[] buttonsReceived;
 
-        BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
-        if (isMyPlan) {
-            PlanDataSource planDataSource = new PlanDataSource(this);
-            long planID = planDataSource.getPlanFromUserID(idUser).get(0).getPlanID();
-            bodyParts = bodyPartDataSource.getAllBodyPartsByPlanID(planID);
+        if (idPlan != -1) {
+
+            bodyParts = bodyPartDataSource.getAllBodyPartsByPlanID(idPlan);
         } else
         {
             bodyParts = bodyPartDataSource.getAllBodyParts();
@@ -87,13 +95,14 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         for (int i = 0; i<buttons.length; i++)
         {
             Button b = new Button(this);
+            b.setTransformationMethod(null);
             b.setText(buttons[i]);
             b.setLayoutParams(lp);
             final int index = i;
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ExcersisesCatActivity.this.onClick(index);
+                    ExcersisesCatActivity.this.onClick(v, index);
                 }
             });
             ll.addView(b);
@@ -105,27 +114,14 @@ public class ExcersisesCatActivity extends AppCompatActivity {
      * if you click on a Body part Categorie this code will run
      *
      */
-    public void onClick(int index){
+    public void onClick(View v, int index){
         String[] stringArray = new String[0];
-        String titel = getIntent().getStringExtra("Titel");
-        if (index == 0)
-        {
-            //take all
-            titel = titel + " -> "+"All";
-        }
-        for (int i = 1; i < buttonList.size(); i++){
-           if (i == index)
-           {
-               //Take the right things
-               titel = titel + " -> "+buttonList.get(i).getText();
-           }
-        }
 
         if (index == 0) {
-            showExercises(titel, -1);
+            showExercises(v, -1);
         }else
         {
-            showExercises(titel, idParts.get(index));
+            showExercises(v, idParts.get(index));
         }
     }
 
@@ -133,13 +129,15 @@ public class ExcersisesCatActivity extends AppCompatActivity {
      * show the Exercises from one id body part
      *
      */
-    public void showExercises(String titel, long idBodyPart){
-        Intent inten = new Intent(this, ExersisesActivity.class);
-        inten.putExtra("Titel", titel); //better need
-        inten.putExtra("isMyPlan", isMyPlan);
-        inten.putExtra("idBodyPart", idBodyPart);
-        inten.putExtra("idUser", idUser);
-        startActivity(inten);
+    public void showExercises(View v, long idBodyPart){
+
+        CallMainActivitys.showExersisesFromPlan(v, this, idPlan, idBodyPart,idUser, titel);
+//        Intent inten = new Intent(this, ExersisesActivity.class);
+//        inten.putExtra("Titel", titel); //better need
+//        inten.putExtra("isMyPlan", isMyPlan);
+//        inten.putExtra("idBodyPart", idBodyPart);
+//        inten.putExtra("idUser", idUser);
+//        startActivity(inten);
     }
 
     /**
@@ -155,7 +153,7 @@ public class ExcersisesCatActivity extends AppCompatActivity {
      *
      */
     public void showMyPlan(View v){
-        CallMainActivitys.showExersisePlan(v, this);
+        CallMainActivitys.showExersisePlans(v, this, UserInfos.getUserID(), true);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -201,7 +199,8 @@ public class ExcersisesCatActivity extends AppCompatActivity {
     //go back
     @Override
     public void onBackPressed() {
-        if (UserInfos.getUserID() == idUser) {
+        if (isFromRandom)
+        {
             Intent intent = new Intent(this, MainMenuActivitiy.class);
             startActivity(intent);
         }else
