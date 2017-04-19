@@ -16,7 +16,6 @@ import java.util.List;
 public class RegisterActivity extends AppCompatActivity {
 
     private UserDataSource userDataSource;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
                 ((EditText) findViewById(R.id.in_lname)).setText(users.get(i).getLastname());
                ((EditText) findViewById(R.id.in_pw1)).setText(users.get(i).getPassword());
                 ((EditText) findViewById(R.id.in_pw2)).setText(users.get(i).getPassword());
-
             }
-
         }
     }
 
@@ -73,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else{
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("You didn't fill in all Fields. Do you wanna continue with Registration?")
+                    .setMessage("You didn't fill in all fields. Do you wanna continue with registration?")
                     .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

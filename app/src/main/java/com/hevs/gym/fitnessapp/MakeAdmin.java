@@ -34,7 +34,6 @@ public class MakeAdmin extends AppCompatActivity {
         String username = (((EditText) findViewById(R.id.in_username)).getText().toString());
 
         List<User> users = userDataSource.getAllUsers();
-
         for (int i = 0; i < users.size(); i++) {
             if (firstname.equals(users.get(i).getFirstname()) && lastname.equals(users.get(i).getLastname()) && username.equals(users.get(i).getNamelogin())) {
                 exist = true;

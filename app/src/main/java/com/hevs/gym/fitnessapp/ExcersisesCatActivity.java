@@ -159,11 +159,12 @@ public class ExcersisesCatActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (UserInfos.isIsAdmin())
-        {
-            MenuInflater inflator = getMenuInflater();
-            inflator.inflate(R.menu.menu_addcat, menu);
-            this.menu = menu;
+        if (UserInfos.isIsAdmin()) {
+            if (UserInfos.isIsAdmin()) {
+                MenuInflater inflator = getMenuInflater();
+                inflator.inflate(R.menu.menu_addcat, menu);
+                this.menu = menu;
+            }
         }
         return true;
     }

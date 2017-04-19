@@ -5,19 +5,31 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
 import com.hevs.gym.fitnessapp.db.objects.BodyPart;
 import com.hevs.gym.fitnessapp.db.objects.Exercise;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class addDel_CategoryActivity extends AppCompatActivity {
 
     private List<BodyPart> bodyParts;
     private List<Exercise> exercises;
+    View v;
+    public int counter;
+
+
+    BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
+    ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +46,7 @@ public class addDel_CategoryActivity extends AppCompatActivity {
         BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
         ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
 
-
         bodyParts = bodyPartDataSource.getAllBodyParts();
-
 
         for (int i = 0; i < bodyParts.size(); i++) {
             if (bodyParts.get(i).getBodySection().toString().equals(name)) {
@@ -48,7 +58,7 @@ public class addDel_CategoryActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();
-                                System.exit(0);
+
                             }
                         }).setNegativeButton("Yes", null).show(); //hardcoded
 
@@ -58,12 +68,14 @@ public class addDel_CategoryActivity extends AppCompatActivity {
             BodyPart bpcategory = new BodyPart();
             bpcategory.setBodySection(name);
             bodyPartDataSource.createBodyPart(bpcategory);
-            finish();
+            CallMainActivitys.showExersiseCatagory(v, this);
+
 
         }
     }
 
     public void delCat(View v) {
+        this.v =v;
 
         boolean exist = false;
         String name = (((EditText) findViewById(R.id.in_catname)).getText().toString());
@@ -74,12 +86,13 @@ public class addDel_CategoryActivity extends AppCompatActivity {
 
         bodyParts = bodyPartDataSource.getAllBodyParts();
 
-        for (int i = 0; i< bodyParts.size(); i++)
+
+        for (int i = 0; i< bodyParts.size(); i++,counter++)
         {
             if (bodyParts.get(i).getBodySection().toString().equals(name)){
                 long idbodyparts= bodyParts.get(i).getPartOfBodyID();
 
-                for (int y = 0; i< exercises.size(); y++){
+             /*   for (int y = 0; i< exercises.size(); y++){
 
                     if (exercises.get(y).getBodyPart() == idbodyparts){
                         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
@@ -87,28 +100,27 @@ public class addDel_CategoryActivity extends AppCompatActivity {
                                 .setPositiveButton("ok", new DialogInterface.OnClickListener() { //Hardcoded
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        finish();
+
                                     }
                                 });
-                        break;
+                        CallMainActivitys.showExersiseCatagory(v, this);
                     }
                 }
-
-
+                */
                     exist = true;
-                    bodyPartDataSource.deleteBodyPart(bodyParts.get(i).getPartOfBodyID());
                     new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
                             .setMessage("Are you sure you want to delete thid bodypart?")
                             .setPositiveButton("yes", new DialogInterface.OnClickListener() { //Hardcoded
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    finish();
+                                    //Es gibt falschen counter
+                                    addDel_CategoryActivity.this.bodyPartDataSource.deleteBodyPart(bodyParts.get(addDel_CategoryActivity.this.counter).getPartOfBodyID());
+                                    CallMainActivitys.showExersiseCatagory(addDel_CategoryActivity.this.v, addDel_CategoryActivity.this);
                                 }
                             }).setNegativeButton("no", null).show(); //hardcoded
                 }
-
-
         }
+        counter=0;
         if(exist==false){
 
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
@@ -116,9 +128,10 @@ public class addDel_CategoryActivity extends AppCompatActivity {
                     .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
+                            CallMainActivitys.showExersiseCatagory(addDel_CategoryActivity.this.v, addDel_CategoryActivity.this);
                         }
                     }).setNegativeButton("Yes", null).show(); //hardcoded
+
 
         }
 

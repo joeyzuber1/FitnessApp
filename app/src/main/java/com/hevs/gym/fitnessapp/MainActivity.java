@@ -32,11 +32,8 @@ public class MainActivity extends AppCompatActivity {
     public void  logIn(View v){
         String username = ((EditText) findViewById(R.id.login_username)).getText().toString();
         String pw = ((EditText) findViewById(R.id.login_passwd)).getText().toString();
-
         List<User> users = userDataSource.getAllUsers();
-
         boolean isTrue = false;
-
         for (int i = 0; i<users.size(); i++)
         {
             if (username.equals(users.get(i).getNamelogin()) && pw.equals(users.get(i).getPassword()))
@@ -51,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
-
         if (isTrue == true) {
             Intent intent = new Intent(this, MainMenuActivitiy.class);
             startActivity(intent);

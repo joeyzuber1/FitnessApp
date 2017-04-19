@@ -36,16 +36,17 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="showGroups"
+            android:text="@string/button_group" />
+        <Button
+            android:id="@+id/addnewEx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="creatExersis"
             android:text="@string/button_newE" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="showGroups"
-            android:text="@string/button_group" />
-
-        <Button
+            android:id="@+id/buttonusers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="Users"
