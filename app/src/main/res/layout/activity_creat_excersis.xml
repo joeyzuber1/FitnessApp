@@ -117,7 +117,7 @@
                     android:id="@+id/updatecreate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="createEx"
+                    android:onClick="update"
                     android:text="@string/updatecreate" />
             </LinearLayout>
         </LinearLayout>

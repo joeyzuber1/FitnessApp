@@ -28,6 +28,7 @@ public class CreatExcersisActivity extends AppCompatActivity {
     List<BodyPart> bodyParts;
     Spinner sBodyParts;
     long exid;
+    boolean isUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +36,15 @@ public class CreatExcersisActivity extends AppCompatActivity {
         setContentView(R.layout.activity_creat_excersis);
 
         long idBodyPart = getIntent().getLongExtra("idBodyPart", 0);
-        boolean update = getIntent().getBooleanExtra("update", true);
-        exid= getIntent().getLongExtra("exersiseID", 0);
+        isUpdate = getIntent().getBooleanExtra("update", false);
+        exid = getIntent().getLongExtra("exersiseID", 0);
 
-        List<String> spinnerArray =  new ArrayList<String>();
+        //Spinner
+        List<String> spinnerArray = new ArrayList<String>();
         BodyPartDataSource bodyPartDataSource = new BodyPartDataSource(this);
         bodyParts = bodyPartDataSource.getAllBodyParts();
 
-        for (BodyPart bp : bodyParts)
-        {
+        for (BodyPart bp : bodyParts) {
             spinnerArray.add(bp.getBodySection());
         }
 
@@ -53,15 +54,15 @@ public class CreatExcersisActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sBodyParts = (Spinner) findViewById(R.id.spin_bodyPart);
         sBodyParts.setAdapter(adapter);
-        for (int i = 0; i<bodyParts.size(); i++)
-        {
-            if (bodyParts.get(i).getPartOfBodyID() == idBodyPart )
-            {
+        for (int i = 0; i < bodyParts.size(); i++) {
+            if (bodyParts.get(i).getPartOfBodyID() == idBodyPart) {
                 sBodyParts.setSelection(i);
             }
         }
+        //Spinner end
+
         exerciseDataSource = new ExerciseDataSource(this);
-        List<Exercise> exercise= exerciseDataSource.getAllExercises();
+        List<Exercise> exercise = exerciseDataSource.getAllExercises();
         Button create = (Button) findViewById(R.id.creatEx);
         Button updateCreate = (Button) findViewById(R.id.updatecreate);
         create.setVisibility(View.VISIBLE);
@@ -71,73 +72,119 @@ public class CreatExcersisActivity extends AppCompatActivity {
          *
          */
 
-        for (int i = 0; i<exercise.size(); i++)
-        {
-            if (exercise.get(i).getExerciseID() == exid )
-            {
+        for (int i = 0; i < exercise.size(); i++) {
+            if (exercise.get(i).getExerciseID() == exid) {
                 create.setVisibility(View.INVISIBLE);
                 updateCreate.setVisibility(View.VISIBLE);
 
                 ((EditText) findViewById(R.id.in_exname)).setText(exercise.get(i).getExerciseName());
-                 /*((Spinner) findViewById(R.id.spin_bodyPart)).setSelection((int)exercise.get(i).getBodyPart());*/
                 ((EditText) findViewById(R.id.in_exdes)).setText(exercise.get(i).getExerciseDescription());
 
             }
         }
     }
+
     /**
-     *  if you click create this method will be called
-     *
+     * if you click create this method will be called
      */
-    public void createEx(View v)
-    {
+    public void createEx(View v) {
         long bodyID = -1;
         String selected = sBodyParts.getSelectedItem().toString();
-        for (BodyPart bp: bodyParts) {
+        for (BodyPart bp : bodyParts) {
             if (selected.equals(bp.getBodySection())) {
                 bodyID = bp.getPartOfBodyID();
             }
         }
         ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
         Exercise ex = new Exercise();
-        if(((EditText) findViewById(R.id.in_exname)).getText().length() > 0 && ((EditText) findViewById(R.id.in_exdes)).getText().length()>0 && bodyID > -1){
+        if (((EditText) findViewById(R.id.in_exname)).getText().length() > 0 && ((EditText) findViewById(R.id.in_exdes)).getText().length() > 0 && bodyID > -1) {
 
-        ex.setExerciseName(((EditText) findViewById(R.id.in_exname)).getText().toString());
-        ex.setExerciseDescription(((EditText) findViewById(R.id.in_exdes)).getText().toString());
-        ex.setBodyPart(bodyID);
-            exerciseDataSource.createExercise(ex);
+            ex.setExerciseName(((EditText) findViewById(R.id.in_exname)).getText().toString());
+            ex.setExerciseDescription(((EditText) findViewById(R.id.in_exdes)).getText().toString());
+            ex.setBodyPart(bodyID);
+            if (!alreadyInserted(ex, false)) {
+                exerciseDataSource.createExercise(ex);
+                finish();
+            }
+        } else {
+            notAllFilledAlert();
+        }
+    }
+
+    /**
+     * if you click create this method will be called
+     */
+    public void update(View v) {
+
+        long bodyID = -1;
+        String selected = sBodyParts.getSelectedItem().toString();
+        for (BodyPart bp : bodyParts) {
+            if (selected.equals(bp.getBodySection())) {
+                bodyID = bp.getPartOfBodyID();
+            }
+        }
+
+        if (((EditText) findViewById(R.id.in_exname)).getText().length() > 0 && ((EditText) findViewById(R.id.in_exdes)).getText().length() > 0 && bodyID > -1) {
+            Exercise ex = exerciseDataSource.getExerciseById(exid);
+            ex.setExerciseName(((EditText) findViewById(R.id.in_exname)).getText().toString());
+            ex.setBodyPart(bodyID);
+            ex.setExerciseDescription(((TextView) findViewById(R.id.in_exdes)).getText().toString());
+            if (!alreadyInserted(ex, true)) {
+                exerciseDataSource.updateExercises(ex);
             finish();
-       }
-        else{
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("You didn't fill in all fields. Do you wanna continue with creation?")
+            }
+        } else {
+            notAllFilledAlert();
+        }
+
+    }
+
+    private boolean alreadyInserted(Exercise ex, boolean isUpdate)
+    {
+        List<Exercise> exerciseList = exerciseDataSource.getAllExercisesFromBodyPartID(ex.getBodyPart());
+        boolean isIn = false;
+        for (Exercise ex2 : exerciseList)
+        {
+            if (isUpdate)
+            {
+                if (ex2.getBodyPart() == ex.getBodyPart() && ex2.getExerciseName().equals(ex.getExerciseName()) && ex2.getExerciseID() != ex.getExerciseID())
+                {
+                    isIn = true;
+                }
+
+            }
+            if (!isUpdate)
+            {
+                if (ex2.getBodyPart() == ex.getBodyPart() && ex2.getExerciseName().equals(ex.getExerciseName()))
+                {
+                    isIn = true;
+                }
+            }
+        }
+        if (isIn)
+        {
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning") //Hardcoded
+                    .setMessage("This Exersices is already in this Categorie, you want continue?")//Hardcoded
                     .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
                     }).setNegativeButton("Yes", null).show(); //hardcoded
-                    }
         }
-    /**
-     *  if you click create this method will be called
-     *
-     */
-    public void update(View v){
-
-        List<Exercise> exercise = exerciseDataSource.getAllExercises();
-        for (int i = 0; i<exercise.size(); i++) {
-            if (exercise.get(i).getExerciseID() == exid ) {
-
-                exercise.get(i).setExerciseName(((EditText) findViewById(R.id.in_exname)).getText().toString());
-                exercise.get(i).setBodyPart(((Spinner) findViewById(R.id.spin_bodyPart)).getSelectedItemId());
-                exercise.get(i).setExerciseDescription(((TextView) findViewById(R.id.in_exdes)).getText().toString());
-                exerciseDataSource.updateExercises(exercise.get(i));
-                finish();
-            }
-        }
+        return isIn;
     }
 
+    private void notAllFilledAlert() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning") //Hardcoded
+                .setMessage("You didn't fill in all fields. Do you wanna continue with creation?")//Hardcoded
+                .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).setNegativeButton("Yes", null).show(); //hardcoded
+    }
 
 
 }

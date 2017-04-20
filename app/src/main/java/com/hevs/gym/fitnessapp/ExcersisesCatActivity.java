@@ -1,19 +1,33 @@
 package com.hevs.gym.fitnessapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
+import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.objects.BodyPart;
+import com.hevs.gym.fitnessapp.db.objects.Exercise;
+import com.hevs.gym.fitnessapp.db.objects.Group;
+import com.hevs.gym.fitnessapp.db.objects.GroupUser;
+import com.hevs.gym.fitnessapp.db.objects.Plan;
+import com.hevs.gym.fitnessapp.db.objects.PlanExercise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +71,7 @@ public class ExcersisesCatActivity extends AppCompatActivity {
             titel = titel+"->"+planDataSource.getPlanById(idPlan).getPlanName();
         }else
         {
-            titel = titel+"->All Exercises"; //Hardcoded
+            titel = titel+"All Exercises"; //Hardcoded
         }
         ((TextView) findViewById(R.id.titelCatExcersis)).setText(titel);
 
@@ -157,7 +171,7 @@ public class ExcersisesCatActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (UserInfos.isIsAdmin()) {
+        if (UserInfos.isIsAdmin() && idUser == -1) {
             if (UserInfos.isIsAdmin()) {
                 MenuInflater inflator = getMenuInflater();
                 inflator.inflate(R.menu.menu_addcat, menu);
@@ -175,25 +189,14 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_addcat) {
-            //change
-            Intent intent = new Intent(this, addDel_CategoryActivity.class);
-            startActivity(intent);
-            return true;
+            inputAlertAdd();
         }
 
-        if (id == R.id.menu_createEx) {
-            //change
-            Intent intent = new Intent(this, CreatExcersisActivity.class);
-            startActivity(intent);
-            return true;
+        if (id == R.id.menu_delcat) {
+           showCatListDialog();
         }
 
-   /* if (id == R.id.menu_addExtoPlan) {
-
-               return true;
-           } */
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     //go back
@@ -206,6 +209,120 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         }else
         {
             super.onBackPressed();
+        }
+    }
+
+    private void showCatListDialog() {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+
+            builderSingle.setTitle("Select a catagorie which you want to delete");//Hardcoded
+
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice);
+        final List<BodyPart> bodyPartList = new BodyPartDataSource(ExcersisesCatActivity.this).getAllBodyParts();
+        for (BodyPart bodyPart : bodyPartList)
+        {
+            arrayAdapter.add(bodyPart.getBodySection());
+        }
+
+        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               delBodyPart(bodyPartList.get(which));
+                String strName = arrayAdapter.getItem(which);
+                AlertDialog.Builder builderInner = new AlertDialog.Builder(ExcersisesCatActivity.this);
+                builderInner.setMessage(strName);
+                builderInner.setTitle("Your Selected Bodypart is"); //Hardcoded
+                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int index) {
+                        dialog.dismiss();
+                    }
+                });
+                builderInner.show();
+            }
+        });
+        builderSingle.show();
+    }
+
+    private void delBodyPart(BodyPart bodyPart)
+    {
+        if ((new ExerciseDataSource(this).getAllExercisesFromBodyPartID(bodyPart.getPartOfBodyID()).size())==0) //Nur wenn keine Ex drin sind
+        {
+            new BodyPartDataSource(this).deleteBodyPart(bodyPart.getPartOfBodyID());
+            if(((LinearLayout) findViewById(R.id.mainCatEcersis)).getChildCount() > 0)
+                ((LinearLayout) findViewById(R.id.mainCatEcersis)).removeAllViews();
+            generateButtons();
+        }else
+        {
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
+                    .setMessage("There are Excersises from this bodypart pls delete them first!")//Hardcoded
+                    .setNegativeButton("OK", null).show(); //hardcoded
+        }
+    }
+
+    private String inputString = "";
+    //allert for add a categorie
+    private void inputAlertAdd() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Insert the Bodypart you want to add");//Hardcoded
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                inputString = input.getText().toString();
+                if (!inputString.equals(""))
+                    addBodyPart();
+            }
+        });
+        builder.setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void addBodyPart()
+    {
+       List<BodyPart> bodyParts = new BodyPartDataSource(this).getAllBodyParts();
+        boolean isAlready = false;
+        for (BodyPart bp : bodyParts)
+        {
+            if (bp.getBodySection().equals(inputString)) {
+                isAlready = true;
+                break;
+            }
+        }
+        if (isAlready)
+        {
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
+                    .setMessage("This Bodypart exists already!")//Hardcoded
+                    .setNegativeButton("OK", null).show(); //hardcoded
+        }
+        else
+        {
+            BodyPart bodyPart = new BodyPart();
+            bodyPart.setBodySection(inputString);
+            new BodyPartDataSource(this).createBodyPart(bodyPart);
+
+            if(((LinearLayout) findViewById(R.id.mainCatEcersis)).getChildCount() > 0)
+                ((LinearLayout) findViewById(R.id.mainCatEcersis)).removeAllViews();
+            generateButtons();
         }
     }
 }

@@ -6,6 +6,8 @@
         android:id="@+id/menuAdminGroup">
         <item android:title="@string/menu_addcat"
             android:id="@+id/menu_addcat"/>
+        <item android:title="@string/menu_delcat"
+            android:id="@+id/menu_delcat"/>
     </group>
 </menu>
 

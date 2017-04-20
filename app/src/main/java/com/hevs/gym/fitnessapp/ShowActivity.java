@@ -103,7 +103,9 @@ public class ShowActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CreatExcersisActivity.class);
             intent.putExtra("exersiseID", exID);
             intent.putExtra("update", update);
+            intent.putExtra("idBodyPart", new ExerciseDataSource(this).getExerciseById(exID).getBodyPart());
             startActivity(intent);
+            ShowActivity.this.finish();
             return true;
         }
         if (id == R.id.menu_delete) {

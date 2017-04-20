@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         }else
         {
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("Username or password are wrong. Please try again")
+                    .setMessage("Username or password are wrong. Please try again") //Hardcoded
                     .setNegativeButton("OK", null).show(); //hardcoded
             ((EditText) findViewById(R.id.login_username)).getText().clear();
             ((EditText) findViewById(R.id.login_passwd)).getText().clear();

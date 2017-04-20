@@ -15,7 +15,7 @@ public class CallMainActivitys {
      *
      */
     public static void showExersiseCatagory(View v, AppCompatActivity previusActivity){
-        showExersiseCategoriesFromPlan(v, previusActivity, -1, -1, "All Exercises", true);//Hardcoded
+        showExersiseCategoriesFromPlan(v, previusActivity, -1, -1, "", true);//Hardcoded
     }
 
     /**

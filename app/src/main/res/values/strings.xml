@@ -39,7 +39,7 @@
     <string name="button_login">Login</string>
     <string name="button_MakeAdmin">Transport to Admin</string>
     <string name="button_Users">Users</string>
-
+    <string name="button_RemoveAdmin">Remove from Admin</string>
 
     <!-- ################################################################## register-->
     <!-- inputs-->
@@ -110,8 +110,8 @@
     <string name="menu_creatEx">Create exercise</string>
     <string name="menu_removeExplan">Remove from MyPlan</string>
     <string name="menu_addExtoPlan">Add new exercise to MyPlan</string>
-    <string name="menu_addcat">Add/Delete</string>
-
+    <string name="menu_delcat">Delete categorie</string>
+    <string name="menu_addcat">Add categorie</string>
 
     <!-- ################################################################## dialogs-->
     <!-- titel-->

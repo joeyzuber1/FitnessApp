@@ -105,11 +105,26 @@ public class MyGroupsActivity extends AppCompatActivity {
             idGroup = groupDataSource.findGroupByName(inputString);
         }
         GroupUsersDataSource groupUsersDataSource = new GroupUsersDataSource(this);
-        GroupUser gu = new GroupUser();
-        gu.setGroupID(idGroup);
-        gu.setUserID(idUser);
-        groupUsersDataSource.createGroupUser(gu);
-
+        List<GroupUser> groupUserList = groupUsersDataSource.getAllGroupUserByGroupID(idGroup);
+        boolean isIn = false;
+        for (GroupUser gp : groupUserList)
+        {
+            if (gp.getUserID() == idUser)
+            {
+                isIn = true;
+            }
+        }
+        if (isIn == false) {
+            GroupUser gu = new GroupUser();
+            gu.setGroupID(idGroup);
+            gu.setUserID(idUser);
+            groupUsersDataSource.createGroupUser(gu);
+        }else
+        {
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
+                    .setMessage("You are already in Group") //Hardcoded
+                    .setNegativeButton("OK", null).show(); //hardcoded
+        }
 
         if (((LinearLayout) findViewById(R.id.mainGroups)).getChildCount() > 0)
             ((LinearLayout) findViewById(R.id.mainGroups)).removeAllViews();

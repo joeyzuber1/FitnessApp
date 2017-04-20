@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 import com.hevs.gym.fitnessapp.db.objects.GroupUser;
@@ -36,7 +37,7 @@ public class GroupUserActivity extends AppCompatActivity {
         }
 
         TextView titelView = (TextView) findViewById(R.id.titelGroupUsers);
-        titelView.setText("Group" + idGroup);
+        titelView.setText(new GroupDataSource(this).getGroupById(idGroup).getGroupname());
     }
 
     /**
