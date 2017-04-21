@@ -2,6 +2,8 @@ package com.hevs.gym.fitnessapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +35,8 @@ public class CreatExcersisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
         setContentView(R.layout.activity_creat_excersis);
 
         long idBodyPart = getIntent().getLongExtra("idBodyPart", 0);
@@ -83,6 +87,7 @@ public class CreatExcersisActivity extends AppCompatActivity {
             }
         }
     }
+
 
     /**
      * if you click create this method will be called

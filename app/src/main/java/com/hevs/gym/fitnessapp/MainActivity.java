@@ -2,9 +2,15 @@ package com.hevs.gym.fitnessapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -13,16 +19,47 @@ import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 import com.hevs.gym.fitnessapp.db.objects.User;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private  UserDataSource userDataSource;
+    Menu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         userDataSource = new UserDataSource(this);
+        userDataSource.setupAdmin();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setContentView(R.layout.activity_main);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflator = getMenuInflater();
+        inflator.inflate(R.menu.menu_settings, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    /**
+     * On click listener for the top right menu
+     *
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_settings)
+        {
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
+
+        return true;
     }
 
     /**
@@ -86,4 +123,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).setNegativeButton(getResources().getString(R.string.dialog_no), null).show(); //hardcoded
     }
+
+
 }

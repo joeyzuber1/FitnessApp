@@ -47,6 +47,7 @@
     <string name="input_lname">Lastname :</string>
     <string name="input_username">Username :</string>
     <string name="input_password">Password :</string>
+    <string name="action_settings">Settings</string>
 
     <string name="input_passwordR">Password Repeat :</string>
 
@@ -131,11 +132,20 @@
     <string name="title_activity_add_del_category">addDelCategory</string>
 
 
-
     <!--menu -->
     <string name="menu_addNormal">Add to plan</string>
     <string name="menu_deleteNormal">Delete from plan</string>
 
     <string name="menu_addPlam">Add a Plan</string>
     <string name="menu_deletePlan">Delete a Plan</string>
+    <string name="title_activity_setings">SetingsActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_setting_fragment">SettingFragment</string>
+    <string name="title_activity_settings_fragment">SettingsFragment</string>
+
+    <string name="pref_select_size">Select your Size</string>
+    <string name="pref_summary">Define your font size</string>
+
+    <string name="pref_select_color">Select your font color</string>
+    <string name="pref_summarycolor">Chose your font color</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.hevs.gym.fitnessapp;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +29,8 @@ public class GroupUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
         setContentView(R.layout.activity_group_user);
         buttonList = new ArrayList<Button>();
 
@@ -39,6 +43,7 @@ public class GroupUserActivity extends AppCompatActivity {
         TextView titelView = (TextView) findViewById(R.id.titelGroupUsers);
         titelView.setText(new GroupDataSource(this).getGroupById(idGroup).getGroupname());
     }
+
 
     /**
      * generate the buttons based on the group id but without the logged user

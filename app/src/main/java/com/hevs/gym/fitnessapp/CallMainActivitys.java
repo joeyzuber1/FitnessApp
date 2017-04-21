@@ -18,6 +18,7 @@ public class CallMainActivitys {
         showExersiseCategoriesFromPlan(v, previusActivity, -1, -1, "", true);//Hardcoded
     }
 
+
     /**
      * Show the exercises split in categories from PlanID
      *

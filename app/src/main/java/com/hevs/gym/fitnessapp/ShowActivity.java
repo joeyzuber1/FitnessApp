@@ -2,6 +2,8 @@ package com.hevs.gym.fitnessapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +35,8 @@ public class ShowActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
         setContentView(R.layout.activity_show);
         exerciseDataSource = new ExerciseDataSource(this);
 
@@ -44,6 +48,12 @@ public class ShowActivity extends AppCompatActivity {
         }
 
         plans = new PlanDataSource(this).getPlanFromUserID(UserInfos.getUserID());
+    }
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setContentView(R.layout.activity_show);
     }
 
     /**

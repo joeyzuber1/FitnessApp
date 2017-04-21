@@ -2,6 +2,8 @@ package com.hevs.gym.fitnessapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +30,8 @@ public class MyGroupsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
         setContentView(R.layout.activity_my_groups);
         idUser = UserInfos.getUserID();
 
@@ -35,6 +39,7 @@ public class MyGroupsActivity extends AppCompatActivity {
             generateButtons();
         }
     }
+
 
     /**
      * generate the buttons bases on the user groups
@@ -172,8 +177,10 @@ public class MyGroupsActivity extends AppCompatActivity {
         builder.show();
     }
 
+
     @Override
     protected void onResume() {
+
         if(((LinearLayout) findViewById(R.id.mainGroups)).getChildCount() > 0)
             ((LinearLayout) findViewById(R.id.mainGroups)).removeAllViews();
 

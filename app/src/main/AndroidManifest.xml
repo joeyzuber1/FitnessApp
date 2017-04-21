@@ -27,7 +27,15 @@
         <activity android:name=".GroupUserActivity" />
         <activity android:name=".MakeAdmin" />
         <activity android:name=".addDel_CategoryActivity" />
-        <activity android:name=".PlansActivity"></activity>
+        <activity android:name=".PlansActivity" />
+        <activity
+            android:name=".SettingsFragment"
+            android:label="@string/title_activity_settings_fragment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

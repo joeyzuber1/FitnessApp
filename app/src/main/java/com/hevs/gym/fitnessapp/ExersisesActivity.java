@@ -1,6 +1,8 @@
 package com.hevs.gym.fitnessapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,6 +36,8 @@ public class ExersisesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
         setContentView(R.layout.activity_exersises);
         idPlan = getIntent().getLongExtra("idPlan", -1);
         idBodyPart = getIntent().getLongExtra("idBodyPart", -1);
@@ -41,6 +45,8 @@ public class ExersisesActivity extends AppCompatActivity {
         ExerciseDataSource exerciseDataSource = new ExerciseDataSource(this);
         generateButtons();
     }
+
+
 
     /**
      * generate the buttons based on the userid and the plan id
@@ -139,11 +145,11 @@ public class ExersisesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if(((LinearLayout) findViewById(R.id.mainExersises)).getChildCount() > 0)
             ((LinearLayout) findViewById(R.id.mainExersises)).removeAllViews();
         generateButtons();
     }
+
 
     /**
      * Show all categories from my plan

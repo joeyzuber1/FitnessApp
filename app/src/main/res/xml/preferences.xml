@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="18"
+        android:entries="@array/pref_lang_entries"
+        android:entryValues="@array/pref_lang_values"
+        android:key="pref_lang"
+        android:summary="@string/pref_summary"
+        android:title="@string/pref_select_size" />
+
+    <ListPreference
+        android:defaultValue="12"
+        android:entries="@array/pref_color_entries"
+        android:entryValues="@array/pref_color_values"
+        android:key="pref_color"
+        android:summary="@string/pref_summarycolor"
+        android:title="@string/pref_select_color" />
+
+</PreferenceScreen>

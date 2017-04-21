@@ -105,6 +105,18 @@ public class UserDataSource {
         return user;
     }
 
+    public boolean setupAdmin(){
+        boolean createdAdmin = false;
+        String sql = "SELECT * FROM " + FitnessContract.UserEntry.TABLE_USER + " ORDER BY " + FitnessContract.UserEntry.KEY_USERID;
+
+        Cursor cursor = this.db.rawQuery(sql, null);
+        if (!cursor.moveToFirst()) {
+            createdAdmin = true;
+            SQLiteHelper.fillStandartData(context);
+        }
+        return createdAdmin;
+    }
+
 
     /**
      * get all users
@@ -143,12 +155,12 @@ public class UserDataSource {
                 persons.add(user);
             } while (cursor.moveToNext());
         }
-
+        /*
         if (persons.size() == 0)
         {
             SQLiteHelper.fillStandartData(context);
             return getAllUsers();
-        }
+        }*/
 
         return persons;
     }
