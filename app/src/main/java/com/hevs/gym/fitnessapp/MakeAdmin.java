@@ -33,6 +33,10 @@ public class MakeAdmin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Preferences
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setTheme(SettingInfos.getResourceColor(sharedPrefs.getString("pref_color", "black")));
         setContentView(R.layout.activity_makeadmin);
         userDataSource = new UserDataSource(this);
     }

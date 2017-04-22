@@ -36,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //Preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setTheme(SettingInfos.getResourceColor(sharedPrefs.getString("pref_color", "black")));
         setContentView(R.layout.activity_main);
     }
 

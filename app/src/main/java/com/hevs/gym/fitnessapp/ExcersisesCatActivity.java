@@ -49,16 +49,16 @@ public class ExcersisesCatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setTheme(SettingInfos.getResourceColor(sharedPrefs.getString("pref_color", "black")));
         setContentView(R.layout.activity_excersises_cat);
         idPlan = getIntent().getLongExtra("planID", -1);
         idUser = getIntent().getLongExtra("idUser", -1);
         isFromRandom = getIntent().getBooleanExtra("isFromRandom", false);
         generateButtons();
     }
-
-
 
     /**
      *

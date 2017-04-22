@@ -24,15 +24,15 @@ public class SettingInfos {
         switch (id)
         {
             case "black":
-                return R.style.small_text;
+                return R.style.black_text;
             case "red":
-                return R.style.medium_text;
+                return R.style.red_text;
             case "green":
-                return R.style.large_text;
+                return R.style.green_text;
             case "blue":
-                return R.style.large_text;
+                return R.style.blue_text;
             default:
-                return R.style.small_text;
+                return R.style.black_text;
         }
     }
 }

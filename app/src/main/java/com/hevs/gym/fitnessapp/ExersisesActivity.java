@@ -36,8 +36,10 @@ public class ExersisesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setTheme(SettingInfos.getResourceColor(sharedPrefs.getString("pref_color", "black")));
         setContentView(R.layout.activity_exersises);
         idPlan = getIntent().getLongExtra("idPlan", -1);
         idBodyPart = getIntent().getLongExtra("idBodyPart", -1);

@@ -35,8 +35,10 @@ public class ShowActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setTheme(SettingInfos.getResourceColor(sharedPrefs.getString("pref_color", "black")));
         setContentView(R.layout.activity_show);
         exerciseDataSource = new ExerciseDataSource(this);
 
@@ -48,12 +50,6 @@ public class ShowActivity extends AppCompatActivity {
         }
 
         plans = new PlanDataSource(this).getPlanFromUserID(UserInfos.getUserID());
-    }
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
-        setContentView(R.layout.activity_show);
     }
 
     /**

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 import com.hevs.gym.fitnessapp.db.objects.User;
 
@@ -25,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setTheme(SettingInfos.getResourceColor(sharedPrefs.getString("pref_color", "black")));
         setContentView(R.layout.activity_register);
         userDataSource = new UserDataSource(this);
 
@@ -66,7 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
         user.setPassword(((EditText) findViewById(R.id.in_pw1)).getText().toString());
         user.setAdministrator(false);
 
-        if (allFilled()) //alles gut
+
+        if (existsAlready()==false && allFilled()) //alles gut
         {
             if (passWordMatch()) {
                 UserDataSource uds = new UserDataSource(this);
@@ -98,7 +101,43 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks if a Person already exist
+     */
 
+    private boolean existsAlready() {
+
+        String firstname = ((EditText) findViewById(R.id.in_fname)).getText().toString();
+        String lastname = ((EditText) findViewById(R.id.in_lname)).getText().toString();
+        String loginname = ((EditText) findViewById(R.id.in_username)).getText().toString();
+
+        List<User> users = userDataSource.getAllUsers();
+        boolean isTrue = false;
+        for (int i = 0; i < users.size(); i++) {
+            if (loginname.equals(users.get(i).getNamelogin()) && firstname.equals(users.get(i).getFirstname()) && lastname.equals(users.get(i).getLastname())) {
+                isTrue = true;
+                break;
+            }
+        }
+        if (isTrue == false) {
+
+        } else {
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
+                    .setMessage("This Person already exists. Please fill in other informations.") //Hardcoded
+                    .setNegativeButton("OK", null).show(); //hardcoded
+            ((EditText) findViewById(R.id.in_username)).getText().clear();
+            ((EditText) findViewById(R.id.in_fname)).getText().clear();
+            ((EditText) findViewById(R.id.in_lname)).getText().clear();
+            ((EditText) findViewById(R.id.in_pw1)).getText().clear();
+            ((EditText) findViewById(R.id.in_pw2)).getText().clear();
+        }
+
+        return isTrue;
+    }
+
+    /**
+     * Checks if a Person filled in all fields
+     */
     private boolean allFilled()
     {
         if (((EditText) findViewById(R.id.in_username)).getText().toString().length() > 0 && ((EditText) findViewById(R.id.in_fname)).getText().toString().length() > 0
@@ -118,6 +157,10 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    /**
+     * Checks if the two passwords matches
+     */
 
     private boolean passWordMatch()
     {

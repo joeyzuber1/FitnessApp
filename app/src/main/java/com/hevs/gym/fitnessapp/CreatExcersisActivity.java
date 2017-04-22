@@ -35,8 +35,10 @@ public class CreatExcersisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
+        setTheme(SettingInfos.getResourceColor(sharedPrefs.getString("pref_color", "black")));
         setContentView(R.layout.activity_creat_excersis);
 
         long idBodyPart = getIntent().getLongExtra("idBodyPart", 0);
@@ -143,6 +145,9 @@ public class CreatExcersisActivity extends AppCompatActivity {
         }
 
     }
+    /**
+     * Checks if an exercise already exists
+     */
 
     private boolean alreadyInserted(Exercise ex, boolean isUpdate)
     {
