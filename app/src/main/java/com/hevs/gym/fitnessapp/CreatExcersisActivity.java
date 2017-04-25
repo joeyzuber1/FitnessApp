@@ -24,7 +24,6 @@ import com.hevs.gym.fitnessapp.db.objects.User;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CreatExcersisActivity extends AppCompatActivity {
     ExerciseDataSource exerciseDataSource;
     List<BodyPart> bodyParts;
@@ -77,7 +76,6 @@ public class CreatExcersisActivity extends AppCompatActivity {
          *  2te View for updating the exercise
          *
          */
-
         for (int i = 0; i < exercise.size(); i++) {
             if (exercise.get(i).getExerciseID() == exid) {
                 create.setVisibility(View.INVISIBLE);
@@ -85,12 +83,9 @@ public class CreatExcersisActivity extends AppCompatActivity {
 
                 ((EditText) findViewById(R.id.in_exname)).setText(exercise.get(i).getExerciseName());
                 ((EditText) findViewById(R.id.in_exdes)).setText(exercise.get(i).getExerciseDescription());
-
             }
         }
     }
-
-
     /**
      * if you click create this method will be called
      */
@@ -117,12 +112,10 @@ public class CreatExcersisActivity extends AppCompatActivity {
             notAllFilledAlert();
         }
     }
-
     /**
      * if you click create this method will be called
      */
     public void update(View v) {
-
         long bodyID = -1;
         String selected = sBodyParts.getSelectedItem().toString();
         for (BodyPart bp : bodyParts) {
@@ -130,7 +123,6 @@ public class CreatExcersisActivity extends AppCompatActivity {
                 bodyID = bp.getPartOfBodyID();
             }
         }
-
         if (((EditText) findViewById(R.id.in_exname)).getText().length() > 0 && ((EditText) findViewById(R.id.in_exdes)).getText().length() > 0 && bodyID > -1) {
             Exercise ex = exerciseDataSource.getExerciseById(exid);
             ex.setExerciseName(((EditText) findViewById(R.id.in_exname)).getText().toString());
@@ -145,10 +137,10 @@ public class CreatExcersisActivity extends AppCompatActivity {
         }
 
     }
+
     /**
      * Checks if an exercise already exists
      */
-
     private boolean alreadyInserted(Exercise ex, boolean isUpdate)
     {
         List<Exercise> exerciseList = exerciseDataSource.getAllExercisesFromBodyPartID(ex.getBodyPart());
@@ -161,7 +153,6 @@ public class CreatExcersisActivity extends AppCompatActivity {
                 {
                     isIn = true;
                 }
-
             }
             if (!isUpdate)
             {
@@ -173,27 +164,27 @@ public class CreatExcersisActivity extends AppCompatActivity {
         }
         if (isIn)
         {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning") //Hardcoded
-                    .setMessage("This Exersices is already in this Categorie, you want continue?")//Hardcoded
-                    .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning)) //Hardcoded
+                    .setMessage(getResources().getString(R.string.dialog_alrdyinCat))
+                    .setPositiveButton(getResources().getString(R.string.dialog_no), new DialogInterface.OnClickListener() { //Hardcoded
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
-                    }).setNegativeButton("Yes", null).show(); //hardcoded
+                    }).setNegativeButton(getResources().getString(R.string.dialog_yes), null).show(); //hardcoded
         }
         return isIn;
     }
 
     private void notAllFilledAlert() {
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning") //Hardcoded
-                .setMessage("You didn't fill in all fields. Do you wanna continue with creation?")//Hardcoded
-                .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning)) //Hardcoded
+                .setMessage(getResources().getString(R.string.dialog_continuewithcreation))//Hardcoded
+                .setPositiveButton(getResources().getString(R.string.dialog_no), new DialogInterface.OnClickListener() { //Hardcoded
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
-                }).setNegativeButton("Yes", null).show(); //hardcoded
+                }).setNegativeButton(getResources().getString(R.string.dialog_yes), null).show(); //hardcoded
     }
 
 

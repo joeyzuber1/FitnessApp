@@ -183,7 +183,7 @@ public class PlansActivity extends AppCompatActivity {
 
     private void deletePlan(){
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
-        builderSingle.setTitle("Select a plan to delet");//Hardcoded
+        builderSingle.setTitle(getResources().getString(R.string.dialog_plantodelete));
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice);
         final List<Plan> planList = plans;
@@ -193,7 +193,7 @@ public class PlansActivity extends AppCompatActivity {
             arrayAdapter.add(p.getPlanName());
         }
 
-        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builderSingle.setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -210,8 +210,8 @@ public class PlansActivity extends AppCompatActivity {
                 String strName = arrayAdapter.getItem(which);
                 AlertDialog.Builder builderInner = new AlertDialog.Builder(PlansActivity.this);
                 builderInner.setMessage(strName);
-                builderInner.setTitle("Your Selected Plan is"); //Hardcoded
-                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                builderInner.setTitle(getResources().getString(R.string.dialog_selectedPlan)); //Hardcoded
+                builderInner.setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int index) {
                         dialog.dismiss();

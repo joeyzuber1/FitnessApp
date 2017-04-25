@@ -23,7 +23,6 @@ import java.util.List;
 
 public class ExersisesActivity extends AppCompatActivity {
 
-
     private ArrayList<Button> buttonList;
     private long idPlan;
     private long idBodyPart;
@@ -48,8 +47,6 @@ public class ExersisesActivity extends AppCompatActivity {
         generateButtons();
     }
 
-
-
     /**
      * generate the buttons based on the userid and the plan id
      *
@@ -63,7 +60,7 @@ public class ExersisesActivity extends AppCompatActivity {
             titel =titel+"->"+bodyPartDataSource.getBodyPartById(idBodyPart).getBodySection(); //Hardcoded
         }else
         {
-            titel =titel+"->All Exercises"; //Hardcoded
+            titel =titel+getResources().getString(R.string.dialog_allEx);
         }
         ((TextView) findViewById(R.id.titelCatExcersis)).setText(titel);
         Bundle extras = getIntent().getExtras();
@@ -130,13 +127,10 @@ public class ExersisesActivity extends AppCompatActivity {
     public void onClick(View v, int index){
         CallMainActivitys.showExersise(v, this, idExs.get(index));
     }
-
-
     /**
      * Show all categories from all exercises
      *
      */
-
     public void showExercisesCat(View v){
         CallMainActivitys.showExersiseCatagory(v, this);
     }
@@ -151,8 +145,6 @@ public class ExersisesActivity extends AppCompatActivity {
             ((LinearLayout) findViewById(R.id.mainExersises)).removeAllViews();
         generateButtons();
     }
-
-
     /**
      * Show all categories from my plan
      *
@@ -160,7 +152,6 @@ public class ExersisesActivity extends AppCompatActivity {
     public void showMyPlan(View v){
         CallMainActivitys.showExersisePlans(v, this, UserInfos.getUserID(), true);
     }
-
     /**
      * return
      *
@@ -169,7 +160,6 @@ public class ExersisesActivity extends AppCompatActivity {
     public void onBackPressed() {
        finish();
     }
-
     /**
      * top right the menu button
      *
@@ -184,7 +174,6 @@ public class ExersisesActivity extends AppCompatActivity {
         }
         return true;
     }
-
     /**
      * On click listener for the top right menu
      *
@@ -199,7 +188,6 @@ public class ExersisesActivity extends AppCompatActivity {
                startActivity(intent);
                return true;
        }
-
         return super.onOptionsItemSelected(item);
     }
 

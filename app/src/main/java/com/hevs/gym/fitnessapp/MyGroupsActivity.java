@@ -42,7 +42,6 @@ public class MyGroupsActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * generate the buttons bases on the user groups
      *
@@ -102,6 +101,11 @@ public class MyGroupsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * you can join a Group
+     *
+     */
+
     private void joinGroup() {
         GroupDataSource groupDataSource = new GroupDataSource(this);
         long idGroup = groupDataSource.findGroupByName(inputString);
@@ -128,9 +132,9 @@ public class MyGroupsActivity extends AppCompatActivity {
             groupUsersDataSource.createGroupUser(gu);
         }else
         {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("You are already in Group") //Hardcoded
-                    .setNegativeButton("OK", null).show(); //hardcoded
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning))
+                    .setMessage(getResources().getString(R.string.dialog_rdyinGroup))
+                    .setNegativeButton(getResources().getString(R.string.dialog_ok), null).show();
         }
 
         if (((LinearLayout) findViewById(R.id.mainGroups)).getChildCount() > 0)
@@ -178,7 +182,6 @@ public class MyGroupsActivity extends AppCompatActivity {
 
         builder.show();
     }
-
 
     @Override
     protected void onResume() {

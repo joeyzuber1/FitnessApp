@@ -13,12 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 import com.hevs.gym.fitnessapp.db.objects.User;
-
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -63,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
     /**
      * Checked if user login is ok and logged in
      *
@@ -92,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }else
         {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("Username or password are wrong. Please try again") //Hardcoded
-                    .setNegativeButton("OK", null).show(); //hardcoded
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning))
+                    .setMessage(getResources().getString(R.string.dialog_checknameandpw))
+                    .setNegativeButton(getResources().getString(R.string.dialog_ok), null).show(); //hardcoded
             ((EditText) findViewById(R.id.login_username)).getText().clear();
             ((EditText) findViewById(R.id.login_passwd)).getText().clear();
         }
@@ -125,6 +122,4 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).setNegativeButton(getResources().getString(R.string.dialog_no), null).show(); //hardcoded
     }
-
-
 }

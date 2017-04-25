@@ -54,7 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
             ((EditText) findViewById(R.id.in_pw2)).setText(user.getPassword());
         }
     }
-
     /**
      * this will happen when the user click on the registery button
      */
@@ -68,8 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setPassword(((EditText) findViewById(R.id.in_pw1)).getText().toString());
         user.setAdministrator(false);
 
-
-        if (existsAlready()==false && allFilled()) //alles gut
+        if (existsAlready()==false && allFilled())
         {
             if (passWordMatch()) {
                 UserDataSource uds = new UserDataSource(this);
@@ -100,11 +98,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     }
-
     /**
      * Checks if a Person already exist
      */
-
     private boolean existsAlready() {
 
         String firstname = ((EditText) findViewById(R.id.in_fname)).getText().toString();
@@ -122,9 +118,9 @@ public class RegisterActivity extends AppCompatActivity {
         if (isTrue == false) {
 
         } else {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("This Person already exists. Please fill in other informations.") //Hardcoded
-                    .setNegativeButton("OK", null).show(); //hardcoded
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning))
+                    .setMessage(getResources().getString(R.string.dialog_usersexist))
+                    .setNegativeButton(getResources().getString(R.string.dialog_ok), null).show();
             ((EditText) findViewById(R.id.in_username)).getText().clear();
             ((EditText) findViewById(R.id.in_fname)).getText().clear();
             ((EditText) findViewById(R.id.in_lname)).getText().clear();
@@ -134,7 +130,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         return isTrue;
     }
-
     /**
      * Checks if a Person filled in all fields
      */
@@ -146,14 +141,14 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }else
         {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")//Hardcoded
-                    .setMessage("You didn't fill in all fields. Do you wanna continue with registration?")//Hardcoded
-                    .setPositiveButton("No", new DialogInterface.OnClickListener() { //Hardcoded
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning))
+                    .setMessage(getResources().getString(R.string.dialog_continuewithregistration))
+                    .setPositiveButton(getResources().getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             RegisterActivity.super.onBackPressed();
                         }
-                    }).setNegativeButton("Yes", null).show(); //hardcoded
+                    }).setNegativeButton(getResources().getString(R.string.dialog_yes), null).show();
             return false;
         }
     }
@@ -169,9 +164,9 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }else
         {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("Your Password didn't match. Try again?")//Hardcoded
-                    .setNegativeButton("OK", null).show(); //hardcoded
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning))
+                    .setMessage(getResources().getString(R.string.dialog_pwdidntmatch))//Hardcoded
+                    .setNegativeButton(getResources().getString(R.string.dialog_ok), null).show(); //hardcoded
             ((EditText) findViewById(R.id.in_pw1)).getText().clear();
             ((EditText) findViewById(R.id.in_pw2)).getText().clear();
             return false;

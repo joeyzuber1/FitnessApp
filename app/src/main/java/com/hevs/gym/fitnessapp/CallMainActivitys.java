@@ -53,20 +53,6 @@ public class CallMainActivitys {
     }
 
     /**
-     * Show the exercises split in categories from other user Plan
-     *
-//     */
-//    public static void showExersisePlanFromUser(View v, AppCompatActivity previusActivity, long userID, String username)
-//    {
-//        Intent inten = new Intent(previusActivity, ExcersisesCatActivity.class);
-//        inten.putExtra("Titel", username);
-//        inten.putExtra("isMyPlan", true);
-//        inten.putExtra("idUser", userID);
-//        previusActivity.startActivity(inten);
-//    }
-
-
-    /**
      * Show the exercises split in categories from user Plan
      *
      */

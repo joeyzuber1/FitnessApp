@@ -118,8 +118,8 @@ public class ShowActivity extends AppCompatActivity {
             //delete
             exerciseDataSource.deleteExercise(exID);
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_t_exit))
-                    .setMessage("you just deleted this Exercise")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() { //Hardcoded
+                    .setMessage(getResources().getString(R.string.dialog_deletedEx))
+                    .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() { //Hardcoded
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -142,12 +142,16 @@ public class ShowActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Show a list of Plans
+     */
+
     private void showPlanListDialog(final boolean isDelete) {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
         if (isDelete) {
-            builderSingle.setTitle("Select a plan where you want to delete");//Hardcoded
+            builderSingle.setTitle(getResources().getString(R.string.dialog_plantodelete));
         } else {
-            builderSingle.setTitle("Select a plan to add");//Hardcoded
+            builderSingle.setTitle(getResources().getString(R.string.dialog_plantoadd));
         }
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice);
@@ -182,7 +186,7 @@ public class ShowActivity extends AppCompatActivity {
             arrayAdapter.add(p.getPlanName());
         }
 
-        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builderSingle.setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -201,8 +205,8 @@ public class ShowActivity extends AppCompatActivity {
                 String strName = arrayAdapter.getItem(which);
                 AlertDialog.Builder builderInner = new AlertDialog.Builder(ShowActivity.this);
                 builderInner.setMessage(strName);
-                builderInner.setTitle("Your Selected Plan is"); //Hardcoded
-                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                builderInner.setTitle(getResources().getString(R.string.dialog_selectedPlan)); //Hardcoded
+                builderInner.setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int index) {
                         dialog.dismiss();
@@ -214,6 +218,10 @@ public class ShowActivity extends AppCompatActivity {
         builderSingle.show();
     }
 
+    /**
+     * Add a Plan
+     */
+
     private void add(long planID)
     {
         PlanExercise planExercise = new PlanExercise();
@@ -222,6 +230,12 @@ public class ShowActivity extends AppCompatActivity {
         PlanExerciseDataSource planExerciseDataSource =  new PlanExerciseDataSource(this);
         planExerciseDataSource.createPlanExercise(planExercise);
     }
+
+    /**
+     * Delete a Plan
+     */
+
+
     private void delete(long planID)
     {
         PlanExerciseDataSource planExerciseDataSource = new PlanExerciseDataSource(this);

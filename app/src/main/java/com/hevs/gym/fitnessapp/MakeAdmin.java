@@ -41,7 +41,6 @@ public class MakeAdmin extends AppCompatActivity {
         userDataSource = new UserDataSource(this);
     }
 
-
     /**
      * A Admin can make a User to an Admin
      *
@@ -63,7 +62,6 @@ public class MakeAdmin extends AppCompatActivity {
      * Admin can delete a User
      *
      */
-
     public void DeleteUser(View w) {
         List<User> userList = userDataSource.getAllUsers();
         List<User> userListDelete = new ArrayList<User>();
@@ -74,7 +72,7 @@ public class MakeAdmin extends AppCompatActivity {
                 userListDelete.add(u);
             }
         }
-        showUserListDialog("Which user should be delete?", userListDelete, 3);//Hardcoded
+        showUserListDialog(getResources().getString(R.string.dialog_userdelete), userListDelete, 3);//Hardcoded
     }
 
     /**
@@ -84,8 +82,13 @@ public class MakeAdmin extends AppCompatActivity {
 
     public void UpdateUser(View w){
         List<User> userList = userDataSource.getAllUsers();
-        showUserListDialog("Which user should be updated?", userList, 2);//Hardcoded
+        showUserListDialog(getResources().getString(R.string.dialog_userupdate), userList, 2);//Hardcoded
     }
+
+    /**
+     * Dialogbox with the List of Admins
+     *
+     */
 
     private void showUserAdminsdialog()
     {
@@ -98,23 +101,30 @@ public class MakeAdmin extends AppCompatActivity {
                 userListAdmins.add(u);
             }
         }
-        showUserListDialog("Which user should be admin?", userListAdmins, 0);//Hardcoded
+        showUserListDialog(getResources().getString(R.string.dialog_useryesadmin), userListAdmins, 0);//Hardcoded
     }
-
+    /**
+     * Dialogbox with the List of Users
+     *
+     */
     private void showUserNotAdminDialog()
     {
         List<User> userList = userDataSource.getAllUsers();
         List<User> userListNotLongerAdmins = new ArrayList<User>();
         for (User u : userList)
         {
-            if (u.isAdministrator() && !u.getNamelogin().equals("admin")) //alle ausser hauptadmin
+            if (u.isAdministrator() && !u.getNamelogin().equals("admin"))
             {
                 userListNotLongerAdmins.add(u);
             }
         }
-        showUserListDialog("Which user should not be admin?", userListNotLongerAdmins, 1);//Hardcoded
+        showUserListDialog(getResources().getString(R.string.dialog_usernoadmin), userListNotLongerAdmins, 1);//Hardcoded
     }
 
+    /**
+     * Dialogbox with the List of Users
+     *
+     */
     private void showUserListDialog(String titel, final List<User> usersList, final int action) { //action 0 addAdmin 1 removeAdmin 2 update User 3 removeUser
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
         builderSingle.setTitle(titel);//Hardcoded
@@ -126,7 +136,7 @@ public class MakeAdmin extends AppCompatActivity {
             arrayAdapter.add(u.getFirstname()+" "+u.getLastname());
         }
 
-        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builderSingle.setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -164,8 +174,8 @@ public class MakeAdmin extends AppCompatActivity {
                     String strName = arrayAdapter.getItem(which);
                     AlertDialog.Builder builderInner = new AlertDialog.Builder(MakeAdmin.this);
                     builderInner.setMessage(strName);
-                    builderInner.setTitle("Your Selected User is"); //Hardcoded
-                    builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    builderInner.setTitle(getResources().getString(R.string.dialog_selecteduser)); //Hardcoded
+                    builderInner.setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int index) {
                             dialog.dismiss();

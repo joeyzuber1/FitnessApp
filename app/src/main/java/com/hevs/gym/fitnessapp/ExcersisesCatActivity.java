@@ -59,7 +59,6 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         isFromRandom = getIntent().getBooleanExtra("isFromRandom", false);
         generateButtons();
     }
-
     /**
      *
      *Generate the Main Button GridLayout based on the plan and the user
@@ -77,7 +76,7 @@ public class ExcersisesCatActivity extends AppCompatActivity {
             titel = titel+"->"+planDataSource.getPlanById(idPlan).getPlanName();
         }else
         {
-            titel = titel+"All Exercises"; //Hardcoded
+            titel = titel+getResources().getString(R.string.dialog_allEx);
         }
         ((TextView) findViewById(R.id.titelCatExcersis)).setText(titel);
 
@@ -99,7 +98,7 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         }
 
         String[] buttons = new String[buttonsReceived.length+1];
-        buttons[0] = "All Exercises"; //Hardcoded
+        buttons[0] = getResources().getString(R.string.dialog_allEx);
         for (int i = 1; i<buttons.length; i++)
         {
             buttons[i] = buttonsReceived[i-1];
@@ -129,7 +128,6 @@ public class ExcersisesCatActivity extends AppCompatActivity {
             buttonList.add(b);
         }
     }
-
     /**
      * if you click on a Body part Categorie this code will run
      *
@@ -218,11 +216,14 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Shows the list of Categories
+     *
+     */
     private void showCatListDialog() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
 
-            builderSingle.setTitle("Select a catagorie which you want to delete");//Hardcoded
-
+            builderSingle.setTitle(getResources().getString(R.string.dialog_selectCatforDel));
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice);
         final List<BodyPart> bodyPartList = new BodyPartDataSource(ExcersisesCatActivity.this).getAllBodyParts();
@@ -231,7 +232,7 @@ public class ExcersisesCatActivity extends AppCompatActivity {
             arrayAdapter.add(bodyPart.getBodySection());
         }
 
-        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builderSingle.setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -245,8 +246,8 @@ public class ExcersisesCatActivity extends AppCompatActivity {
                 String strName = arrayAdapter.getItem(which);
                 AlertDialog.Builder builderInner = new AlertDialog.Builder(ExcersisesCatActivity.this);
                 builderInner.setMessage(strName);
-                builderInner.setTitle("Your Selected Bodypart is"); //Hardcoded
-                builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                builderInner.setTitle(getResources().getString(R.string.dialog_selectedbodypart)); //Hardcoded
+                builderInner.setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int index) {
                         dialog.dismiss();
@@ -268,9 +269,9 @@ public class ExcersisesCatActivity extends AppCompatActivity {
             generateButtons();
         }else
         {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("There are Excersises from this bodypart pls delete them first!")//Hardcoded
-                    .setNegativeButton("OK", null).show(); //hardcoded
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning))
+                    .setMessage(getResources().getString(R.string.dialog_deletefistfordelete))
+                    .setNegativeButton(getResources().getString(R.string.dialog_ok), null).show();
         }
     }
 
@@ -279,7 +280,7 @@ public class ExcersisesCatActivity extends AppCompatActivity {
     private void inputAlertAdd() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Insert the Bodypart you want to add");//Hardcoded
+        builder.setTitle(getResources().getString(R.string.dialog_insertbp));
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -303,6 +304,11 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Add bodyPart to Application
+     *
+     */
+
     private void addBodyPart()
     {
        List<BodyPart> bodyParts = new BodyPartDataSource(this).getAllBodyParts();
@@ -316,9 +322,9 @@ public class ExcersisesCatActivity extends AppCompatActivity {
         }
         if (isAlready)
         {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Warning")
-                    .setMessage("This Bodypart exists already!")//Hardcoded
-                    .setNegativeButton("OK", null).show(); //hardcoded
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.dialog_warning))
+                    .setMessage(getResources().getString(R.string.dialog_bodyexist))
+                    .setNegativeButton(getResources().getString(R.string.dialog_ok), null).show(); //hardcoded
         }
         else
         {

@@ -45,8 +45,6 @@ public class GroupUserActivity extends AppCompatActivity {
         TextView titelView = (TextView) findViewById(R.id.titelGroupUsers);
         titelView.setText(new GroupDataSource(this).getGroupById(idGroup).getGroupname());
     }
-
-
     /**
      * generate the buttons based on the group id but without the logged user
      *
@@ -59,7 +57,6 @@ public class GroupUserActivity extends AppCompatActivity {
          {
              fromDB[i] = users.get(i).getFirstname()+" "+users.get(i).getLastname();
          }
-
         String buttons[] = new String[fromDB.length];
 
         int indexB = 0;
@@ -104,7 +101,6 @@ public class GroupUserActivity extends AppCompatActivity {
 
 
     }
-
     /**
      * this will run ig the user click on a button or on leave croup
      *
@@ -131,7 +127,6 @@ public class GroupUserActivity extends AppCompatActivity {
                     }).setNegativeButton(getResources().getString(R.string.dialog_no), null).show();
         }
     }
-
     /**
      * Show all categories from all exercises
      *
@@ -139,7 +134,6 @@ public class GroupUserActivity extends AppCompatActivity {
     public void showExercisesCat(View v){
         CallMainActivitys.showExersiseCatagory(v, this);
     }
-
     /**
      * Show all categories from my plan
      *
