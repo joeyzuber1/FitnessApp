@@ -15,4 +15,19 @@
         android:summary="@string/pref_summarycolor"
         android:title="@string/pref_select_color" />
 
+
+    <Preference
+        android:key="pref_description"
+        android:selectable="false"
+        android:title="Description"
+        android:summary="@string/pref_summarydescription"/>
+
+
+    <Preference
+        android:key="pref_infos"
+        android:selectable="false"
+        android:title="Infos"
+        android:summary="@string/pref_summaryinfosall"/>
+        android:summary="This app has been made by Joey Zuber and Matthias Zuber. ©Copyright  Version 1.0 , 2017 (Release 04.05.2017)."/>
+
 </PreferenceScreen>

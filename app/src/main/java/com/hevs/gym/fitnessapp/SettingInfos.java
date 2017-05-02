@@ -6,7 +6,6 @@ package com.hevs.gym.fitnessapp;
 
 public class SettingInfos {
 
-
     public static int getResource(String id) {
         switch (Integer.valueOf(id))
         {

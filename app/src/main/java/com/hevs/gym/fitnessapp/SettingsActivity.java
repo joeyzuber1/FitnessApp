@@ -26,6 +26,7 @@ public class SettingsActivity extends Activity {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SettingInfos.getResource(sharedPrefs.getString("pref_lang", "18")));
         setTheme(SettingInfos.getResourceColor(sharedPrefs.getString("pref_lang", "black")));
+
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())

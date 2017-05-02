@@ -139,6 +139,12 @@
     <string name="pref_summary">Define your font size</string>
     <string name="pref_select_color">Select your font color</string>
     <string name="pref_summarycolor">Chose your font color</string>
-
+    <string name="pref_summaryinfos">Get Infos about the Application</string>
+    <string name="pref_select_infos">Infos</string>
+    <string name="pref_summarydescription">Its an application about fitness. Here you can
+        build up your own plans to be more effizient at the gym. You can see all different workouts and test them. You can even join groups and see what
+        for exercises they do or have in their plans. With this Apllication you will improve your strenght and abilities a lot. Thx for being here.</string>
+    <string name="pref_summaryinfosall">This app has been made by Joey Zuber and Matthias Zuber. ©Copyright  Version 1.0 , 2017 (Release 04.05.2017).</string>
     <string name="titelWelcome">Welcome</string>
+
 </resources>
