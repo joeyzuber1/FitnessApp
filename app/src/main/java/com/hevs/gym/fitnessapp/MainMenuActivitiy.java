@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
+import com.hevs.gym.fitnessapp.db.objects.User;
 
 public class MainMenuActivitiy extends AppCompatActivity {
 
@@ -27,6 +31,10 @@ public class MainMenuActivitiy extends AppCompatActivity {
             createEx.setVisibility(View.INVISIBLE);
         }
 
+
+        TextView titel = (TextView) findViewById(R.id.id_welcomeMessage);
+        User user = new UserDataSource(this).getUserById(UserInfos.getUserID());
+        titel.setText(getResources().getString(R.string.titelWelcome)+" " + user.getLastname()+" " +user.getFirstname());
     }
 
     /**

@@ -139,4 +139,6 @@
     <string name="pref_summary">Define your font size</string>
     <string name="pref_select_color">Select your font color</string>
     <string name="pref_summarycolor">Chose your font color</string>
+
+    <string name="titelWelcome">Welcome</string>
 </resources>

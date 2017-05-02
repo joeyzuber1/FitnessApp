@@ -10,6 +10,14 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/titelWelcome"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -22,7 +30,6 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|end"
                 android:text="@string/input_username"
-                android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -46,7 +53,6 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|end"
                 android:text="@string/input_password"
-                android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
