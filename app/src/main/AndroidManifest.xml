@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hevs.gym.fitnessapp">
 
-    <!-- hallo -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- hallo -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +13,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,7 +28,7 @@
         <activity android:name=".MakeAdmin" />
         <activity android:name=".PlansActivity" />
         <activity
-           android:name=".SettingsFragment"
+            android:name=".SettingsFragment"
             android:label="@string/title_activity_settings_fragment"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
