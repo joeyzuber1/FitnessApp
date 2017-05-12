@@ -10,14 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 
-import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
-import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
-import com.hevs.gym.fitnessapp.db.objects.Exercise;
-import com.hevs.gym.fitnessapp.db.objects.Plan;
-import com.hevs.gym.fitnessapp.db.objects.PlanExercise;
-import com.hevs.gym.fitnessapp.db.objects.User;
+import com.example.matthias.myapplication.backend.userApi.model.User;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
 
 
@@ -96,7 +90,7 @@ public class MakeAdmin extends AppCompatActivity {
         List<User> userListAdmins = new ArrayList<User>();
         for (User u : userList)
         {
-            if (!u.isAdministrator())
+            if (!u.getAdministrator())
             {
                 userListAdmins.add(u);
             }
@@ -113,7 +107,7 @@ public class MakeAdmin extends AppCompatActivity {
         List<User> userListNotLongerAdmins = new ArrayList<User>();
         for (User u : userList)
         {
-            if (u.isAdministrator() && !u.getNamelogin().equals("admin"))
+            if (u.getAdministrator() && !u.getNamelogin().equals("admin"))
             {
                 userListNotLongerAdmins.add(u);
             }

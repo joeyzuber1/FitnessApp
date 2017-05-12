@@ -1,7 +1,6 @@
 package com.hevs.gym.fitnessapp;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
@@ -14,12 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.matthias.myapplication.backend.bodyPartApi.model.BodyPart;
+import com.example.matthias.myapplication.backend.exerciseApi.model.Exercise;
 import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
-import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
-import com.hevs.gym.fitnessapp.db.objects.BodyPart;
-import com.hevs.gym.fitnessapp.db.objects.Exercise;
-import com.hevs.gym.fitnessapp.db.objects.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.hevs.gym.fitnessapp;
+package com.hevs.gym.fitnessapp.db.endpointAsyncTasks;
 
 import android.os.AsyncTask;
 
@@ -19,16 +19,28 @@ import com.example.matthias.myapplication.backend.userApi.UserApi;
  * Created by Matthias and Joey on 09.05.2017.
  */
 
-public class EndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
+public class UserEndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
     private static UserApi userApi = null;
-    private static final String TAG = EndpointsAsyncTask.class.getName();
+    private static final String TAG = UserEndpointsAsyncTask.class.getName();
     private User user;
+    private long idUser = -1;
 
-    EndpointsAsyncTask(){}
+    public UserEndpointsAsyncTask(){}
 
-    EndpointsAsyncTask(User user){
+    public UserEndpointsAsyncTask(User user){
         this.user = user;
     }
+
+    public UserEndpointsAsyncTask(long idUpdate, User user){
+        this.user = user;
+        idUser = idUpdate;
+    }
+
+    public UserEndpointsAsyncTask(long idDelete){
+       idUser = idDelete;
+    }
+
+
 
     @Override
     protected List<User> doInBackground(Void... params) {
@@ -41,7 +53,7 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
                     // - turn off compression when running against local devappserver
                     // if you deploy on the cloud backend, use your app name
                     // such as https://<your-app-id>.appspot.com
-                    .setRootUrl("http://ultimate-hydra-167114.appspot.com/")
+                    .setRootUrl("https://fitnessapp2-167316.appspot.com/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -54,9 +66,19 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
         try{
             // Call here the wished methods on the Endpoints
             // For instance insert
-            if(user != null){
+            if(user != null && idUser == -1){
                 userApi.insert(user).execute();
-                Log.i(TAG, "insert employee");
+                Log.i(TAG, "insert user");
+            }
+
+            if(user == null && idUser != -1){
+                userApi.remove(idUser).execute();
+                Log.i(TAG, "delete user");
+            }
+
+            if(user != null && idUser != -1){
+                userApi.update(idUser, user).execute();
+                Log.i(TAG, "update user");
             }
             // and for instance return the list of all employees
             return userApi.list().execute().getItems();
@@ -73,11 +95,14 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
     protected void onPostExecute(List<User> result){
 
         if(result != null) {
-            for (User employee : result) {
-                Log.i(TAG, "First name: " + employee.getFirstname() + " Last name: "
-                        + employee.getLastname());
+            for (User user : result) {
+                Log.i(TAG, "First name: " + user.getFirstname() + " Last name: "
+                        + user.getLastname());
             }
         }
     }
+
+
+
 
 }

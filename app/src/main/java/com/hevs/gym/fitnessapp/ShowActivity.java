@@ -14,12 +14,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.matthias.myapplication.backend.exerciseApi.model.Exercise;
+import com.example.matthias.myapplication.backend.planApi.model.Plan;
+import com.example.matthias.myapplication.backend.planExerciseApi.model.PlanExercise;
 import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
-import com.hevs.gym.fitnessapp.db.objects.Exercise;
-import com.hevs.gym.fitnessapp.db.objects.Plan;
-import com.hevs.gym.fitnessapp.db.objects.PlanExercise;
 
 import java.util.ArrayList;
 import java.util.List;

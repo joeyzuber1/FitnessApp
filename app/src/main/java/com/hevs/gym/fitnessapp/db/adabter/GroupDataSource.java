@@ -1,24 +1,19 @@
 package com.hevs.gym.fitnessapp.db.adabter;
-
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.hevs.gym.fitnessapp.db.FitnessContract;
-import com.hevs.gym.fitnessapp.db.SQLiteHelper;
-import com.hevs.gym.fitnessapp.db.objects.Group;
-import com.hevs.gym.fitnessapp.db.objects.GroupUser;
+import com.example.matthias.myapplication.backend.groupApi.model.Group;
+import com.example.matthias.myapplication.backend.groupUserApi.model.GroupUser;
+import com.hevs.gym.fitnessapp.db.endpointAsyncTasks.GroupEndpointsAsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Matthias and Joey on 10.04.2017.
  */
 
 public class GroupDataSource {
-    private SQLiteDatabase db;
     private Context context;
 
     /**
@@ -26,8 +21,6 @@ public class GroupDataSource {
      * Constructor of the group data sources
      */
     public GroupDataSource(Context context) {
-        SQLiteHelper sqliteHelper = SQLiteHelper.getInstance(context);
-        db = sqliteHelper.getWritableDatabase();
         this.context = context;
     }
 
@@ -37,11 +30,17 @@ public class GroupDataSource {
      */
     public long createGroup(Group group) {
         long id;
-        ContentValues values = new ContentValues();
-        values.put(FitnessContract.GroupEntry.KEY_GROUPNAME, group.getGroupname());
-        id = this.db.insert(FitnessContract.GroupEntry.TABLE_GROUP, null, values);
 
-        return (id);
+        List<Group> groupList = getAllGroup();
+        if (groupList.size() != 0) {
+            group.setGroupID(groupList.get(groupList.size() - 1).getGroupID() + 1);
+        }else
+        {
+            group.setGroupID(1l);
+        }
+        new GroupEndpointsAsyncTask(group).execute();
+
+        return group.getGroupID();
     }
 
     /**
@@ -49,21 +48,12 @@ public class GroupDataSource {
      *
      */
     public Group getGroupById(long id) {
-        String sql = "SELECT * FROM " + FitnessContract.GroupEntry.TABLE_GROUP +
-                " WHERE " + FitnessContract.GroupEntry.KEY_GROUPID + " = " + id;
-
-        Cursor cursor = this.db.rawQuery(sql, null);
-
-        if (cursor != null) {
-            cursor.moveToFirst();
+        List<Group> groupList = getAllGroup();
+        for (Group g:groupList) {
+            if (g.getGroupID() == id)
+                return g;
         }
-
-        Group group = new Group();
-        group.setGroupID(cursor.getInt(cursor.getColumnIndex(FitnessContract.GroupEntry.KEY_GROUPID)));
-        group.setGroupname(cursor.getString(cursor.getColumnIndex(FitnessContract.GroupEntry.KEY_GROUPNAME)));
-
-
-        return group;
+        return null;
     }
 
     /**
@@ -88,22 +78,18 @@ public class GroupDataSource {
      *
      */
     public List<Group> getAllGroup() {
-        List<Group> groups = new ArrayList<Group>();
-        String sql = "SELECT * FROM " + FitnessContract.GroupEntry.TABLE_GROUP + " ORDER BY " + FitnessContract.GroupEntry.KEY_GROUPID;
-
-        Cursor cursor = this.db.rawQuery(sql, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                Group group = new Group();
-                group.setGroupID(cursor.getInt(cursor.getColumnIndex(FitnessContract.GroupEntry.KEY_GROUPID)));
-                group.setGroupname(cursor.getString(cursor.getColumnIndex(FitnessContract.GroupEntry.KEY_GROUPNAME)));
-
-                groups.add(group);
-            } while (cursor.moveToNext());
+        List<Group> groupList = new ArrayList<>();
+        try {
+            groupList = new GroupEndpointsAsyncTask().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
-        return groups;
+        if (groupList == null)
+            return new ArrayList<Group>();
+        return groupList;
     }
 
 
@@ -127,12 +113,8 @@ public class GroupDataSource {
      * update a group
      *
      */
-    public int updateGroup(Group group) {
-        ContentValues values = new ContentValues();
-        values.put(FitnessContract.GroupEntry.KEY_GROUPNAME, group.getGroupname());
-
-        return this.db.update(FitnessContract.GroupEntry.TABLE_GROUP, values, FitnessContract.GroupEntry.KEY_GROUPID + " = ?",
-                new String[]{String.valueOf(group.getGroupID())});
+    public void updateGroup(Group group) {
+        new GroupEndpointsAsyncTask(group.getGroupID(), group).execute();
     }
 
     /**
@@ -148,8 +130,7 @@ public class GroupDataSource {
                 guds.deleteGroupUsers(groupUser.getGroupUserID());
         }
 
-        this.db.delete(FitnessContract.GroupEntry.TABLE_GROUP, FitnessContract.GroupEntry.KEY_GROUPID + " = ?",
-                new String[]{String.valueOf(id)});
+      new GroupEndpointsAsyncTask(id).execute();
 
     }
 }

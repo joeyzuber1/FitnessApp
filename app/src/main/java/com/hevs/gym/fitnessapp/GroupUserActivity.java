@@ -11,11 +11,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.matthias.myapplication.backend.groupUserApi.model.GroupUser;
+import com.example.matthias.myapplication.backend.userApi.model.User;
 import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
-import com.hevs.gym.fitnessapp.db.objects.GroupUser;
-import com.hevs.gym.fitnessapp.db.objects.User;
 
 import java.util.ArrayList;
 import java.util.List;

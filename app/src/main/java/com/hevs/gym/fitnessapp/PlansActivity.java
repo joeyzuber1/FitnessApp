@@ -18,9 +18,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.matthias.myapplication.backend.planApi.model.Plan;
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
-import com.hevs.gym.fitnessapp.db.objects.Plan;
 
 import java.util.ArrayList;
 import java.util.List;

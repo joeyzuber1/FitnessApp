@@ -1,24 +1,20 @@
 package com.hevs.gym.fitnessapp.db.adabter;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.hevs.gym.fitnessapp.db.FitnessContract;
-import com.hevs.gym.fitnessapp.db.SQLiteHelper;
-import com.hevs.gym.fitnessapp.db.objects.BodyPart;
-import com.hevs.gym.fitnessapp.db.objects.Exercise;
+import com.example.matthias.myapplication.backend.bodyPartApi.model.BodyPart;
+import com.example.matthias.myapplication.backend.exerciseApi.model.Exercise;
+import com.hevs.gym.fitnessapp.db.endpointAsyncTasks.BodyPartEndpointsAsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Matthias and Joey on 10.04.2017.
  */
 
 public class BodyPartDataSource {
-    private SQLiteDatabase db;
     private Context context;
 
     /**
@@ -26,8 +22,6 @@ public class BodyPartDataSource {
      *
      */
     public BodyPartDataSource(Context context) {
-        SQLiteHelper sqliteHelper = SQLiteHelper.getInstance(context);
-        db = sqliteHelper.getWritableDatabase();
         this.context = context;
     }
 
@@ -37,11 +31,15 @@ public class BodyPartDataSource {
      */
     public long createBodyPart(BodyPart bodypart) {
         long id;
-        ContentValues values = new ContentValues();
-        values.put(FitnessContract.BodyPartEntry.KEY_BODYSECTION, bodypart.getBodySection());
-        id = this.db.insert(FitnessContract.BodyPartEntry.TABLE_BODYPART, null, values);
-
-        return id;
+        List<BodyPart> bodyPartList = getAllBodyParts();
+        if (bodyPartList.size() != 0) {
+            bodypart.setPartOfBodyID(bodyPartList.get(bodyPartList.size() - 1).getPartOfBodyID() + 1);
+        }else
+        {
+            bodypart.setPartOfBodyID(1l);
+        }
+        new BodyPartEndpointsAsyncTask(bodypart).execute();
+        return bodypart.getPartOfBodyID();
     }
 
     /**
@@ -49,21 +47,12 @@ public class BodyPartDataSource {
      *
      */
     public BodyPart getBodyPartById(long id) {
-        String sql = "SELECT * FROM " + FitnessContract.BodyPartEntry.TABLE_BODYPART +
-                " WHERE " + FitnessContract.BodyPartEntry.KEY_PARTOFBODYID + " = " + id;
-
-        Cursor cursor = this.db.rawQuery(sql, null);
-
-        if (cursor != null) {
-            cursor.moveToFirst();
+        List<BodyPart> bodyPartList = getAllBodyParts();
+        for (BodyPart bp:bodyPartList) {
+            if (bp.getPartOfBodyID() == id)
+                return bp;
         }
-
-        BodyPart bodyPart = new BodyPart();
-        bodyPart.setPartOfBodyID(cursor.getInt(cursor.getColumnIndex(FitnessContract.BodyPartEntry.KEY_PARTOFBODYID)));
-        bodyPart.setBodySection(cursor.getString(cursor.getColumnIndex(FitnessContract.BodyPartEntry.KEY_BODYSECTION)));
-
-
-        return bodyPart;
+        return null;
     }
 
     /**
@@ -71,22 +60,18 @@ public class BodyPartDataSource {
      *
      */
     public List<BodyPart> getAllBodyParts() {
-        List<BodyPart> bodyparts = new ArrayList<BodyPart>();
-        String sql = "SELECT * FROM " + FitnessContract.BodyPartEntry.TABLE_BODYPART + " ORDER BY " + FitnessContract.BodyPartEntry.KEY_PARTOFBODYID;
-
-        Cursor cursor = this.db.rawQuery(sql, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                BodyPart bodyPart = new BodyPart();
-                bodyPart.setPartOfBodyID(cursor.getInt(cursor.getColumnIndex(FitnessContract.BodyPartEntry.KEY_PARTOFBODYID)));
-                bodyPart.setBodySection(cursor.getString(cursor.getColumnIndex(FitnessContract.BodyPartEntry.KEY_BODYSECTION)));
-
-                bodyparts.add(bodyPart);
-            } while (cursor.moveToNext());
+        List<BodyPart> bodyParts = new ArrayList<>();
+        try {
+            bodyParts = new BodyPartEndpointsAsyncTask().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
-        return bodyparts;
+        if (bodyParts == null)
+            return new ArrayList<BodyPart>();
+        return bodyParts;
     }
 
     /**
@@ -113,12 +98,8 @@ public class BodyPartDataSource {
      * update a body part
      *
      */
-    public int updateBodyPart(BodyPart bodyPart) {
-        ContentValues values = new ContentValues();
-        values.put(FitnessContract.BodyPartEntry.KEY_BODYSECTION, bodyPart.getBodySection());
-
-        return this.db.update(FitnessContract.BodyPartEntry.TABLE_BODYPART, values, FitnessContract.BodyPartEntry.KEY_PARTOFBODYID + " = ?",
-                new String[]{String.valueOf(bodyPart.getPartOfBodyID())});
+    public void updateBodyPart(BodyPart bodyPart) {
+        new BodyPartEndpointsAsyncTask(bodyPart.getPartOfBodyID(), bodyPart).execute();
     }
 
     /**
@@ -135,8 +116,7 @@ public class BodyPartDataSource {
                 return false;
         }
 
-        this.db.delete(FitnessContract.BodyPartEntry.TABLE_BODYPART, FitnessContract.BodyPartEntry.KEY_PARTOFBODYID + " = ?",
-                new String[]{String.valueOf(id)});
+       new BodyPartEndpointsAsyncTask(id).execute();
         return true;
 
     }

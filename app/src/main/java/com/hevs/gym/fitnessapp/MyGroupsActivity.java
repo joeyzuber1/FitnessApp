@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.matthias.myapplication.backend.groupApi.model.Group;
+import com.example.matthias.myapplication.backend.groupUserApi.model.GroupUser;
 import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
-import com.hevs.gym.fitnessapp.db.objects.Group;
-import com.hevs.gym.fitnessapp.db.objects.GroupUser;
 
 import java.util.ArrayList;
 import java.util.List;

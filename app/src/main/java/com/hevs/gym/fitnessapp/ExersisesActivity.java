@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.matthias.myapplication.backend.exerciseApi.model.Exercise;
 import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
-import com.hevs.gym.fitnessapp.db.objects.Exercise;
 
 import java.util.ArrayList;
 import java.util.List;

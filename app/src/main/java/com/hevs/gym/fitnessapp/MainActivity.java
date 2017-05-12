@@ -3,7 +3,6 @@ package com.hevs.gym.fitnessapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +12,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.matthias.myapplication.backend.userApi.model.User;
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
-import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
-import com.hevs.gym.fitnessapp.db.objects.User;
-import java.lang.reflect.Field;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 isTrue =true;
                 UserInfos.setUserID(users.get(i).getUserID());
-                UserInfos.setIsAdmin(users.get(i).isAdministrator());
+                UserInfos.setIsAdmin(users.get(i).getAdministrator());
 
                 PlanDataSource planDataSource = new PlanDataSource(this);
                 UserInfos.setPlanID(planDataSource.getPlanFromUserID(UserInfos.getUserID()).get(0).getPlanID());

@@ -11,9 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
+import com.example.matthias.myapplication.backend.userApi.model.User;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
-import com.hevs.gym.fitnessapp.db.objects.User;
 
 import java.util.List;
 

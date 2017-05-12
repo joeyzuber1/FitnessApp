@@ -1,28 +1,7 @@
 zu tun :
-Settings
-
-Settings //erledigt  mann kann sich noch überlegen wenn man die farbe ändert ob es auch die farbe der schrift des geschriebenen ändern will wenn dich das stört
-
-zweimal gleicher User registriert sich //erledigt habe methode auch ausgelagert
-kommentieren des codes //Die meisten gemacht manche weiss ich nicht ganz werden wir Montag fertigmachen
-
-
-Gefundene Fehler //korrigiert
-
--Registrierung nicht exit nur zurück
--Zwei gleiche Gruppen abfangen
--Zwei gleiche übungen in der Gleichen kategorie sollten nicht möglich sein
-
--Users - Delete/Change/Transport aus Liste
--Fehlermeldungen beim update/PW/ALL in
--Fehlermeldung beim Transport
--Fehlermeldungen kein exit
-
--add/delete from BodyPart change Keine BodyParts die noch exercises beinhalten
--keine Doppelten BodyPart
-
--update Exercises Funktioniert nicht/spinner
+Alle model imports anpassen
 
 ultimate-hydra-167114
+fitnessapp2-167316
 
 

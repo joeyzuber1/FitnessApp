@@ -18,18 +18,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.matthias.myapplication.backend.bodyPartApi.model.BodyPart;
 import com.hevs.gym.fitnessapp.db.adabter.BodyPartDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.ExerciseDataSource;
-import com.hevs.gym.fitnessapp.db.adabter.GroupDataSource;
-import com.hevs.gym.fitnessapp.db.adabter.GroupUsersDataSource;
 import com.hevs.gym.fitnessapp.db.adabter.PlanDataSource;
-import com.hevs.gym.fitnessapp.db.adabter.PlanExerciseDataSource;
-import com.hevs.gym.fitnessapp.db.objects.BodyPart;
-import com.hevs.gym.fitnessapp.db.objects.Exercise;
-import com.hevs.gym.fitnessapp.db.objects.Group;
-import com.hevs.gym.fitnessapp.db.objects.GroupUser;
-import com.hevs.gym.fitnessapp.db.objects.Plan;
-import com.hevs.gym.fitnessapp.db.objects.PlanExercise;
 
 import java.util.ArrayList;
 import java.util.List;

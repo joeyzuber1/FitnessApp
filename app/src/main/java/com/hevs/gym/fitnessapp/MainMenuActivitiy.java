@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.matthias.myapplication.backend.userApi.model.User;
 import com.hevs.gym.fitnessapp.db.adabter.UserDataSource;
-import com.hevs.gym.fitnessapp.db.objects.User;
 
 public class MainMenuActivitiy extends AppCompatActivity {
 

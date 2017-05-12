@@ -1,25 +1,20 @@
 package com.hevs.gym.fitnessapp.db.adabter;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.hevs.gym.fitnessapp.db.FitnessContract;
-import com.hevs.gym.fitnessapp.db.SQLiteHelper;
-import com.hevs.gym.fitnessapp.db.objects.Plan;
-import com.hevs.gym.fitnessapp.db.objects.PlanExercise;
+import com.example.matthias.myapplication.backend.planApi.model.Plan;
+import com.example.matthias.myapplication.backend.planExerciseApi.model.PlanExercise;
+import com.hevs.gym.fitnessapp.db.endpointAsyncTasks.PlanEndpointsAsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Matthias and Joey on 10.04.2017.
  */
 
 public class PlanDataSource {
-
-    private SQLiteDatabase db;
     private Context context;
 
     /**
@@ -27,8 +22,6 @@ public class PlanDataSource {
      *
      */
     public PlanDataSource(Context context) {
-        SQLiteHelper sqliteHelper = SQLiteHelper.getInstance(context);
-        db = sqliteHelper.getWritableDatabase();
         this.context = context;
     }
 
@@ -38,12 +31,17 @@ public class PlanDataSource {
      */
     public long createPlan(Plan plan) {
         long id;
-        ContentValues values = new ContentValues();
-        values.put(FitnessContract.PlanEntry.KEY_USERID, plan.getUserID());
-        values.put(FitnessContract.PlanEntry.KEY_NAME, plan.getPlanName());
-        id = this.db.insert(FitnessContract.PlanEntry.TABLE_PLAN, null, values);
 
-        return id;
+        List<Plan> planList = getAllPlan();
+        if (planList.size() != 0) {
+            plan.setPlanID(planList.get(planList.size() - 1).getPlanID() + 1);
+        }else
+        {
+            plan.setPlanID(1l);
+        }
+        new PlanEndpointsAsyncTask(plan).execute();
+
+        return plan.getPlanID();
     }
 
     /**
@@ -51,21 +49,12 @@ public class PlanDataSource {
      *
      */
     public Plan getPlanById(long id) {
-        String sql = "SELECT * FROM " + FitnessContract.PlanEntry.TABLE_PLAN +
-                " WHERE " + FitnessContract.PlanEntry.KEY_PLANID + " = " + id;
-
-        Cursor cursor = this.db.rawQuery(sql, null);
-
-        if (cursor != null) {
-            cursor.moveToFirst();
+        List<Plan> planListn = getAllPlan();
+        for (Plan p:planListn) {
+            if (p.getPlanID() == id)
+                return p;
         }
-
-        Plan plan = new Plan();
-        plan.setPlanID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_PLANID)));
-        plan.setUserID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_USERID)));
-        plan.setPlanName(cursor.getString(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_NAME)));
-
-        return plan;
+        return null;
     }
 
     /**
@@ -73,23 +62,18 @@ public class PlanDataSource {
      *
      */
     public List<Plan> getAllPlan() {
-        List<Plan> plans = new ArrayList<Plan>();
-        String sql = "SELECT * FROM " + FitnessContract.PlanEntry.TABLE_PLAN + " ORDER BY " + FitnessContract.PlanEntry.KEY_PLANID;
-
-        Cursor cursor = this.db.rawQuery(sql, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                Plan plan = new Plan();
-                plan.setPlanID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_PLANID)));
-                plan.setUserID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_USERID)));
-                plan.setPlanName(cursor.getString(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_NAME)));
-
-                plans.add(plan);
-            } while (cursor.moveToNext());
+        List<Plan> planList = new ArrayList<>();
+        try {
+            planList = new PlanEndpointsAsyncTask().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
-        return plans;
+        if (planList == null)
+            return new ArrayList<Plan>();
+        return planList;
     }
 
     /**
@@ -97,37 +81,22 @@ public class PlanDataSource {
      *
      */
     public List<Plan> getPlanFromUserID(long idUser) {
-        List<Plan> plans = new ArrayList<Plan>();
-        String sql = "SELECT * FROM " + FitnessContract.PlanEntry.TABLE_PLAN +  " WHERE " +
-                FitnessContract.PlanEntry.KEY_USERID + " = " + idUser + " ORDER BY " +
-                FitnessContract.PlanEntry.KEY_PLANID;
-
-        Cursor cursor = this.db.rawQuery(sql, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                Plan plan = new Plan();
-                plan.setPlanID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_PLANID)));
-                plan.setUserID(cursor.getInt(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_USERID)));
-                plan.setPlanName(cursor.getString(cursor.getColumnIndex(FitnessContract.PlanEntry.KEY_NAME)));
-
-                plans.add(plan);
-            } while (cursor.moveToNext());
+        List<Plan> planList = getAllPlan();
+        List<Plan> dPlanList1 = new ArrayList<>();
+        for (Plan plan : planList)
+        {
+            if (plan.getUserID() == idUser)
+                dPlanList1.add(plan);
         }
-
-        return plans;
+        return dPlanList1;
     }
 
     /**
      *
      * update a planName
      */
-    public int updatePlanName(Plan plan) {
-        ContentValues values = new ContentValues();
-        values.put(FitnessContract.PlanEntry.KEY_NAME, plan.getPlanName());
-
-        return this.db.update(FitnessContract.PlanEntry.TABLE_PLAN, values, FitnessContract.PlanEntry.KEY_PLANID + " = ?",
-                new String[]{String.valueOf(plan.getPlanID())});
+    public void updatePlanName(Plan plan) {
+        new PlanEndpointsAsyncTask(plan.getPlanID(), plan).execute();
     }
 
     /**
@@ -144,8 +113,7 @@ public class PlanDataSource {
             plds.deletePlanExercise(planExercise.getPlanExerciseID());
         }
 
-        this.db.delete(FitnessContract.PlanEntry.TABLE_PLAN, FitnessContract.PlanEntry.KEY_PLANID + " = ?",
-                new String[]{String.valueOf(id)});
+       new PlanEndpointsAsyncTask(id).execute();
 
     }
 }
